@@ -1,0 +1,10 @@
+Mathematics-Mathematic course
+Computer Science-IT course
+Mechanical Engineering-Mechanical Engineering course
+Marketing-Marketing course
+Law-Law course
+Accounting-Accounting course
+Architecture-Architecture course
+Medicine-Medicine course
+Nursing-Nursing course
+Business Studies-Business Studies course
