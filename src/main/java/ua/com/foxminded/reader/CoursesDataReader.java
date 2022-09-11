@@ -1,6 +1,5 @@
 package ua.com.foxminded.reader;
 
-import ua.com.foxminded.reader.DataReader;
 import ua.com.foxminded.util.PathPropertiesUtil;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -10,10 +9,10 @@ public class CoursesDataReader {
 
     public CoursesDataReader() {
         DataReader dataReader = new DataReader();
-        coursesNameAndDescription = (HashMap<String, String>) dataReader.readGeneratedData(Paths.get(PathPropertiesUtil.get("courses.name.and.description.directory")));
+        coursesNameAndDescription = dataReader.readGeneratedData(Paths.get(PathPropertiesUtil.get("courses.name.and.description.directory")));
     }
 
-    public HashMap<String,String> getCoursesNameAndDescription(){
+    public HashMap<String, String> getCoursesNameAndDescription(){
 
         return coursesNameAndDescription;
     }

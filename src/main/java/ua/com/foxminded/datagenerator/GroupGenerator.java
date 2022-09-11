@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GroupGenerator {
+    public HashMap<Integer,String> groupIdNameLink = new HashMap<>();
     private String possibleCharacterInGroupName = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private int groupNumber;
-
-    private HashMap<Integer,String> groupIdNameLink = new HashMap<>();
 
     public HashMap<Integer,String> getGroupIdNameLink(){
 
@@ -27,7 +26,7 @@ public class GroupGenerator {
     }
 
     public String generateIntegerPart() {
-        groupNumber = (int) (Math.random()*100);
+        groupNumber = (int) (Math.random()*(100-10))+10;
         return String.valueOf(groupNumber);
     }
 
@@ -38,7 +37,7 @@ public class GroupGenerator {
     }
 
     public void generateTenGroups() {
-        for(int index = 0; index < 10; index++){
+        for(int index = 1; index <= 10; index++){
             groupIdNameLink.put(index,generateGroupName(generateCharacterPart(),generateIntegerPart()));
         }
     }

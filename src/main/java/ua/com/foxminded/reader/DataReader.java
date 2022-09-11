@@ -12,7 +12,6 @@ public class DataReader {
         HashMap<String, String> readedData = new HashMap<>();
         try(Stream<String> startingDataStream = Files.lines(pathToGeneratedData)) {
             startingDataStream.forEach(line -> {
-
                 String[] splitLine = line.split("-");
                 String key = splitLine[0];
                 String value = splitLine[1];

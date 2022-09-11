@@ -1,19 +1,19 @@
 package ua.com.foxminded.menu;
 
+import ua.com.foxminded.dao.StudentsDao;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ApplicationMenu {
 
-    public void callMenu(){
+    public void callMenu() throws IOException{
         initialMenu();
-        userInputValidation(inputUserData());
+        userInputValidation();
     }
 
     public void initialMenu(){
-
-        System.out.printf("Data initiated please choose request from list below:");
+        System.out.printf("Data initiated please choose request from list below: \n");
         System.out.println("type \"a\" - find all groups with less or equal students number");
         System.out.println("type \"b\" - find all students related to the course with given name");
         System.out.println("type \"c\" - add new student");
@@ -36,28 +36,39 @@ public class ApplicationMenu {
         return (String) userLine;
     }
 
-    private void userInputValidation(String userInput) {
-        if (userInput.equals("a")) {
-            //methodthat returns groups
-            System.out.println("groups");
-        } else if (userInput.equals("b")) {
-            System.out.println("students");
-            //method returns students list
-        } else if (userInput.equals("c")) {
-            System.out.println("add student");
-            // method adds student
-        } else if (userInput.equals("d")) {
-            System.out.println("deleteStudent");
-            //method delete student by id
-        } else if (userInput.equals("e")) {
-            System.out.println("add stundet to course");
-            //addingstudent to course
-        } else if (userInput.equals("f")) {
-            System.out.println("remove Student from couse");
-            //remove student from one of course
-        } else if (userInput.equals("exit")) {
-            System.exit(0);
+    private void userInputValidation() throws IOException {
+        BufferedReader userInputLine = new BufferedReader(new InputStreamReader(System.in));
+        String userInput;
+
+        while (!(userInput = userInputLine.readLine()).equals("exit")) {
+
+            if (userInput.equals("a")) {
+                System.out.println("in progress");
+                backToMenu();
+            } else if (userInput.equals("b")) {
+                System.out.println("students");
+                backToMenu();
+            } else if (userInput.equals("c")) {
+                System.out.println("in progress");
+                backToMenu();
+            } else if (userInput.equals("d")) {
+                System.out.println("in progress");
+                backToMenu();
+            } else if (userInput.equals("e")) {
+                System.out.println("in progress");
+                backToMenu();
+            } else if (userInput.equals("f")) {
+                System.out.println("in progress");
+                backToMenu();
+            } else {
+                System.out.println("Please input correct option.");
+            }
         }
     }
 
+    private void backToMenu() {
+
+        System.out.println("Choose an option from menu or type \"exit\" to quit:");
+    }
 }
+

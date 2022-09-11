@@ -12,6 +12,7 @@ public class SqlScriptRunner {
     private final String password = "4321";
 
     public Connection connect() throws SQLException {
+
         return DriverManager.getConnection(url, user, password);
     }
 
@@ -20,7 +21,7 @@ public class SqlScriptRunner {
         try {
             Connection connection = connect();
             ScriptRunner scriptRunner = new ScriptRunner(connection);
-            InputStreamReader readScript = new InputStreamReader(new FileInputStream("C:\\Users\\mrsti\\AppData\\Roaming\\JetBrains\\IntelliJIdea2022.2\\consoles\\db\\8fe8ebd2-746b-4e20-a8dd-e7adbc83c018\\console.sql"));
+            InputStreamReader readScript = new InputStreamReader(new FileInputStream("C:\\workspace\\Task 2.1 JDBC Application\\Task2.1Data\\console.sql"));
             scriptRunner.runScript(readScript);
             readScript.close();
             connection.close();
