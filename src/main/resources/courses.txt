@@ -1,4 +1,4 @@
-Mathematics-Mathematic course
+Mathematics-Mathematics course
 Computer Science-IT course
 Mechanical Engineering-Mechanical Engineering course
 Marketing-Marketing course

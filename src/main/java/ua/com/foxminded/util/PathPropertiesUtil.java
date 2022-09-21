@@ -17,10 +17,10 @@ public final class PathPropertiesUtil {
     }
 
     private PathPropertiesUtil() {
-
     }
+
     private static void loadProperties() {
-        try (InputStream inputStream = PathPropertiesUtil.class.getClassLoader().getResourceAsStream("path.properties")) {
+        try (InputStream inputStream = PathPropertiesUtil.class.getClassLoader().getResourceAsStream("application.properties")) {
             PROPERTIES.load(inputStream);
         } catch (IOException e) {
             throw new RuntimeException(e);

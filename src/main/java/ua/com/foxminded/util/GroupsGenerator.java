@@ -1,19 +1,24 @@
-package ua.com.foxminded.datagenerator;
+package ua.com.foxminded.util;
 
-import java.util.HashMap;
+import ua.com.foxminded.model.Group;
+import java.util.ArrayList;
 import java.util.Random;
 
-public class GroupGenerator {
-    public HashMap<Integer,String> groupIdNameLink = new HashMap<>();
+public class GroupsGenerator {
+    private ArrayList<Group> groupList  = new ArrayList<>();
     private String possibleCharacterInGroupName = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private int groupNumber;
 
-    public HashMap<Integer,String> getGroupIdNameLink(){
+    public ArrayList<Group> generateGroups() {
+        for(int index = 1; index <= 10; index++){
+            Group group = new Group(generateGroupName(generateCharacterPart(),generateIntegerPart()));
+            groupList.add(group);
+        }
 
-        return groupIdNameLink;
+        return groupList;
     }
 
-    public String generateCharacterPart() {
+    private String generateCharacterPart() {
         int groupIndex;
         Random randomIndex = new Random();
         StringBuilder characterPart = new StringBuilder();
@@ -25,8 +30,9 @@ public class GroupGenerator {
         return characterPart.toString();
     }
 
-    public String generateIntegerPart() {
+    private String generateIntegerPart() {
         groupNumber = (int) (Math.random()*(100-10))+10;
+
         return String.valueOf(groupNumber);
     }
 
@@ -34,11 +40,5 @@ public class GroupGenerator {
         String fullGroupName = charPart + "-" + intPart;
 
         return fullGroupName;
-    }
-
-    public void generateTenGroups() {
-        for(int index = 1; index <= 10; index++){
-            groupIdNameLink.put(index,generateGroupName(generateCharacterPart(),generateIntegerPart()));
-        }
     }
 }
