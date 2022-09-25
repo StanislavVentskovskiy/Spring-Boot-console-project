@@ -1,6 +1,6 @@
 package ua.com.foxminded.service;
 
-import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
+import ua.com.foxminded.formatter.dao.impl.CoursesStudentsDaoImpl;
 import java.util.ArrayList;
 import java.util.Collections;
 

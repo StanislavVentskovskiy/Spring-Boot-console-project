@@ -1,7 +1,7 @@
-package ua.com.foxminded.dao.impl;
+package ua.com.foxminded.formatter.dao.impl;
 
-import ua.com.foxminded.dao.GroupDao;
-import ua.com.foxminded.exception.DAOException;
+import ua.com.foxminded.formatter.dao.GroupDao;
+import ua.com.foxminded.formatter.dao.DAOException;
 import ua.com.foxminded.model.Group;
 import ua.com.foxminded.util.ConnectionFactory;
 import java.sql.Connection;

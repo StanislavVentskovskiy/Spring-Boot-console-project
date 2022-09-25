@@ -1,8 +1,7 @@
-package ua.com.foxminded.dao.impl;
+package ua.com.foxminded.formatter.dao.impl;
 
-import org.w3c.dom.DOMException;
-import ua.com.foxminded.dao.StudentDao;
-import ua.com.foxminded.exception.DAOException;
+import ua.com.foxminded.formatter.dao.StudentDao;
+import ua.com.foxminded.formatter.dao.DAOException;
 import ua.com.foxminded.model.Student;
 import ua.com.foxminded.util.ConnectionFactory;
 import java.sql.*;
@@ -18,7 +17,7 @@ public class StudentsDaoImpl implements StudentDao {
             "LEFT JOIN schoolconsoleapp.groups ON schoolconsoleapp.students.group_id=schoolconsoleapp.groups.id\n" +
             "WHERE schoolconsoleapp.groups.group_name IS NOT NULL\n" +
             "GROUP BY groups.group_name\n" +
-            "HAVING COUNT(*) > 0";
+            "HAVING COUNT(*) <=";
     private final String deleteStudentQUERY = "ALTER TABLE schoolconsoleapp.coursesstudents DROP \n" +
         "   CONSTRAINT student_id;\n" +
         "ALTER TABLE schoolconsoleapp.coursesstudents ADD \n" +
@@ -27,6 +26,8 @@ public class StudentsDaoImpl implements StudentDao {
         "      REFERENCES schoolconsoleapp.students (id)\n" +
         "      ON DELETE CASCADE;\n" +
         "DELETE FROM schoolconsoleapp.students WHERE id =";
+
+    private final String studentsListQUERY = "SELECT * FROM schoolconsoleapp.students";
 
     public void insertStudent(Student student) {
         try {
@@ -78,15 +79,30 @@ public class StudentsDaoImpl implements StudentDao {
 
     public void deleteStudentById(int studentId) {
         try (PreparedStatement statement = connection.prepareStatement(deleteStudentQUERY + studentId);) {
-         int deleteStatus = statement.executeUpdate();
-            if (deleteStatus > 0) {
-                System.out.println("Student with id " + studentId + " deleted");
-            } else {
-                System.out.println("No student with " + studentId + " id found");
-            }
+            statement.executeUpdate();
             connection.close();
         } catch (Exception e) {
             throw new DAOException(e);
         }
+    }
+
+    public ArrayList<Student> getStudentsList(){
+        ArrayList<Student> students = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement(studentsListQUERY);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int studentId = resultSet.getInt(1);
+                String studentsName = resultSet.getString(3);
+                String studentsSurname = resultSet.getString(4);
+                Student student = new Student(studentsName, studentsSurname);
+                student.setId(studentId);
+                students.add(student);
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
+        return students;
     }
 }

@@ -1,5 +1,7 @@
 package ua.com.foxminded.formatter;
 
+import ua.com.foxminded.model.Student;
+import ua.com.foxminded.model.Course;
 import java.util.ArrayList;
 
 public class Formatter {
@@ -14,20 +16,24 @@ public class Formatter {
         System.out.println("type \"exit\" - to stop the application.");
     }
 
-    public void showMessageStudentNameIsInvalid(){
+    public void showMessageEnteredDataIsInvalid(){
         System.out.println("Entered data is not valid");
     }
 
-    public void getAllGroupsWithEqualAndLessStudents(int studentsNumber, ArrayList<String> groupsList) {
-        System.out.println("Next groups got " + studentsNumber + " students or less:");
-        System.out.println(groupsList.toString());
+    public void formatGroupListOutput(int studentsNumber, ArrayList<String> groupsList) {
+        if (!groupsList.isEmpty()) {
+            System.out.println("Next groups got " + studentsNumber + " students or less:");
+            formatListOfDataToColumn(groupsList);
+        } else {
+            System.out.println("There are no groups with such student number.");
+        }
     }
 
-    public void sendEnterStudentsNumberText() {
+    public void showMessageEnterStudentNumber() {
         System.out.println("Enter students number:");
     }
 
-    public void sendEnterCourseNameText() {
+    public void showMessageEnterCourseName() {
         System.out.println("Enter course name:");
     }
 
@@ -35,9 +41,9 @@ public class Formatter {
         System.out.println("Entered course name is invalid");
     }
 
-    public void getStudentsListOfChosenCourse(String courseName, ArrayList<String> studentsList){
+    public void formatStudentsListOfChosenCourse(String courseName, ArrayList<String> studentsList){
         System.out.printf("Next students related to the course " + courseName + ":" + "\n");
-        System.out.println(studentsList.toString());
+        formatListOfDataToColumn(studentsList);
     }
 
     public void showMassageStudentInput() {
@@ -52,10 +58,6 @@ public class Formatter {
         System.out.println("Choose an option from menu or type \"exit\" to quit:");
     }
 
-    public void showMessageMenuOptionIsIncorrect(){
-        System.out.println("Please enter correct option from menu.");
-    }
-
     public void showMessageStudentNameAndSurnameInvalid() {
         System.out.println("Entered student name and surname is invalid");
     }
@@ -67,4 +69,61 @@ public class Formatter {
     public  void showInsertStudentIdText() {
         System.out.println("Enter student id:");
     }
+
+    public void showMessageChooseStudentById() {
+        System.out.println("Choose student by Id from list above:");
+
+    }
+
+    public void showStudentsList(ArrayList<Student> students) {
+        for(int index = 0; index < students.size(); index++) {
+           String studentOutput = students.get(index).getId() + ". " + students.get(index).getName() + " " +students.get(index).getSurname();
+            System.out.println(studentOutput);
+        }
+    }
+
+    public void showMessageChooseCourseById() {
+        System.out.println("Choose course by Id from list above:");
+    }
+
+    public void showCoursesList(ArrayList<Course> courses) {
+        for(int index = 0; index < courses.size(); index++) {
+            String studentOutput = courses.get(index).getCourseId() + ". " + courses.get(index).getName() + " " + courses.get(index).getCourseDescription();
+            System.out.println(studentOutput);
+        }
+    }
+
+    public void showMessageStudentAddedToCourse(){
+        System.out.println("Student assignet do course successfully.");
+    }
+
+    public void showMessageToChooseCourseById() {
+        System.out.println("Choose one course to delete by Id above:");
+    }
+    public void showMessageStudentWasRemovedFromCourse() {
+        System.out.println("Student deleted from course.");
+    }
+
+    public void getCourseNameList(ArrayList<Course> courseList) {
+        ArrayList<String> courseNameList = new ArrayList<>();
+        for(int index = 0; index < courseList.size(); index++){
+            courseNameList.add(courseList.get(index).getName());
+        }
+        formatListOfDataToColumn(courseNameList);
+    }
+
+    public void showMessageStudentAdded(){
+        System.out.println("Student added to list.");
+    }
+
+    public void showMessageStudentDeleted(){
+        System.out.println("Student removed.");
+    }
+
+    private void formatListOfDataToColumn(ArrayList<String> dataList){
+        for(int index = 0; index < dataList.size(); index++) {
+            System.out.println(dataList.get(index));
+        }
+    }
 }
+

@@ -1,4 +1,4 @@
-package ua.com.foxminded.dao;
+package ua.com.foxminded.formatter.dao;
 
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
@@ -13,4 +13,6 @@ public interface StudentDao {
     ArrayList<Integer> getStudentsIdList();
 
     ArrayList<String> getGroupsWithEqualOrLessStudentsNumber(int studentsNumber);
+
+    ArrayList<Student> getStudentsList();
 }

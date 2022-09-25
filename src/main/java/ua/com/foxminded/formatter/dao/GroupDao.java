@@ -1,4 +1,4 @@
-package ua.com.foxminded.dao;
+package ua.com.foxminded.formatter.dao;
 
 import ua.com.foxminded.model.Group;
 import java.util.ArrayList;

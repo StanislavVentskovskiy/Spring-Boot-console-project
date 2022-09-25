@@ -1,28 +1,29 @@
 package ua.com.foxminded.service;
 
-import ua.com.foxminded.dao.impl.CourseDaoImpl;
-import ua.com.foxminded.dao.impl.GroupDaoImpl;
-import ua.com.foxminded.dao.impl.StudentsDaoImpl;
+import ua.com.foxminded.formatter.dao.impl.CourseDaoImpl;
+import ua.com.foxminded.formatter.dao.impl.GroupDaoImpl;
+import ua.com.foxminded.formatter.dao.impl.StudentsDaoImpl;
 import ua.com.foxminded.util.StudentsGenerator;
 import ua.com.foxminded.util.CourseGenerator;
 import ua.com.foxminded.util.GroupsGenerator;
 
 public class Init {
+    private SqlScriptRunner sqlScriptRunner = new SqlScriptRunner();
+    private GroupsGenerator groupGenerator = new GroupsGenerator();
+    private GroupDaoImpl groupDao = new GroupDaoImpl();
+    private CourseGenerator courseGenerator = new CourseGenerator();
+    private CourseDaoImpl courseDao = new CourseDaoImpl();
+    private StudentsGenerator studentsGenerator = new StudentsGenerator();
+    private StudentsDaoImpl studentsDaoImpl = new StudentsDaoImpl();
+    private StudentsGroupsAssignation studentAssignation = new StudentsGroupsAssignation(studentsGenerator.generateStudentsList());
+    private StudentsCoursesAssignation studentsCoursesAssignation = new StudentsCoursesAssignation(studentsDaoImpl.getStudentsIdList(), courseDao.getCoursesIdList());
+
     public void initializeApplicationData() {
-        SqlScriptRunner sqlScriptRunner = new SqlScriptRunner();
         sqlScriptRunner.runScript();
-        GroupsGenerator groupGenerator = new GroupsGenerator();
-        GroupDaoImpl groupDao = new GroupDaoImpl();
         groupDao.insertGroupList(groupGenerator.generateGroups());
-        CourseGenerator courseGenerator = new CourseGenerator();
-        CourseDaoImpl courseDao = new CourseDaoImpl();
         courseDao.insertCourseList(courseGenerator.generateCourseList());
-        StudentsGenerator studentsGenerator = new StudentsGenerator();
-        StudentsGroupsAssignation studentAssignation = new StudentsGroupsAssignation(studentsGenerator.generateStudentsList());
         studentAssignation.assignStudentsToGroups();
-        StudentsDaoImpl studentsDaoImpl = new StudentsDaoImpl();
         studentsDaoImpl.insertStudentsList(studentAssignation.getStudentsList());
-        StudentsCoursesAssignation studentsCoursesAssignation = new StudentsCoursesAssignation(studentsDaoImpl.getStudentsIdList(), courseDao.getCoursesIdList());
         studentsCoursesAssignation.assignCoursesToStudent();
     }
 }

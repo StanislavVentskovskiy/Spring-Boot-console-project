@@ -5,28 +5,30 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.util.Properties;
 import org.apache.ibatis.jdbc.ScriptRunner;
+import ua.com.foxminded.formatter.dao.DAOException;
 import ua.com.foxminded.util.ApplicationProperties;
 import ua.com.foxminded.util.ConnectionFactory;
 
 public class SqlScriptRunner {
     private Connection connection = null;
     private String schema;
+    private String schemaPropertiesName = "postgres.schema";
     private Properties properties;
+    private ApplicationProperties applicationProperties = new ApplicationProperties();
 
     public void runScript() {
         try {
             connection = ConnectionFactory.getInstance().makeConnection();
             connection.setAutoCommit(false);
-            ApplicationProperties applicationProperties = new ApplicationProperties();
             properties = applicationProperties.getProperties();
-            schema = properties.getProperty("postgres.schema");
+            schema = properties.getProperty(schemaPropertiesName);
             ScriptRunner scriptRunner = new ScriptRunner(connection);
             InputStreamReader scriptReader = new InputStreamReader(new FileInputStream(schema));
             scriptRunner.runScript(scriptReader);
             scriptReader.close();
             connection.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 }

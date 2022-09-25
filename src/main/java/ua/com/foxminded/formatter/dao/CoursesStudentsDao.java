@@ -1,4 +1,6 @@
-package ua.com.foxminded.dao;
+package ua.com.foxminded.formatter.dao;
+
+import ua.com.foxminded.model.Course;
 
 import java.util.ArrayList;
 
@@ -8,5 +10,7 @@ public interface CoursesStudentsDao {
 
     ArrayList<String> getStudentsListRelatedToCourseByName(String courseName);
 
+    ArrayList<Course> getCourseListByStudentId(int studentId);
 
+    void deleteStudentFromCourseById(int studentId, int courseId);
 }
