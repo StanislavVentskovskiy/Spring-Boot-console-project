@@ -10,7 +10,6 @@ import ua.com.foxminded.util.ApplicationProperties;
 import ua.com.foxminded.util.ConnectionFactory;
 
 public class SqlScriptRunner {
-    private Connection connection = null;
     private String schema;
     private String schemaPropertiesName = "postgres.schema";
     private Properties properties;

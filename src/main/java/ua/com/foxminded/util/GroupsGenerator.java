@@ -3,6 +3,7 @@ package ua.com.foxminded.util;
 import ua.com.foxminded.model.Group;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.Stream;
 
 public class GroupsGenerator {
     private ArrayList<Group> groupList  = new ArrayList<>();
@@ -18,14 +19,11 @@ public class GroupsGenerator {
         return groupList;
     }
 
-    private String generateCharacterPart() {
-        int groupIndex;
+    public String generateCharacterPart() {
         Random randomIndex = new Random();
         StringBuilder characterPart = new StringBuilder();
-        while (characterPart.length() < 2) {
-            groupIndex = randomIndex.nextInt(27-1);
-            characterPart.append(possibleCharacterInGroupName.charAt(groupIndex));
-        }
+        Stream<Integer> stream = Stream.of(1,2);
+        stream.forEach(part -> characterPart.append(possibleCharacterInGroupName.charAt(randomIndex.nextInt(27-1))));
 
         return characterPart.toString();
     }

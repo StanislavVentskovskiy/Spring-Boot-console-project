@@ -2,6 +2,8 @@ package ua.com.foxminded.service;
 
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StudentsGroupsAssignation {
     private ArrayList<Student> studentsList = new ArrayList<>();
@@ -32,10 +34,9 @@ public class StudentsGroupsAssignation {
     }
 
     private void insertStudentInRange(int group, int startIndex, int endIndex) {
-        while(startIndex < endIndex) {
-            studentsList.get(endIndex).setGroup(group);
-            endIndex--;
-        }
+        IntStream.range(startIndex,endIndex).forEach(studentIndex ->
+            studentsList.get(studentIndex).setGroup(group)
+        );
     }
 
     private int generateStudentsNumber() {

@@ -6,7 +6,6 @@ import ua.com.foxminded.service.UserMenuMessages;
 import java.util.ArrayList;
 
 public class Formatter {
-
     UserMenuMessages userMenuMessages = new UserMenuMessages();
 
     public void showInitialMenu(){
@@ -88,6 +87,7 @@ public class Formatter {
     public void showMessageToChooseCourseById() {
         System.out.println(userMenuMessages.getCourseToDeleteMessage());
     }
+
     public void showMessageStudentWasRemovedFromCourse() {
         System.out.println(userMenuMessages.getStudentDeleteMessage());
     }

@@ -3,12 +3,12 @@ package ua.com.foxminded.service;
 public final class UserMenuMessages {
     private final String initialMenuMessage = "Data initiated please choose request from list below: \n" +
         "type \"a\" - find all groups with less or equal students number \n" +
-        "type \"b\" - find all students related to the course with given name" +
-        "type \"c\" - add new student" +
-        "type \"d\" - delete student by STUDENT_ID" +
-        "type \"e\" - add a student to the course(from a list)" +
-        "type \"f\" - remove the student from one of their course" +
-        "type \"exit\" - to stop the application.";
+        "type \"b\" - find all students related to the course with given name \n" +
+        "type \"c\" - add new student \n" +
+        "type \"d\" - delete student by STUDENT_ID \n" +
+        "type \"e\" - add a student to the course(from a list) \n" +
+        "type \"f\" - remove the student from one of their course \n" +
+        "type \"exit\" - to stop the application. \n";
     private final String enteredDataInvalidMessage = "Entered data is not valid";
     private final String noGroupWithEnteredStudentsNumberMessage = "There are no groups with such student number.";
     private final String groupHaveEnteredStudentsNumberMessage = "Next group got %d students or less:";
