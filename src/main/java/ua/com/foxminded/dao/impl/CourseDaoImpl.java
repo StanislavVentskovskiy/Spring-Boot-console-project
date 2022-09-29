@@ -1,7 +1,7 @@
-package ua.com.foxminded.formatter.dao.impl;
+package ua.com.foxminded.dao.impl;
 
-import ua.com.foxminded.formatter.dao.CourseDao;
-import ua.com.foxminded.formatter.dao.DAOException;
+import ua.com.foxminded.dao.CourseDao;
+import ua.com.foxminded.exceptions.DAOException;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.util.ConnectionFactory;
 import java.sql.Connection;
@@ -11,15 +11,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CourseDaoImpl implements CourseDao {
-    private final Connection connection = ConnectionFactory.getInstance().makeConnection();
-    private final String SQL = "INSERT INTO postgres.schoolconsoleapp.courses(course_name, course_description) " + "VALUES(?, ?)";
-    private final String QUERY = "SELECT id FROM postgres.schoolconsoleapp.courses";
-
+    private final String insertSQL = "INSERT INTO postgres.schoolconsoleapp.courses(course_name, course_description) " + "VALUES(?, ?)";
+    private final String coursesIdQUERY = "SELECT id FROM postgres.schoolconsoleapp.courses";
     private final String courseListQUERY = "SELECT * FROM schoolconsoleapp.courses;";
 
-    public void insertCourse(Course course) {
-        try{
-            PreparedStatement statement = connection.prepareStatement(SQL);
+    public void insertCourse(final Course course) {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+        PreparedStatement statement = connection.prepareStatement(insertSQL))  {
             statement.setString(1,course.getName());
             statement.setString(2,course.getCourseDescription());
             statement.executeUpdate();
@@ -34,9 +32,9 @@ public class CourseDaoImpl implements CourseDao {
 
     public ArrayList<Integer> getCoursesIdList() {
         ArrayList<Integer> getCoursesIdList = new ArrayList<>();
-        try {
-            PreparedStatement statement = connection.prepareStatement(QUERY);
-            ResultSet resultSet = statement.executeQuery();
+        try(Connection connection = ConnectionFactory.getInstance().makeConnection();
+            PreparedStatement statement = connection.prepareStatement(coursesIdQUERY);
+            ResultSet resultSet = statement.executeQuery()) {
             while(resultSet.next()) {
                 int studentId = resultSet.getInt(1);
                 getCoursesIdList.add(studentId);
@@ -50,9 +48,9 @@ public class CourseDaoImpl implements CourseDao {
 
     public ArrayList<Course> getCourseList(){
         ArrayList<Course> courses = new ArrayList<>();
-        try {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
             PreparedStatement statement = connection.prepareStatement(courseListQUERY);
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 int courseId = resultSet.getInt(1);
                 String courseName = resultSet.getString(2);

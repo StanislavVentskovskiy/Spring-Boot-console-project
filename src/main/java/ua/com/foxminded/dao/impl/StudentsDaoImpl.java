@@ -1,16 +1,15 @@
-package ua.com.foxminded.formatter.dao.impl;
+package ua.com.foxminded.dao.impl;
 
-import ua.com.foxminded.formatter.dao.StudentDao;
-import ua.com.foxminded.formatter.dao.DAOException;
+import ua.com.foxminded.dao.StudentDao;
+import ua.com.foxminded.exceptions.DAOException;
 import ua.com.foxminded.model.Student;
 import ua.com.foxminded.util.ConnectionFactory;
 import java.sql.*;
 import java.util.ArrayList;
 
 public class StudentsDaoImpl implements StudentDao {
-    private final Connection connection = ConnectionFactory.getInstance().makeConnection();
-    private final String SQL = "INSERT INTO postgres.schoolconsoleapp.students(group_id, first_name, last_name) " + "VALUES(NULLIF(?,'0'), ?, ?)";
-    private final String QUERY = "SELECT id FROM postgres.schoolconsoleapp.students";
+    private final String insertStudentSQL = "INSERT INTO postgres.schoolconsoleapp.students(group_id, first_name, last_name) " + "VALUES(NULLIF(?,'0'), ?, ?)";
+    private final String getStudentIdQUERY = "SELECT id FROM postgres.schoolconsoleapp.students";
     private final String groupsWithCertainStudentNumberQUERY =
         "SELECT schoolconsoleapp.groups.group_name,  COUNT(*) AS stud_count\n" +
             "FROM schoolconsoleapp.students\n" +
@@ -30,8 +29,8 @@ public class StudentsDaoImpl implements StudentDao {
     private final String studentsListQUERY = "SELECT * FROM schoolconsoleapp.students";
 
     public void insertStudent(Student student) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL);
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+            PreparedStatement statement = connection.prepareStatement(insertStudentSQL)) {
             statement.setInt(1, student.getGroup());
             statement.setString(2, student.getName());
             statement.setString(3, student.getSurname());
@@ -47,9 +46,9 @@ public class StudentsDaoImpl implements StudentDao {
 
     public ArrayList<Integer> getStudentsIdList() {
         ArrayList<Integer> studentsIdList = new ArrayList<>();
-        try {
-            PreparedStatement statement = connection.prepareStatement(QUERY);
-            ResultSet resultSet = statement.executeQuery();
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+            PreparedStatement statement = connection.prepareStatement(getStudentIdQUERY);
+            ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 int studentId = resultSet.getInt(1);
                 studentsIdList.add(studentId);
@@ -63,9 +62,9 @@ public class StudentsDaoImpl implements StudentDao {
 
     public ArrayList<String> getGroupsWithEqualOrLessStudentsNumber(int studentsNumber) {
         ArrayList<String> groupList = new ArrayList<>();
-        try {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
             PreparedStatement statement = connection.prepareStatement(groupsWithCertainStudentNumberQUERY + studentsNumber);
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 String groupName = resultSet.getString(1);
                 groupList.add(groupName);
@@ -78,9 +77,9 @@ public class StudentsDaoImpl implements StudentDao {
     }
 
     public void deleteStudentById(int studentId) {
-        try (PreparedStatement statement = connection.prepareStatement(deleteStudentQUERY + studentId);) {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+            PreparedStatement statement = connection.prepareStatement(deleteStudentQUERY + studentId)) {
             statement.executeUpdate();
-            connection.close();
         } catch (Exception e) {
             throw new DAOException(e);
         }
@@ -88,9 +87,9 @@ public class StudentsDaoImpl implements StudentDao {
 
     public ArrayList<Student> getStudentsList(){
         ArrayList<Student> students = new ArrayList<>();
-        try {
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
             PreparedStatement statement = connection.prepareStatement(studentsListQUERY);
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 int studentId = resultSet.getInt(1);
                 String studentsName = resultSet.getString(3);

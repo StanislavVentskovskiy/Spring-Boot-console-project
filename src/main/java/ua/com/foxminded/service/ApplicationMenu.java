@@ -1,10 +1,10 @@
 package ua.com.foxminded.service;
 
-import ua.com.foxminded.formatter.dao.CoursesStudentsDao;
-import ua.com.foxminded.formatter.dao.DAOException;
-import ua.com.foxminded.formatter.dao.impl.CourseDaoImpl;
-import ua.com.foxminded.formatter.dao.impl.CoursesStudentsDaoImpl;
-import ua.com.foxminded.formatter.dao.impl.StudentsDaoImpl;
+import ua.com.foxminded.dao.CoursesStudentsDao;
+import ua.com.foxminded.exceptions.DAOException;
+import ua.com.foxminded.dao.impl.CourseDaoImpl;
+import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
+import ua.com.foxminded.dao.impl.StudentsDaoImpl;
 import ua.com.foxminded.formatter.Formatter;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.model.Student;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class ApplicationMenu {
     private Formatter formatter = new Formatter();
     private BufferedReader userInputLine = new BufferedReader(new InputStreamReader(System.in));
+    private final int studentLimit = 200;
 
     public void callConsoleMenu() throws DAOException, IOException {
         formatter.showInitialMenu();
@@ -33,7 +34,7 @@ public class ApplicationMenu {
                 formatter.showMessageEnterCourseName();
                 findAllStudentsRelatedToCourseWithGivenName(userInputLine.readLine());
             } else if (userInput.equals("c")) {
-                formatter.showMassageStudentInput();
+                formatter.showMessageStudentInput();
                 addNewStudent(userInputLine.readLine());
             } else if (userInput.equals("d")) {
                 formatter.showInsertStudentIdText();
@@ -144,7 +145,7 @@ public class ApplicationMenu {
         try {
             studentId = Integer.parseInt(userInput);
 
-            if (studentId > 200) {
+            if (studentId > studentLimit) {
                 throw new NumberFormatException();
             }
 

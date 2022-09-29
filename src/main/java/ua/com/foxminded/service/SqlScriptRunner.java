@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.util.Properties;
 import org.apache.ibatis.jdbc.ScriptRunner;
-import ua.com.foxminded.formatter.dao.DAOException;
+import ua.com.foxminded.exceptions.DAOException;
 import ua.com.foxminded.util.ApplicationProperties;
 import ua.com.foxminded.util.ConnectionFactory;
 
@@ -17,8 +17,7 @@ public class SqlScriptRunner {
     private ApplicationProperties applicationProperties = new ApplicationProperties();
 
     public void runScript() {
-        try {
-            connection = ConnectionFactory.getInstance().makeConnection();
+        try(Connection connection = ConnectionFactory.getInstance().makeConnection()) {
             connection.setAutoCommit(false);
             properties = applicationProperties.getProperties();
             schema = properties.getProperty(schemaPropertiesName);
@@ -26,7 +25,6 @@ public class SqlScriptRunner {
             InputStreamReader scriptReader = new InputStreamReader(new FileInputStream(schema));
             scriptRunner.runScript(scriptReader);
             scriptReader.close();
-            connection.close();
         } catch (Exception e) {
             throw new DAOException(e);
         }

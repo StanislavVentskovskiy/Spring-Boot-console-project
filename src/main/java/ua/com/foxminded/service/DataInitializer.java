@@ -1,13 +1,13 @@
 package ua.com.foxminded.service;
 
-import ua.com.foxminded.formatter.dao.impl.CourseDaoImpl;
-import ua.com.foxminded.formatter.dao.impl.GroupDaoImpl;
-import ua.com.foxminded.formatter.dao.impl.StudentsDaoImpl;
+import ua.com.foxminded.dao.impl.CourseDaoImpl;
+import ua.com.foxminded.dao.impl.GroupDaoImpl;
+import ua.com.foxminded.dao.impl.StudentsDaoImpl;
 import ua.com.foxminded.util.StudentsGenerator;
 import ua.com.foxminded.util.CourseGenerator;
 import ua.com.foxminded.util.GroupsGenerator;
 
-public class Init {
+public class DataInitializer {
     private SqlScriptRunner sqlScriptRunner = new SqlScriptRunner();
     private GroupsGenerator groupGenerator = new GroupsGenerator();
     private GroupDaoImpl groupDao = new GroupDaoImpl();

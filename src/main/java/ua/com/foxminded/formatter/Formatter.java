@@ -2,77 +2,65 @@ package ua.com.foxminded.formatter;
 
 import ua.com.foxminded.model.Student;
 import ua.com.foxminded.model.Course;
+import ua.com.foxminded.service.UserMenuMessages;
 import java.util.ArrayList;
 
 public class Formatter {
+
+    UserMenuMessages userMenuMessages = new UserMenuMessages();
+
     public void showInitialMenu(){
-        System.out.printf("Data initiated please choose request from list below: \n");
-        System.out.println("type \"a\" - find all groups with less or equal students number");
-        System.out.println("type \"b\" - find all students related to the course with given name");
-        System.out.println("type \"c\" - add new student");
-        System.out.println("type \"d\" - delete student by STUDENT_ID");
-        System.out.println("type \"e\" - add a student to the course(from a list)");
-        System.out.println("type \"f\" - remove the student from one of their course");
-        System.out.println("type \"exit\" - to stop the application.");
+        System.out.println(userMenuMessages.getInitialMenuMessage());
     }
 
     public void showMessageEnteredDataIsInvalid(){
-        System.out.println("Entered data is not valid");
+        System.out.println(userMenuMessages.getEnteredDataInvalidMessage());
     }
 
     public void formatGroupListOutput(int studentsNumber, ArrayList<String> groupsList) {
         if (!groupsList.isEmpty()) {
-            System.out.println("Next groups got " + studentsNumber + " students or less:");
+            System.out.println(userMenuMessages.getGroupHaveEnteredStudentsNumberMessage(studentsNumber));
             formatListOfDataToColumn(groupsList);
         } else {
-            System.out.println("There are no groups with such student number.");
+            System.out.println(userMenuMessages.getNoGroupWithEnteredStudentsNumberMessage());
         }
     }
 
     public void showMessageEnterStudentNumber() {
-        System.out.println("Enter students number:");
+        System.out.println(userMenuMessages.getEnterStudentsNumberMessage());
     }
 
     public void showMessageEnterCourseName() {
-        System.out.println("Enter course name:");
-    }
-
-    public void enteredCourseNameIsNotValid() {
-        System.out.println("Entered course name is invalid");
+        System.out.println(userMenuMessages.getEnterCourseNameMessage());
     }
 
     public void formatStudentsListOfChosenCourse(String courseName, ArrayList<String> studentsList){
-        System.out.printf("Next students related to the course " + courseName + ":" + "\n");
+        System.out.println(userMenuMessages.getStudentListOfEnteredCourseMessage(courseName));
         formatListOfDataToColumn(studentsList);
     }
 
-    public void showMassageStudentInput() {
-        System.out.println("Please enter student name and surname divided by space:");
-    }
-
-    public void showMassageCourseNameIsInvalid() {
-        System.out.println("Course name is invalid");
+    public void showMessageStudentInput() {
+        System.out.println(userMenuMessages.getStudentInputMessage());
     }
 
     public void showBackToMenuMessage(){
-        System.out.println("Choose an option from menu or type \"exit\" to quit:");
+        System.out.println(userMenuMessages.getBackToMenuMessage());
     }
 
     public void showMessageStudentNameAndSurnameInvalid() {
-        System.out.println("Entered student name and surname is invalid");
+        System.out.println(userMenuMessages.getStudentsNameInvalidMessage());
     }
 
     public void showMessageStudentIdIsInvalid() {
-        System.out.println("Student id is invalid.");
+        userMenuMessages.getStudentIdInvalid();
     }
 
     public  void showInsertStudentIdText() {
-        System.out.println("Enter student id:");
+        System.out.println(userMenuMessages.getEnterStudentIdMessage());
     }
 
     public void showMessageChooseStudentById() {
-        System.out.println("Choose student by Id from list above:");
-
+        System.out.println(userMenuMessages.getChooseStudentFromIdMessage());
     }
 
     public void showStudentsList(ArrayList<Student> students) {
@@ -83,7 +71,7 @@ public class Formatter {
     }
 
     public void showMessageChooseCourseById() {
-        System.out.println("Choose course by Id from list above:");
+        System.out.println(userMenuMessages.getChooseCourseFromIdMessage());
     }
 
     public void showCoursesList(ArrayList<Course> courses) {
@@ -94,14 +82,14 @@ public class Formatter {
     }
 
     public void showMessageStudentAddedToCourse(){
-        System.out.println("Student assignet do course successfully.");
+        System.out.println(userMenuMessages.getStudentAssignedMessage());
     }
 
     public void showMessageToChooseCourseById() {
-        System.out.println("Choose one course to delete by Id above:");
+        System.out.println(userMenuMessages.getCourseToDeleteMessage());
     }
     public void showMessageStudentWasRemovedFromCourse() {
-        System.out.println("Student deleted from course.");
+        System.out.println(userMenuMessages.getStudentDeleteMessage());
     }
 
     public void getCourseNameList(ArrayList<Course> courseList) {
@@ -113,11 +101,11 @@ public class Formatter {
     }
 
     public void showMessageStudentAdded(){
-        System.out.println("Student added to list.");
+        System.out.println(userMenuMessages.getStudentAddedMessage());
     }
 
     public void showMessageStudentDeleted(){
-        System.out.println("Student removed.");
+        System.out.println(userMenuMessages.getStudentRemovedMessage());
     }
 
     private void formatListOfDataToColumn(ArrayList<String> dataList){

@@ -1,4 +1,4 @@
-package ua.com.foxminded.formatter.dao;
+package ua.com.foxminded.dao;
 
 import ua.com.foxminded.model.Course;
 

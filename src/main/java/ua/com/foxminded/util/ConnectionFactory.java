@@ -1,8 +1,8 @@
 package ua.com.foxminded.util;
 
+import ua.com.foxminded.exceptions.ConnectionException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactory {
@@ -29,15 +29,13 @@ public class ConnectionFactory {
 
     private ConnectionFactory(){};
 
-    public Connection makeConnection() {
+    public Connection makeConnection() throws ConnectionException {
         Connection connection = null;
         try {
             Class.forName(postgresDriver);
             connection = DriverManager.getConnection(dburl,user,password);
-        } catch (SQLException e){
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new ConnectionException(e);
         }
 
         return connection;

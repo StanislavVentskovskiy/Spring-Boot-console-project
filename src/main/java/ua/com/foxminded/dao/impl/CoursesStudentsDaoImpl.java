@@ -1,7 +1,7 @@
-package ua.com.foxminded.formatter.dao.impl;
+package ua.com.foxminded.dao.impl;
 
-import ua.com.foxminded.formatter.dao.CoursesStudentsDao;
-import ua.com.foxminded.formatter.dao.DAOException;
+import ua.com.foxminded.dao.CoursesStudentsDao;
+import ua.com.foxminded.exceptions.DAOException;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.util.ConnectionFactory;
 import java.sql.Connection;
@@ -11,9 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
-    private final Connection connection = ConnectionFactory.getInstance().makeConnection();
-    private final String SQL = "INSERT INTO postgres.schoolconsoleapp.coursesstudents(course_id, student_id) " + "VALUES(?, ?)";
-    private final String studentsRelatedToGivenCourseQUERRY = "SELECT\n" +
+    private final String insertStudentsSQL = "INSERT INTO postgres.schoolconsoleapp.coursesstudents(course_id, student_id) " + "VALUES(?, ?)";
+    private final String studentsRelatedToGivenCourseQUERY = "SELECT\n" +
         "schoolconsoleapp.students.first_name || ' ' ||\n" +
         "schoolconsoleapp.students.last_name,\n" +
         "schoolconsoleapp.courses.course_name\n" +
@@ -36,8 +35,8 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
 
 
     public void insertStudentAndCourse(int studentId, int courseId) {
-        try {
-            PreparedStatement statement = connection.prepareStatement(SQL);
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+            PreparedStatement statement = connection.prepareStatement(insertStudentsSQL)) {
             statement.setInt(1,courseId);
             statement.setInt(2,studentId);
             statement.executeUpdate();
@@ -48,10 +47,9 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
 
     public ArrayList<String> getStudentsListRelatedToCourseByName(String courseName){
         ArrayList<String> studentsList = new ArrayList<>();
-        try {
-            PreparedStatement statement = connection.prepareStatement(studentsRelatedToGivenCourseQUERRY + "'" + courseName + "'");
-
-            ResultSet resultSet = statement.executeQuery();
+        try(Connection connection = ConnectionFactory.getInstance().makeConnection();
+            PreparedStatement statement = connection.prepareStatement(studentsRelatedToGivenCourseQUERY + "'" + courseName + "'");
+            ResultSet resultSet = statement.executeQuery();) {
             while (resultSet.next()) {
                 String studentName = resultSet.getString(1);
                 studentsList.add(studentName);
@@ -65,9 +63,9 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
 
     public ArrayList<Course> getCourseListByStudentId(int studentId) {
         ArrayList<Course> courseList = new ArrayList<>();
-        try {
+        try(Connection connection = ConnectionFactory.getInstance().makeConnection();
             PreparedStatement statement = connection.prepareStatement(courseListByIdQUERRY + studentId);
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 int courseId = resultSet.getInt(1);
                 String courseName = resultSet.getString(2);
@@ -75,20 +73,19 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
                 Course course = new Course(courseName, courseDescription);
                 course.setCourseId(courseId);
                 courseList.add(course);
-
-            }
-
+                }
         } catch (SQLException e) {
             throw new DAOException(e);
         }
+
         return courseList;
     }
 
     public void deleteStudentFromCourseById(int courseId, int studentId){
         String currentDeleteStudentQUERY = String.format(deleteStudentQUERY,courseId,studentId);
-        try (PreparedStatement statement = connection.prepareStatement(currentDeleteStudentQUERY);) {
-           statement.executeUpdate();
-
+        try (Connection connection = ConnectionFactory.getInstance().makeConnection();
+             PreparedStatement statement = connection.prepareStatement(currentDeleteStudentQUERY)) {
+             statement.executeUpdate();
         } catch (Exception e) {
             throw new DAOException(e);
         }

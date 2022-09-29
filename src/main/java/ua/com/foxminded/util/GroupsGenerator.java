@@ -31,7 +31,8 @@ public class GroupsGenerator {
     }
 
     private String generateIntegerPart() {
-        groupNumber = (int) (Math.random()*(100-10))+10;
+        Random random = new Random();
+        groupNumber = random.nextInt(100-10)+10;
 
         return String.valueOf(groupNumber);
     }
