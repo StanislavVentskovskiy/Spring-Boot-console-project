@@ -9,57 +9,57 @@ public class Formatter {
     UserMenuMessages userMenuMessages = new UserMenuMessages();
 
     public void showInitialMenu(){
-        System.out.println(userMenuMessages.getInitialMenuMessage());
+        System.out.println(userMenuMessages.initialMenuMessage);
     }
 
     public void showMessageEnteredDataIsInvalid(){
-        System.out.println(userMenuMessages.getEnteredDataInvalidMessage());
+        System.out.println(userMenuMessages.enteredDataInvalidMessage);
     }
 
     public void formatGroupListOutput(int studentsNumber, ArrayList<String> groupsList) {
         if (!groupsList.isEmpty()) {
-            System.out.println(userMenuMessages.getGroupHaveEnteredStudentsNumberMessage(studentsNumber));
+            System.out.println(userMenuMessages.groupHaveEnteredStudentsNumberMessage);
             formatListOfDataToColumn(groupsList);
         } else {
-            System.out.println(userMenuMessages.getNoGroupWithEnteredStudentsNumberMessage());
+            System.out.println(userMenuMessages.noGroupWithEnteredStudentsNumberMessage);
         }
     }
 
     public void showMessageEnterStudentNumber() {
-        System.out.println(userMenuMessages.getEnterStudentsNumberMessage());
+        System.out.println(userMenuMessages.enterStudentsNumberMessage);
     }
 
     public void showMessageEnterCourseName() {
-        System.out.println(userMenuMessages.getEnterCourseNameMessage());
+        System.out.println(userMenuMessages.enterCourseNameMessage);
     }
 
     public void formatStudentsListOfChosenCourse(String courseName, ArrayList<String> studentsList){
-        System.out.println(userMenuMessages.getStudentListOfEnteredCourseMessage(courseName));
+        System.out.println(String.format(userMenuMessages.studentListOfEnteredCourseMessage,courseName));
         formatListOfDataToColumn(studentsList);
     }
 
     public void showMessageStudentInput() {
-        System.out.println(userMenuMessages.getStudentInputMessage());
+        System.out.println(userMenuMessages.studentInputMessage);
     }
 
     public void showBackToMenuMessage(){
-        System.out.println(userMenuMessages.getBackToMenuMessage());
+        System.out.println(userMenuMessages.backToMenuMessage);
     }
 
     public void showMessageStudentNameAndSurnameInvalid() {
-        System.out.println(userMenuMessages.getStudentsNameInvalidMessage());
+        System.out.println(userMenuMessages.studentsNameInvalidMessage);
     }
 
     public void showMessageStudentIdIsInvalid() {
-        userMenuMessages.getStudentIdInvalid();
+        System.out.println(userMenuMessages.studentIdInvalid);
     }
 
     public  void showInsertStudentIdText() {
-        System.out.println(userMenuMessages.getEnterStudentIdMessage());
+        System.out.println(userMenuMessages.enterStudentIdMessage);
     }
 
     public void showMessageChooseStudentById() {
-        System.out.println(userMenuMessages.getChooseStudentFromIdMessage());
+        System.out.println(userMenuMessages.chooseStudentFromIdMessage);
     }
 
     public void showStudentsList(ArrayList<Student> students) {
@@ -70,7 +70,7 @@ public class Formatter {
     }
 
     public void showMessageChooseCourseById() {
-        System.out.println(userMenuMessages.getChooseCourseFromIdMessage());
+        System.out.println(userMenuMessages.chooseCourseFromIdMessage);
     }
 
     public void showCoursesList(ArrayList<Course> courses) {
@@ -81,15 +81,15 @@ public class Formatter {
     }
 
     public void showMessageStudentAddedToCourse(){
-        System.out.println(userMenuMessages.getStudentAssignedMessage());
+        System.out.println(userMenuMessages.studentAssignedMessage);
     }
 
     public void showMessageToChooseCourseById() {
-        System.out.println(userMenuMessages.getCourseToDeleteMessage());
+        System.out.println(userMenuMessages.courseToDeleteMessage);
     }
 
     public void showMessageStudentWasRemovedFromCourse() {
-        System.out.println(userMenuMessages.getStudentDeleteMessage());
+        System.out.println(userMenuMessages.studentDeleteMessage);
     }
 
     public void getCourseNameList(ArrayList<Course> courseList) {
@@ -101,11 +101,11 @@ public class Formatter {
     }
 
     public void showMessageStudentAdded(){
-        System.out.println(userMenuMessages.getStudentAddedMessage());
+        System.out.println(userMenuMessages.studentAddedMessage);
     }
 
     public void showMessageStudentDeleted(){
-        System.out.println(userMenuMessages.getStudentRemovedMessage());
+        System.out.println(userMenuMessages.studentRemovedMessage);
     }
 
     private void formatListOfDataToColumn(ArrayList<String> dataList){
@@ -114,4 +114,3 @@ public class Formatter {
         }
     }
 }
-

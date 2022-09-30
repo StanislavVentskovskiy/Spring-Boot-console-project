@@ -18,9 +18,13 @@ public class ApplicationMenu {
     private BufferedReader userInputLine = new BufferedReader(new InputStreamReader(System.in));
     private final int studentLimit = 200;
 
-    public void callConsoleMenu() throws DAOException, IOException {
-        formatter.showInitialMenu();
-        getUserRequest();
+    public void callConsoleMenu() throws DAOException {
+        try {
+            formatter.showInitialMenu();
+            getUserRequest();
+        } catch (IOException e) {
+            throw new DAOException(e);
+        }
     }
 
     private void getUserRequest() throws DAOException, IOException {

@@ -20,15 +20,9 @@ public class CourseGenerator {
         for(Map.Entry<String,String> entry: coursesNamesAndDescription.entrySet()) {
             String name = entry.getKey();
             String description = entry.getValue();
-            courseList.add(generateCourse(name,description));
+            courseList.add(new Course(name,description));
         }
 
         return courseList;
-    }
-
-    private Course generateCourse(String name, String description) {
-        Course course = new Course(name, description);
-
-        return course;
     }
 }

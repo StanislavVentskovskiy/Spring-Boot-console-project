@@ -17,7 +17,7 @@ public class ApplicationProperties {
             InputStream in = ConnectionFactory.class.getClassLoader().getResourceAsStream("application.properties");
             properties.load(in);
         } catch (Exception e) {
-            System.out.println("Configuration error");
+            System.err.println("Configuration error");
         }
     }
 }
