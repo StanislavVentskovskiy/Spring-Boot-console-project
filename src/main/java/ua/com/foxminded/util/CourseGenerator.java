@@ -2,6 +2,7 @@ package ua.com.foxminded.util;
 
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.reader.DataReader;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +14,11 @@ public class CourseGenerator {
 
     public CourseGenerator() {
         DataReader dataReader = new DataReader();
-        coursesNamesAndDescription = dataReader.readGeneratedData(Paths.get(PathPropertiesUtil.get("courses.name.and.description.directory")));
+        try {
+            coursesNamesAndDescription = dataReader.readGeneratedData(Paths.get(PathPropertiesUtil.get("courses.name.and.description.directory")));
+        } catch (IOException e) {
+            System.err.println("File reading error.");
+        }
     }
 
     public ArrayList<Course> generateCourseList() {

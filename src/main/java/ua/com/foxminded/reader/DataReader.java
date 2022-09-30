@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 public class DataReader {
-    public HashMap<String,String> readGeneratedData(Path pathToGeneratedData){
+    public HashMap<String,String> readGeneratedData(Path pathToGeneratedData) throws IOException {
         HashMap<String, String> readedData = new HashMap<>();
         try(Stream<String> startingDataStream = Files.lines(pathToGeneratedData)) {
             startingDataStream.forEach(line -> {
@@ -17,7 +17,7 @@ public class DataReader {
                 readedData.put(key,value);
             });
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOException(e);
         }
 
         return readedData;

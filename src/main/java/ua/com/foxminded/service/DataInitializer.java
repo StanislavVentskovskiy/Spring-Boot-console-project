@@ -18,6 +18,9 @@ public class DataInitializer {
     private StudentsGroupsAssignation studentAssignation = new StudentsGroupsAssignation(studentsGenerator.generateStudentsList());
     private StudentsCoursesAssignation studentsCoursesAssignation = new StudentsCoursesAssignation(studentsDaoImpl.getStudentsIdList(), courseDao.getCoursesIdList());
 
+    public DataInitializer() {
+    }
+
     public void initializeApplicationData() {
         sqlScriptRunner.runScript();
         groupDao.insertGroupList(groupGenerator.generateGroups());

@@ -1,7 +1,10 @@
 package ua.com.foxminded.util;
 
+import ua.com.foxminded.exceptions.DAOException;
 import ua.com.foxminded.reader.DataReader;
 import ua.com.foxminded.model.Student;
+
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -14,7 +17,11 @@ public class StudentsGenerator {
 
     public StudentsGenerator() {
         DataReader dataReader = new DataReader();
-        studentsGenerationData =  dataReader.readGeneratedData((Paths.get(PathPropertiesUtil.get("students.name.and.surname.directory"))));
+        try {
+            studentsGenerationData =  dataReader.readGeneratedData((Paths.get(PathPropertiesUtil.get("students.name.and.surname.directory"))));
+        } catch (IOException e) {
+            System.err.println("File reading error.");
+        }
     }
 
     public ArrayList<Student> generateStudentsList(){
