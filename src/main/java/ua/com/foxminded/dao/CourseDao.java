@@ -4,7 +4,6 @@ import ua.com.foxminded.model.Course;
 import java.util.ArrayList;
 
 public interface CourseDao {
-
     void insertCourse(Course course);
 
     void insertCourseList(ArrayList<Course> coursesList);

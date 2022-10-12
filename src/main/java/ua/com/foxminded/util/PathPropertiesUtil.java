@@ -3,7 +3,6 @@ package ua.com.foxminded.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
 public final class PathPropertiesUtil {
     private static final Properties PROPERTIES = new Properties();
 

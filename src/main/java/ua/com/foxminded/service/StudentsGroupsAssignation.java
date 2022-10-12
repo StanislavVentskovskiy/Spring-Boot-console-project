@@ -3,7 +3,6 @@ package ua.com.foxminded.service;
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class StudentsGroupsAssignation {
     private ArrayList<Student> studentsList = new ArrayList<>();

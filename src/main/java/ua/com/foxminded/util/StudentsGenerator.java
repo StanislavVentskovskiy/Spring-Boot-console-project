@@ -1,9 +1,7 @@
 package ua.com.foxminded.util;
 
-import ua.com.foxminded.exceptions.DAOException;
 import ua.com.foxminded.reader.DataReader;
 import ua.com.foxminded.model.Student;
-
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;

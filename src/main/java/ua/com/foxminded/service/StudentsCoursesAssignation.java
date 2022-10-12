@@ -1,18 +1,21 @@
 package ua.com.foxminded.service;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ua.com.foxminded.config.SpringConfig;
 import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class StudentsCoursesAssignation {
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
     private ArrayList<Integer> studentsIdList = new ArrayList<>();
     private ArrayList<Integer> coursesIdList = new ArrayList<>();
-    private CoursesStudentsDaoImpl coursesStudentsDao;
+
+    private CoursesStudentsDaoImpl coursesStudentsDao = context.getBean(CoursesStudentsDaoImpl.class);
 
     public StudentsCoursesAssignation(ArrayList<Integer> studentsIdList, ArrayList<Integer> coursesIdList){
         this.coursesIdList = coursesIdList;
         this.studentsIdList = studentsIdList;
-        coursesStudentsDao = new CoursesStudentsDaoImpl();
     }
 
     public void assignCoursesToStudent() {

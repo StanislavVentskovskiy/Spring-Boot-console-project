@@ -5,7 +5,6 @@ public class Main {
     public static void main(String[] args)  {
         DataInitializer dataInitializer = new DataInitializer();
         ApplicationMenu applicationMenu = new ApplicationMenu();
-
         dataInitializer.initializeApplicationData();
         applicationMenu.callConsoleMenu();
     }

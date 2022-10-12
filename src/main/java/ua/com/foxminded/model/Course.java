@@ -26,7 +26,6 @@ public class Course {
     }
 
     public void setCourseId(int courseId) {
-
         this.courseId = courseId;
     }
 }

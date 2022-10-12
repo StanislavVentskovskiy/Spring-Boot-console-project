@@ -4,21 +4,20 @@ import ua.com.foxminded.model.Student;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.service.UserMenuMessages;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Formatter {
-    UserMenuMessages userMenuMessages = new UserMenuMessages();
-
+    private UserMenuMessages userMenuMessages = new UserMenuMessages();
     public void showInitialMenu(){
         System.out.println(userMenuMessages.initialMenuMessage);
     }
-
     public void showMessageEnteredDataIsInvalid(){
         System.out.println(userMenuMessages.enteredDataInvalidMessage);
     }
 
     public void formatGroupListOutput(int studentsNumber, ArrayList<String> groupsList) {
         if (!groupsList.isEmpty()) {
-            System.out.println(userMenuMessages.groupHaveEnteredStudentsNumberMessage);
+            System.out.println(String.format(userMenuMessages.groupHaveEnteredStudentsNumberMessage, studentsNumber));
             formatListOfDataToColumn(groupsList);
         } else {
             System.out.println(userMenuMessages.noGroupWithEnteredStudentsNumberMessage);
@@ -62,7 +61,7 @@ public class Formatter {
         System.out.println(userMenuMessages.chooseStudentFromIdMessage);
     }
 
-    public void showStudentsList(ArrayList<Student> students) {
+    public void showStudentsList(List<Student> students) {
         for(int index = 0; index < students.size(); index++) {
            String studentOutput = students.get(index).getId() + ". " + students.get(index).getName() + " " +students.get(index).getSurname();
             System.out.println(studentOutput);

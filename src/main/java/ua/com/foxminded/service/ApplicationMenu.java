@@ -1,5 +1,7 @@
 package ua.com.foxminded.service;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ua.com.foxminded.config.SpringConfig;
 import ua.com.foxminded.dao.CoursesStudentsDao;
 import ua.com.foxminded.exceptions.DAOException;
 import ua.com.foxminded.dao.impl.CourseDaoImpl;
@@ -12,11 +14,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ApplicationMenu {
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
     private Formatter formatter = new Formatter();
     private BufferedReader userInputLine = new BufferedReader(new InputStreamReader(System.in));
     private final int studentLimit = 200;
+    StudentsDaoImpl studentsDao = context.getBean(StudentsDaoImpl.class);
+    CourseDaoImpl courseDao = context.getBean(CourseDaoImpl.class);
+    CoursesStudentsDao coursesStudentsDao = context.getBean(CoursesStudentsDaoImpl.class);
 
     public void callConsoleMenu() throws DAOException {
         try {
@@ -41,6 +48,7 @@ public class ApplicationMenu {
                 formatter.showMessageStudentInput();
                 addNewStudent(userInputLine.readLine());
             } else if (userInput.equals("d")) {
+                formatter.showStudentsList(getStudentList());
                 formatter.showInsertStudentIdText();
                 deleteStudentById(userInputLine.readLine());
             } else if (userInput.equals("e")) {
@@ -69,8 +77,7 @@ public class ApplicationMenu {
     }
 
     public void getAllGroupsWithEqualOrLessStudents(int studentsNumber) {
-        StudentsDaoImpl studentsDao = new StudentsDaoImpl();
-        ArrayList<String> groupList = studentsDao.getGroupsWithEqualOrLessStudentsNumber(studentsNumber);
+        ArrayList<String> groupList = studentsDao.getGroupsWithEqualOrLessStudentsNumber(studentsDao.getGroupsWithEqualOrLessStudentsNumber(studentsNumber));
         formatter.formatGroupListOutput(studentsNumber, groupList);
     }
 
@@ -85,24 +92,20 @@ public class ApplicationMenu {
     }
 
     private void findAllStudentsRelatedToCourseWithGivenName(String courseName) {
-
-
         try {
             getAllStudentsOfChosenCourse(courseName);
         } catch (Exception e) {
-            formatter.showMessageEnteredDataIsInvalid();
+           formatter.showMessageEnteredDataIsInvalid();
         }
-        formatter.showBackToMenuMessage();
+           formatter.showBackToMenuMessage();
     }
 
     private void getAllCoursesNameList(){
-        CourseDaoImpl courseDao = new CourseDaoImpl();
         formatter.getCourseNameList(courseDao.getCourseList());
     }
 
-    private void getAllStudentsOfChosenCourse(String courseName) {
-        CoursesStudentsDaoImpl coursesStudentsDao = new CoursesStudentsDaoImpl();
-        ArrayList<String> studentsList = coursesStudentsDao.getStudentsListRelatedToCourseByName(courseName);
+    public void getAllStudentsOfChosenCourse(String courseName) {
+        ArrayList<String> studentsList = coursesStudentsDao.getStudentsNamesAndSurnamesList(coursesStudentsDao.getStudentsListRelatedToCourseByName(courseName));
         getFormattedStudentList(studentsList,courseName);
     }
 
@@ -118,7 +121,6 @@ public class ApplicationMenu {
         String[] nameAndSurname = studentNameAndSurname.split(" ");
         try {
             Student student = new Student(nameAndSurname[0], nameAndSurname[1]);
-            StudentsDaoImpl studentsDao = new StudentsDaoImpl();
             studentsDao.insertStudent(student);
             formatter.showMessageStudentAdded();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -130,7 +132,7 @@ public class ApplicationMenu {
     private void deleteStudentById(String userInput) {
         try {
             int studentId = Integer.parseInt(userInput);
-            StudentsDaoImpl studentsDao = new StudentsDaoImpl();
+
             studentsDao.deleteStudentById(studentId);
             formatter.showMessageStudentDeleted();
            } catch (NumberFormatException e) {
@@ -139,8 +141,8 @@ public class ApplicationMenu {
         formatter.showBackToMenuMessage();
     }
 
-    private ArrayList<Student> getStudentList(){
-        StudentsDaoImpl studentsDao = new StudentsDaoImpl();
+    private List<Student> getStudentList(){
+
         return studentsDao.getStudentsList();
     }
 
@@ -160,7 +162,7 @@ public class ApplicationMenu {
     }
 
     private ArrayList<Course> getCourseList() {
-        CourseDaoImpl courseDao = new CourseDaoImpl();
+
         return courseDao.getCourseList();
     }
 
@@ -180,19 +182,14 @@ public class ApplicationMenu {
     }
 
     private void addStudentToCourse(int studentId, int courseId) {
-        CoursesStudentsDao coursesStudentsDao = new CoursesStudentsDaoImpl();
         coursesStudentsDao.insertStudentAndCourse(studentId,courseId);
     }
 
     private ArrayList<Course> getCourseListByStudentId(int studentsId) {
-        CoursesStudentsDaoImpl courseDao = new CoursesStudentsDaoImpl();
-        return courseDao.getCourseListByStudentId(studentsId);
+        return coursesStudentsDao.getCourseListByStudentId(studentsId);
     }
 
     private void removeStudentFromCourseByStudentId(int courseId,int studentId) {
-        CoursesStudentsDaoImpl coursesStudentsDao = new CoursesStudentsDaoImpl();
-        coursesStudentsDao.deleteStudentFromCourseById(courseId,studentId);
-
-
+              coursesStudentsDao.deleteStudentFromCourseById(courseId,studentId);
     }
 }
