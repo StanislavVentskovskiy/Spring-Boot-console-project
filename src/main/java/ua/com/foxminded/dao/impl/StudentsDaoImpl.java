@@ -35,8 +35,9 @@ public class StudentsDaoImpl implements StudentDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void insertStudent(Student student) {
-        jdbcTemplate.update(insertStudentSQL, student.getGroup(), student.getName(), student.getSurname());
+    public int insertStudent(Student student) {
+        int studentInsertionResult = jdbcTemplate.update(insertStudentSQL, student.getGroup(), student.getName(), student.getSurname());
+        return studentInsertionResult;
     }
 
     public void insertStudentsList(ArrayList<Student> students) {

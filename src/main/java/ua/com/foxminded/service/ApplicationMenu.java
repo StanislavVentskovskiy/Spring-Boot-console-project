@@ -2,7 +2,6 @@ package ua.com.foxminded.service;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ua.com.foxminded.config.SpringConfig;
-import ua.com.foxminded.dao.CoursesStudentsDao;
 import ua.com.foxminded.exceptions.DAOException;
 import ua.com.foxminded.dao.impl.CourseDaoImpl;
 import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
@@ -10,6 +9,7 @@ import ua.com.foxminded.dao.impl.StudentsDaoImpl;
 import ua.com.foxminded.formatter.Formatter;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.model.Student;
+import ua.com.foxminded.service.validaton.ApplicationMenuValidator;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,13 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationMenu {
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+    private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
     private Formatter formatter = new Formatter();
     private BufferedReader userInputLine = new BufferedReader(new InputStreamReader(System.in));
-    private final int studentLimit = 200;
-    StudentsDaoImpl studentsDao = context.getBean(StudentsDaoImpl.class);
-    CourseDaoImpl courseDao = context.getBean(CourseDaoImpl.class);
-    CoursesStudentsDao coursesStudentsDao = context.getBean(CoursesStudentsDaoImpl.class);
+    private StudentsDaoImpl studentsDao = context.getBean(StudentsDaoImpl.class);
+    private CourseDaoImpl courseDao = context.getBean(CourseDaoImpl.class);
+    private CoursesStudentsDaoImpl coursesStudentsDao = context.getBean(CoursesStudentsDaoImpl.class);
+    private ApplicationMenuValidator applicationMenuValidator = context.getBean(ApplicationMenuValidator.class);
 
     public void callConsoleMenu() throws DAOException {
         try {
@@ -55,11 +55,15 @@ public class ApplicationMenu {
                 formatter.showStudentsList(getStudentList());
                 formatter.showMessageChooseStudentById();
                 int studentId = studentIdValidation(userInputLine.readLine());
-                formatter.showCoursesList(getCourseList());
-                formatter.showMessageChooseCourseById();
-                int courseId = checkViableCourseId(userInputLine.readLine());
-                addStudentToCourse(studentId, courseId);
-                formatter.showMessageStudentAddedToCourse();
+                boolean studentExist = applicationMenuValidator.validateStudentId(studentId, studentsDao.getStudentsIdList());
+                if (studentExist == true) {
+                    formatter.showCoursesList(getCourseList());
+                    formatter.showMessageChooseCourseById();
+                    int courseId = checkViableCourseId(userInputLine.readLine());
+                    addStudentToCourse(studentId, courseId);
+                } else {
+                    formatter.showMessageNoSuchStudentFound();
+                }
             } else if (userInput.equals("f")) {
                 formatter.showStudentsList(getStudentList());
                 formatter.showMessageChooseStudentById();
@@ -68,11 +72,11 @@ public class ApplicationMenu {
                 formatter.showMessageToChooseCourseById();
                 int courseId = studentIdValidation(userInputLine.readLine());
                 removeStudentFromCourseByStudentId(courseId, studentId);
-                formatter.showMessageStudentWasRemovedFromCourse();
                 formatter.showBackToMenuMessage();
             } else {
                 formatter.showMessageEnteredDataIsInvalid();
             }
+            formatter.showInitialMenu();
         }
     }
 
@@ -82,46 +86,44 @@ public class ApplicationMenu {
     }
 
     public void findAllGroupWithEqualOrLessStudentsNumber(String userInput) {
-        try {
-            int studentsNumber = Integer.parseInt(userInput);
-            getAllGroupsWithEqualOrLessStudents(Integer.valueOf(studentsNumber));
-        } catch (NumberFormatException e) {
+        if (applicationMenuValidator.validateIntegerInput(userInput) == true) {
+            getAllGroupsWithEqualOrLessStudents(Integer.valueOf(userInput));
+        } else {
             formatter.showMessageEnteredDataIsInvalid();
         }
-        formatter.showBackToMenuMessage();
     }
 
     private void findAllStudentsRelatedToCourseWithGivenName(String courseName) {
         try {
             getAllStudentsOfChosenCourse(courseName);
         } catch (Exception e) {
-           formatter.showMessageEnteredDataIsInvalid();
+            formatter.showMessageEnteredDataIsInvalid();
         }
-           formatter.showBackToMenuMessage();
+        formatter.showBackToMenuMessage();
     }
 
-    private void getAllCoursesNameList(){
+    private void getAllCoursesNameList() {
         formatter.getCourseNameList(courseDao.getCourseList());
     }
 
     public void getAllStudentsOfChosenCourse(String courseName) {
         ArrayList<String> studentsList = coursesStudentsDao.getStudentsNamesAndSurnamesList(coursesStudentsDao.getStudentsListRelatedToCourseByName(courseName));
-        getFormattedStudentList(studentsList,courseName);
-    }
-
-    private void getFormattedStudentList(ArrayList<String> studentsList, String courseName)  {
-        if (!studentsList.isEmpty()) {
-            formatter.formatStudentsListOfChosenCourse(courseName, studentsList);
+        if (applicationMenuValidator.validateCourseName(studentsList) == true) {
+            getFormattedStudentList(studentsList, courseName);
         } else {
             formatter.showMessageEnteredDataIsInvalid();
         }
+    }
+
+    private void getFormattedStudentList(ArrayList<String> studentsList, String courseName) {
+        formatter.formatStudentsListOfChosenCourse(courseName, studentsList);
     }
 
     private void addNewStudent(String studentNameAndSurname) {
         String[] nameAndSurname = studentNameAndSurname.split(" ");
         try {
             Student student = new Student(nameAndSurname[0], nameAndSurname[1]);
-            studentsDao.insertStudent(student);
+            applicationMenuValidator.validateStudentInsert(studentsDao.insertStudent(student));
             formatter.showMessageStudentAdded();
         } catch (ArrayIndexOutOfBoundsException e) {
             formatter.showMessageStudentNameAndSurnameInvalid();
@@ -132,16 +134,23 @@ public class ApplicationMenu {
     private void deleteStudentById(String userInput) {
         try {
             int studentId = Integer.parseInt(userInput);
-
-            studentsDao.deleteStudentById(studentId);
-            formatter.showMessageStudentDeleted();
-           } catch (NumberFormatException e) {
+            deleteValidatedStudent(studentId);
+        } catch (NumberFormatException e) {
             formatter.showMessageStudentIdIsInvalid();
         }
         formatter.showBackToMenuMessage();
     }
 
-    private List<Student> getStudentList(){
+    private void deleteValidatedStudent(int deleteResult) {
+        if (applicationMenuValidator.validateStudentDelete(deleteResult) == true) {
+            formatter.showMessageStudentDeleted();
+        } else {
+            formatter.showMessageNoSuchStudentFound();
+        }
+    }
+
+
+    private List<Student> getStudentList() {
 
         return studentsDao.getStudentsList();
     }
@@ -150,11 +159,6 @@ public class ApplicationMenu {
         int studentId = 0;
         try {
             studentId = Integer.parseInt(userInput);
-
-            if (studentId > studentLimit) {
-                throw new NumberFormatException();
-            }
-
         } catch (NumberFormatException e) {
             formatter.showMessageStudentIdIsInvalid();
         }
@@ -167,29 +171,36 @@ public class ApplicationMenu {
     }
 
     private Integer checkViableCourseId(String userInput) {
-        int studentId = 0;
+        int courseId = 0;
         try {
-            studentId = Integer.parseInt(userInput);
-
-            if (studentId > 10) {
+            courseId = Integer.parseInt(userInput);
+            if (courseId > 10) {
                 throw new NumberFormatException();
             }
-
         } catch (NumberFormatException e) {
             formatter.showMessageStudentIdIsInvalid();
         }
-        return studentId;
+        return courseId;
     }
 
     private void addStudentToCourse(int studentId, int courseId) {
-        coursesStudentsDao.insertStudentAndCourse(studentId,courseId);
+        if (coursesStudentsDao.getCoursesIdListByStudent(studentId).contains(courseId)) {
+            formatter.showMessageStudentAlreadyAssignedToCourse();
+        } else {
+            coursesStudentsDao.insertStudentAndCourse(studentId, courseId);
+            formatter.showMessageStudentAdded();
+        }
     }
 
     private ArrayList<Course> getCourseListByStudentId(int studentsId) {
         return coursesStudentsDao.getCourseListByStudentId(studentsId);
     }
 
-    private void removeStudentFromCourseByStudentId(int courseId,int studentId) {
-              coursesStudentsDao.deleteStudentFromCourseById(courseId,studentId);
+    private void removeStudentFromCourseByStudentId(int courseId, int studentId) {
+        if (applicationMenuValidator.validateDeleteStudentFromCourse(coursesStudentsDao.deleteStudentFromCourseById(courseId, studentId))) {
+            formatter.showMessageStudentWasRemovedFromCourse();
+        } else {
+            formatter.showMessageNoCourseFoundAssignedToCurrentStudent();
+        }
     }
 }

@@ -7,10 +7,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.test.context.jdbc.Sql;
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("ua.com.foxminded")
+@Sql("/schema.sql")
 @PropertySource("classpath:application.properties")
 public class SpringConfig {
     @Value("${postgresql.driver}")

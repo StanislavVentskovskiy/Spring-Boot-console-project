@@ -79,10 +79,6 @@ public class Formatter {
         }
     }
 
-    public void showMessageStudentAddedToCourse(){
-        System.out.println(userMenuMessages.studentAssignedMessage);
-    }
-
     public void showMessageToChooseCourseById() {
         System.out.println(userMenuMessages.courseToDeleteMessage);
     }
@@ -111,5 +107,17 @@ public class Formatter {
         for(int index = 0; index < dataList.size(); index++) {
             System.out.println(dataList.get(index));
         }
+    }
+
+    public void showMessageNoSuchStudentFound(){
+        System.out.println(userMenuMessages.noSuchStudentFoundMessage);
+    }
+
+    public void showMessageStudentAlreadyAssignedToCourse(){
+        System.out.println(userMenuMessages.suchStudentAlreadyAssignedToCourse);
+    }
+
+    public void showMessageNoCourseFoundAssignedToCurrentStudent(){
+        System.out.println(userMenuMessages.noCourseAssignedToStudent);
     }
 }

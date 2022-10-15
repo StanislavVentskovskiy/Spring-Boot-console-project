@@ -30,14 +30,17 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
         "JOIN schoolconsoleapp.coursesstudents\n" +
         "ON coursesstudents.course_id = courses.id\n" +
         "WHERE coursesstudents.student_id = ";
-    public final String deleteStudentQUERY = "DELETE FROM schoolconsoleapp.coursesstudents WHERE course_id = %d AND student_id = %d;";
+    private final String deleteStudentQUERY = "DELETE FROM schoolconsoleapp.coursesstudents WHERE course_id = %d AND student_id = %d;";
+    private final String courseIdListByStudentId =  "SELECT course_id \n" +
+    "FROM schoolconsoleapp.coursesstudents \n" +
+    "WHERE student_id =";
 
     public CoursesStudentsDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void insertStudentAndCourse(int studentId, int courseId) {
-        jdbcTemplate.update(insertStudentsSQL, courseId, studentId);
+    public int insertStudentAndCourse(int studentId, int courseId) {
+        return jdbcTemplate.update(insertStudentsSQL, courseId, studentId);
     }
 
     public ArrayList<Student> getStudentsListRelatedToCourseByName(String courseName) {
@@ -56,7 +59,11 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
         return (ArrayList<Course>) jdbcTemplate.query(courseListByIdQUERRY + studentId, new CourseMapper());
     }
 
-    public void deleteStudentFromCourseById(int courseId, int studentId) {
-        jdbcTemplate.update(String.format(deleteStudentQUERY, courseId, studentId));
+    public int deleteStudentFromCourseById(int courseId, int studentId) {
+       return jdbcTemplate.update(String.format(deleteStudentQUERY, courseId, studentId));
+    }
+
+    public ArrayList<Integer> getCoursesIdListByStudent(int studentId){
+       return (ArrayList<Integer>) jdbcTemplate.queryForList(courseIdListByStudentId+studentId,Integer.class);
     }
 }

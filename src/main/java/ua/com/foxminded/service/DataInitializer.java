@@ -10,7 +10,7 @@ import ua.com.foxminded.util.CourseGenerator;
 import ua.com.foxminded.util.GroupsGenerator;
 
 public class DataInitializer {
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+    private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
     private SqlScriptRunner sqlScriptRunner = new SqlScriptRunner();
     private GroupsGenerator groupGenerator = new GroupsGenerator();
     private GroupDaoImpl groupDao = context.getBean(GroupDaoImpl.class);

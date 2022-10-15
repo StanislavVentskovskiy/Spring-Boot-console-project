@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class StudentsCoursesAssignation {
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+    private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
     private ArrayList<Integer> studentsIdList = new ArrayList<>();
     private ArrayList<Integer> coursesIdList = new ArrayList<>();
-
     private CoursesStudentsDaoImpl coursesStudentsDao = context.getBean(CoursesStudentsDaoImpl.class);
 
     public StudentsCoursesAssignation(ArrayList<Integer> studentsIdList, ArrayList<Integer> coursesIdList){

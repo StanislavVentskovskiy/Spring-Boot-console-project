@@ -5,7 +5,7 @@ import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
 
 public interface StudentDao {
-    void insertStudent(Student student);
+    int insertStudent(Student student);
 
     void insertStudentsList(ArrayList<Student> studentList);
 

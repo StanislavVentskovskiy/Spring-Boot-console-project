@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public interface CoursesStudentsDao {
 
-    void insertStudentAndCourse(int studentId, int courseId);
+    int insertStudentAndCourse(int studentId, int courseId);
 
     ArrayList<Student> getStudentsListRelatedToCourseByName(String courseName);
 
     ArrayList<Course> getCourseListByStudentId(int studentId);
 
-    void deleteStudentFromCourseById(int studentId, int courseId);
+    int deleteStudentFromCourseById(int studentId, int courseId);
 
     ArrayList<String> getStudentsNamesAndSurnamesList(ArrayList<Student> studentsListRelatedToCourseByName);
 }
