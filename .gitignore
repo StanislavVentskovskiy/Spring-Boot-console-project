@@ -1,3 +1,5 @@
 target
 .idea
 .bin
+/src/resources/shcema.sql
+/SqlScriptRunner.java

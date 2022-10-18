@@ -15,6 +15,7 @@ public class SqlScriptRunner {
     private Properties properties;
     private ApplicationProperties applicationProperties = new ApplicationProperties();
 
+
     public void runScript() {
         try(Connection connection = ConnectionFactory.getInstance().makeConnection()) {
             connection.setAutoCommit(false);

@@ -7,5 +7,5 @@ public class Main {
         ApplicationMenu applicationMenu = new ApplicationMenu();
         dataInitializer.initializeApplicationData();
         applicationMenu.callConsoleMenu();
-    }
+   }
 }

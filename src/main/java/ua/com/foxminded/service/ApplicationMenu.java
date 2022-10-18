@@ -93,7 +93,7 @@ public class ApplicationMenu {
         }
     }
 
-    private void findAllStudentsRelatedToCourseWithGivenName(String courseName) {
+    public void findAllStudentsRelatedToCourseWithGivenName(String courseName) {
         try {
             getAllStudentsOfChosenCourse(courseName);
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class ApplicationMenu {
 
     public void getAllStudentsOfChosenCourse(String courseName) {
         ArrayList<String> studentsList = coursesStudentsDao.getStudentsNamesAndSurnamesList(coursesStudentsDao.getStudentsListRelatedToCourseByName(courseName));
-        if (applicationMenuValidator.validateCourseName(studentsList) == true) {
+          if (applicationMenuValidator.validateCourseName(studentsList) == true) {
             getFormattedStudentList(studentsList, courseName);
         } else {
             formatter.showMessageEnteredDataIsInvalid();

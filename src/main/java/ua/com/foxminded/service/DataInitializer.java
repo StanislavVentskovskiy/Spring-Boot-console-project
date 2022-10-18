@@ -11,7 +11,6 @@ import ua.com.foxminded.util.GroupsGenerator;
 
 public class DataInitializer {
     private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-    private SqlScriptRunner sqlScriptRunner = new SqlScriptRunner();
     private GroupsGenerator groupGenerator = new GroupsGenerator();
     private GroupDaoImpl groupDao = context.getBean(GroupDaoImpl.class);
     private CourseGenerator courseGenerator = new CourseGenerator();
@@ -19,17 +18,16 @@ public class DataInitializer {
     private StudentsGenerator studentsGenerator = new StudentsGenerator();
     private StudentsDaoImpl studentsDaoImpl = context.getBean(StudentsDaoImpl.class);
     private StudentsGroupsAssignation studentAssignation = new StudentsGroupsAssignation(studentsGenerator.generateStudentsList());
-    private StudentsCoursesAssignation studentsCoursesAssignation = new StudentsCoursesAssignation(studentsDaoImpl.getStudentsIdList(), courseDao.getCoursesIdList());
 
     public DataInitializer() {
     }
 
     public void initializeApplicationData() {
-        sqlScriptRunner.runScript();
         groupDao.insertGroupList(groupGenerator.generateGroups());
         courseDao.insertCourseList(courseGenerator.generateCourseList());
         studentAssignation.assignStudentsToGroups();
         studentsDaoImpl.insertStudentsList(studentAssignation.getStudentsList());
-        studentsCoursesAssignation.assignCoursesToStudent();
+        StudentsCoursesAssignation studentsCoursesAssignation = new StudentsCoursesAssignation(studentsDaoImpl.getStudentsIdList(), courseDao.getCoursesIdList());
+       studentsCoursesAssignation.assignCoursesToStudent();
     }
 }

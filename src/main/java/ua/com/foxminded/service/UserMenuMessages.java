@@ -1,7 +1,7 @@
 package ua.com.foxminded.service;
 
 public final class UserMenuMessages {
-    public static final String initialMenuMessage = "\n + Data initiated please choose request from list below: \n" +
+    public static final String initialMenuMessage = "\nData initiated please choose request from list below: \n" +
         "type \"a\" - find all groups with less or equal students number. \n" +
         "type \"b\" - find all students related to the course with given name. \n" +
         "type \"c\" - add new student. \n" +
