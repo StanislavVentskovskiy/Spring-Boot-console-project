@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 @Component
 public class GroupDaoImpl implements GroupDao {
-    private JdbcTemplate jdbcTemplate;
-    private final String insertGroupSQL = "INSERT INTO postgres.schoolconsoleapp.groups(group_name) " + "VALUES(?)";
+   private JdbcTemplate jdbcTemplate;
+   private final String insertGroupSQL = "INSERT INTO postgres.schoolconsoleapp.groups(group_name) " + "VALUES(?)";
 
-    @Autowired
-    public GroupDaoImpl(JdbcTemplate jdbcTemplate){
-        this.jdbcTemplate = jdbcTemplate;
-    }
+   @Autowired
+   public GroupDaoImpl(JdbcTemplate jdbcTemplate){
+       this.jdbcTemplate = jdbcTemplate;
+   }
 
     @Override
     public void insertGroup(final Group group) {

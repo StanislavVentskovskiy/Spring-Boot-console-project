@@ -1,10 +1,12 @@
 package ua.com.foxminded.util;
 
+import org.springframework.stereotype.Service;
 import ua.com.foxminded.model.Group;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Stream;
 
+@Service
 public class GroupsGenerator {
     private ArrayList<Group> groupList  = new ArrayList<>();
     private String possibleCharacterInGroupName = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -19,7 +21,7 @@ public class GroupsGenerator {
         return groupList;
     }
 
-    public String generateCharacterPart() {
+    private String generateCharacterPart() {
         Random randomIndex = new Random();
         StringBuilder characterPart = new StringBuilder();
         Stream<Integer> stream = Stream.of(1,2);

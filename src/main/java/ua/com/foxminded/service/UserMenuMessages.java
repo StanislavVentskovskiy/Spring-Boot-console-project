@@ -1,5 +1,8 @@
 package ua.com.foxminded.service;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public final class UserMenuMessages {
     public static final String initialMenuMessage = "\nData initiated please choose request from list below: \n" +
         "type \"a\" - find all groups with less or equal students number. \n" +
@@ -22,10 +25,9 @@ public final class UserMenuMessages {
     public static final String enterStudentIdMessage = "Enter student id:";
     public static final String chooseStudentFromIdMessage = "Choose student by Id from list above:";
     public static final String chooseCourseFromIdMessage = "Choose course by Id from list above:";
-    public static final String studentAssignedMessage = "Student assigned do course successfully.";
     public static final String courseToDeleteMessage = "Choose one course to delete by Id above:";
     public static final String studentDeleteMessage = "Student deleted from course.";
-    public static final String studentAddedMessage = "Student added to list.";
+    public static final String studentAddedMessage = "Student assigned do course successfully.";
     public static final String studentRemovedMessage = "Student removed.";
     public static final String noSuchStudentFoundMessage = "No such student found.";
     public static final String suchStudentAlreadyAssignedToCourse = "This student already assigned to chosen course.";

@@ -1,7 +1,8 @@
 package ua.com.foxminded.service;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ua.com.foxminded.config.SpringConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 import ua.com.foxminded.dao.impl.CourseDaoImpl;
 import ua.com.foxminded.dao.impl.GroupDaoImpl;
 import ua.com.foxminded.dao.impl.StudentsDaoImpl;
@@ -9,15 +10,26 @@ import ua.com.foxminded.util.StudentsGenerator;
 import ua.com.foxminded.util.CourseGenerator;
 import ua.com.foxminded.util.GroupsGenerator;
 
+@Service
 public class DataInitializer {
-    private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-    private GroupsGenerator groupGenerator = new GroupsGenerator();
-    private GroupDaoImpl groupDao = context.getBean(GroupDaoImpl.class);
-    private CourseGenerator courseGenerator = new CourseGenerator();
-    private CourseDaoImpl courseDao = context.getBean(CourseDaoImpl.class);
-    private StudentsGenerator studentsGenerator = new StudentsGenerator();
-    private StudentsDaoImpl studentsDaoImpl = context.getBean(StudentsDaoImpl.class);
-    private StudentsGroupsAssignation studentAssignation = new StudentsGroupsAssignation(studentsGenerator.generateStudentsList());
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+    @Autowired
+    private GroupsGenerator groupGenerator;
+    @Autowired
+    private GroupDaoImpl groupDao;
+    @Autowired
+    private CourseGenerator courseGenerator;
+    @Autowired
+    private CourseDaoImpl courseDao;
+    @Autowired
+    private StudentsGenerator studentsGenerator;
+    @Autowired
+    private StudentsDaoImpl studentsDaoImpl;
+    @Autowired
+    private StudentsGroupsAssignation studentAssignation;
+    @Autowired
+    private StudentsCoursesAssignation studentsCoursesAssignation;
 
     public DataInitializer() {
     }
@@ -25,9 +37,11 @@ public class DataInitializer {
     public void initializeApplicationData() {
         groupDao.insertGroupList(groupGenerator.generateGroups());
         courseDao.insertCourseList(courseGenerator.generateCourseList());
+        studentAssignation.setStudentsList(studentsGenerator.generateStudentsList());
         studentAssignation.assignStudentsToGroups();
         studentsDaoImpl.insertStudentsList(studentAssignation.getStudentsList());
-        StudentsCoursesAssignation studentsCoursesAssignation = new StudentsCoursesAssignation(studentsDaoImpl.getStudentsIdList(), courseDao.getCoursesIdList());
-       studentsCoursesAssignation.assignCoursesToStudent();
+        studentsCoursesAssignation.setCoursesIdList(courseDao.getCoursesIdList());
+        studentsCoursesAssignation.setStudentsIdList(studentsDaoImpl.getStudentsIdList());
+        studentsCoursesAssignation.assignCoursesToStudent();
     }
 }

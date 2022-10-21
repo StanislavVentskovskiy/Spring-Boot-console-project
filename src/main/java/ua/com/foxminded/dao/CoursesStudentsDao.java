@@ -5,7 +5,6 @@ import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
 
 public interface CoursesStudentsDao {
-
     int insertStudentAndCourse(int studentId, int courseId);
 
     ArrayList<Student> getStudentsListRelatedToCourseByName(String courseName);

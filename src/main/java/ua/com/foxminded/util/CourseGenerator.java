@@ -1,5 +1,6 @@
 package ua.com.foxminded.util;
 
+import org.springframework.stereotype.Service;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.reader.DataReader;
 import java.io.IOException;
@@ -8,18 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class CourseGenerator {
     private ArrayList<Course> courseList = new ArrayList<>();
     private HashMap<String,String> coursesNamesAndDescription = new HashMap<>();
-
-    public CourseGenerator() {
-        DataReader dataReader = new DataReader();
-        try {
-            coursesNamesAndDescription = dataReader.readGeneratedData(Paths.get(PathPropertiesUtil.get("courses.name.and.description.directory")));
-        } catch (IOException e) {
-            System.err.println("File reading error.");
-        }
-    }
 
     public ArrayList<Course> generateCourseList() {
         for(Map.Entry<String,String> entry: coursesNamesAndDescription.entrySet()) {
@@ -29,5 +22,14 @@ public class CourseGenerator {
         }
 
         return courseList;
+    }
+
+    private CourseGenerator() {
+        DataReader dataReader = new DataReader();
+        try {
+            coursesNamesAndDescription = dataReader.readGeneratedData(Paths.get(PathPropertiesUtil.get("courses.name.and.description.directory")));
+        } catch (IOException e) {
+            System.err.println("File reading error.");
+        }
     }
 }

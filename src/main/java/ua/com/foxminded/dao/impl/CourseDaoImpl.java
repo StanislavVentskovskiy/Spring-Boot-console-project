@@ -1,5 +1,6 @@
 package ua.com.foxminded.dao.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ua.com.foxminded.dao.CourseDao;
@@ -14,6 +15,7 @@ public class CourseDaoImpl implements CourseDao {
     private final String coursesIdQUERY = "SELECT id FROM postgres.schoolconsoleapp.courses";
     private final String courseListQUERY = "SELECT * FROM schoolconsoleapp.courses;";
 
+    @Autowired
     public CourseDaoImpl(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }

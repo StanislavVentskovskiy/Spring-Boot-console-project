@@ -1,5 +1,6 @@
 package ua.com.foxminded.dao.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ua.com.foxminded.dao.StudentDao;
@@ -21,16 +22,18 @@ public class StudentsDaoImpl implements StudentDao {
             "WHERE schoolconsoleapp.groups.group_name IS NOT NULL\n" +
             "GROUP BY groups.group_name\n" +
             "HAVING COUNT(*) <=";
-    private final String deleteStudentQUERY = "ALTER TABLE schoolconsoleapp.coursesstudents DROP \n" +
-            "   CONSTRAINT student_id;\n" +
-            "ALTER TABLE schoolconsoleapp.coursesstudents ADD \n" +
-            "   CONSTRAINT student_id \n" +
-            "      FOREIGN KEY (student_id )\n" +
-            "      REFERENCES schoolconsoleapp.students (id)\n" +
-            "      ON DELETE CASCADE;\n" +
-            "DELETE FROM schoolconsoleapp.students WHERE id =";
+    private final String deleteStudentQUERY =  "DELETE FROM schoolconsoleapp.students WHERE id =";
+    private final String deleteForeinKeyStudentId =
+            "ALTER TABLE schoolconsoleapp.coursesstudents DROP\n" +
+            "CONSTRAINT student_id;" +
+            "ALTER TABLE schoolconsoleapp.coursesstudents ADD\n" +
+            "CONSTRAINT student_id\n" +
+            "FOREIGN KEY (student_id )\n" +
+            "REFERENCES schoolconsoleapp.students (id)\n" +
+            "ON DELETE CASCADE;";
     private final String studentsListQUERY = "SELECT * FROM schoolconsoleapp.students";
 
+    @Autowired
     public StudentsDaoImpl(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -58,8 +61,9 @@ public class StudentsDaoImpl implements StudentDao {
         return groupsNames;
     }
 
-    public void deleteStudentById(int studentId) {
-        jdbcTemplate.update(deleteStudentQUERY + studentId);
+    public int deleteStudentById(int studentId) {
+             jdbcTemplate.update(deleteForeinKeyStudentId);
+      return jdbcTemplate.update(deleteStudentQUERY + studentId);
     }
 
     public ArrayList<Student> getStudentsList(){

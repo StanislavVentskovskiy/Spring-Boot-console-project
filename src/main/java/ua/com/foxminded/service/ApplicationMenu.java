@@ -1,7 +1,7 @@
 package ua.com.foxminded.service;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ua.com.foxminded.config.SpringConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.com.foxminded.exceptions.DAOException;
 import ua.com.foxminded.dao.impl.CourseDaoImpl;
 import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
@@ -16,14 +16,19 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ApplicationMenu {
-    private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-    private Formatter formatter = new Formatter();
     private BufferedReader userInputLine = new BufferedReader(new InputStreamReader(System.in));
-    private StudentsDaoImpl studentsDao = context.getBean(StudentsDaoImpl.class);
-    private CourseDaoImpl courseDao = context.getBean(CourseDaoImpl.class);
-    private CoursesStudentsDaoImpl coursesStudentsDao = context.getBean(CoursesStudentsDaoImpl.class);
-    private ApplicationMenuValidator applicationMenuValidator = context.getBean(ApplicationMenuValidator.class);
+    @Autowired
+    private Formatter formatter;
+    @Autowired
+    private StudentsDaoImpl studentsDao;
+    @Autowired
+    private CourseDaoImpl courseDao;
+    @Autowired
+    private CoursesStudentsDaoImpl coursesStudentsDao;
+    @Autowired
+    private ApplicationMenuValidator applicationMenuValidator;
 
     public void callConsoleMenu() throws DAOException {
         try {
@@ -80,12 +85,12 @@ public class ApplicationMenu {
         }
     }
 
-    public void getAllGroupsWithEqualOrLessStudents(int studentsNumber) {
+    private void getAllGroupsWithEqualOrLessStudents(int studentsNumber) {
         ArrayList<String> groupList = studentsDao.getGroupsWithEqualOrLessStudentsNumber(studentsDao.getGroupsWithEqualOrLessStudentsNumber(studentsNumber));
         formatter.formatGroupListOutput(studentsNumber, groupList);
     }
 
-    public void findAllGroupWithEqualOrLessStudentsNumber(String userInput) {
+    private void findAllGroupWithEqualOrLessStudentsNumber(String userInput) {
         if (applicationMenuValidator.validateIntegerInput(userInput) == true) {
             getAllGroupsWithEqualOrLessStudents(Integer.valueOf(userInput));
         } else {
@@ -93,7 +98,7 @@ public class ApplicationMenu {
         }
     }
 
-    public void findAllStudentsRelatedToCourseWithGivenName(String courseName) {
+    private void findAllStudentsRelatedToCourseWithGivenName(String courseName) {
         try {
             getAllStudentsOfChosenCourse(courseName);
         } catch (Exception e) {
@@ -106,7 +111,7 @@ public class ApplicationMenu {
         formatter.getCourseNameList(courseDao.getCourseList());
     }
 
-    public void getAllStudentsOfChosenCourse(String courseName) {
+    private void getAllStudentsOfChosenCourse(String courseName) {
         ArrayList<String> studentsList = coursesStudentsDao.getStudentsNamesAndSurnamesList(coursesStudentsDao.getStudentsListRelatedToCourseByName(courseName));
           if (applicationMenuValidator.validateCourseName(studentsList) == true) {
             getFormattedStudentList(studentsList, courseName);
@@ -134,7 +139,7 @@ public class ApplicationMenu {
     private void deleteStudentById(String userInput) {
         try {
             int studentId = Integer.parseInt(userInput);
-            deleteValidatedStudent(studentId);
+            deleteValidatedStudent(studentsDao.deleteStudentById(studentId));
         } catch (NumberFormatException e) {
             formatter.showMessageStudentIdIsInvalid();
         }

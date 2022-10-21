@@ -1,9 +1,9 @@
 package ua.com.foxminded.service.validaton;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
-@Component
+@Service
 public class ApplicationMenuValidator {
 
     public boolean validateIntegerInput(String input){
@@ -22,6 +22,7 @@ public class ApplicationMenuValidator {
             return false;
         }
     }
+
     public boolean validateStudentInsert(int studentInsertingResult){
         if (studentInsertingResult == 1) {
             return true;

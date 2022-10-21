@@ -1,40 +1,48 @@
 package ua.com.foxminded.service;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import ua.com.foxminded.config.SpringConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
 import java.util.ArrayList;
 import java.util.Collections;
 
+@Service
 public class StudentsCoursesAssignation {
-    private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-    private ArrayList<Integer> studentsIdList = new ArrayList<>();
-    private ArrayList<Integer> coursesIdList = new ArrayList<>();
-    private CoursesStudentsDaoImpl coursesStudentsDao = context.getBean(CoursesStudentsDaoImpl.class);
+   private ArrayList<Integer> studentsIdList = new ArrayList<>();
+   private ArrayList<Integer> coursesIdList = new ArrayList<>();
+   private CoursesStudentsDaoImpl coursesStudentsDao;
 
-    public StudentsCoursesAssignation(ArrayList<Integer> studentsIdList, ArrayList<Integer> coursesIdList){
-        this.coursesIdList = coursesIdList;
+    @Autowired
+    public StudentsCoursesAssignation(CoursesStudentsDaoImpl coursesStudentsDao){
+       this.coursesStudentsDao = coursesStudentsDao;
+    }
+
+    public void setStudentsIdList(ArrayList<Integer> studentsIdList) {
         this.studentsIdList = studentsIdList;
+    }
+
+    public void setCoursesIdList(ArrayList<Integer> coursesIdList) {
+        this.coursesIdList = coursesIdList;
     }
 
     public void assignCoursesToStudent() {
         int courseNumber;
-        for(int index = studentsIdList.size(); index > 0; index--) {
+        for (int index = studentsIdList.size(); index > 0; index--) {
             courseNumber = generateCoursesNumber();
-            insertOneStudentAndFewCourses(index,courseNumber);
+            insertOneStudentAndFewCourses(index, courseNumber);
         }
     }
 
-    private int generateCoursesNumber() {
-        int coursesNumber = (int)(Math.random()*(4-1))+1;
+     private int generateCoursesNumber () {
+            int coursesNumber = (int) (Math.random() * (4 - 1)) + 1;
 
-        return coursesNumber;
-    }
+            return coursesNumber;
+        }
 
-    private void insertOneStudentAndFewCourses(int studentId, int courseNumber) {
-        Collections.shuffle(coursesIdList);
-        for(int index = courseNumber; index > 0; index--) {
-            coursesStudentsDao.insertStudentAndCourse(studentId,coursesIdList.get(index));
+     private void insertOneStudentAndFewCourses (int studentId, int courseNumber){
+           Collections.shuffle(coursesIdList);
+            for (int index = courseNumber; index > 0; index--) {
+                coursesStudentsDao.insertStudentAndCourse(studentId, coursesIdList.get(index));
+            }
         }
     }
-}

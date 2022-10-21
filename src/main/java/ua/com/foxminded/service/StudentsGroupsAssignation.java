@@ -1,21 +1,22 @@
 package ua.com.foxminded.service;
 
+import org.springframework.stereotype.Service;
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
+@Service
 public class StudentsGroupsAssignation {
     private ArrayList<Student> studentsList = new ArrayList<>();
     private int studentsWithNoGroup = 170;
 
-    public StudentsGroupsAssignation(ArrayList<Student> studentsList){
-
-        this.studentsList = studentsList;
-    }
-
     public ArrayList<Student> getStudentsList() {
 
         return studentsList;
+    }
+
+    public void setStudentsList(ArrayList<Student> studentsList) {
+        this.studentsList = studentsList;
     }
 
     public void assignStudentsToGroups(){

@@ -1,9 +1,11 @@
 package ua.com.foxminded.util;
 
+import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+@Service
 public final class PathPropertiesUtil {
     private static final Properties PROPERTIES = new Properties();
 

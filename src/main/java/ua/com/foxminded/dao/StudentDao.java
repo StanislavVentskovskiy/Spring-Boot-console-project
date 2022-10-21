@@ -9,7 +9,7 @@ public interface StudentDao {
 
     void insertStudentsList(ArrayList<Student> studentList);
 
-    void deleteStudentById(int id);
+    int deleteStudentById(int id);
 
     ArrayList<Integer> getStudentsIdList();
 

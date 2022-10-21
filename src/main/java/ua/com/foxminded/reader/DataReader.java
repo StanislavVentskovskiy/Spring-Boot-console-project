@@ -1,11 +1,14 @@
 package ua.com.foxminded.reader;
 
+
+import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.stream.Stream;
 
+@Service
 public class DataReader {
     public HashMap<String,String> readGeneratedData(Path pathToGeneratedData) throws IOException {
         HashMap<String, String> readedData = new HashMap<>();
