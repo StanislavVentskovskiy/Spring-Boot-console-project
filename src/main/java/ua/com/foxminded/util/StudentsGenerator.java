@@ -1,6 +1,7 @@
 package ua.com.foxminded.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.reader.DataReader;
 import ua.com.foxminded.model.Student;
@@ -15,19 +16,21 @@ public class StudentsGenerator {
     private List<String> nameList = new ArrayList<>();
     private List<String> surnameList = new ArrayList<>();
     private final int studentsNumber = 200;
-    private DataReader dataReader;
-
     @Autowired
-    public StudentsGenerator(DataReader dataReader) {
-        this.dataReader = dataReader;
+    private DataReader dataReader;
+    @Value("${students.name.and.surname.directory}")
+    private String nameAndSurnamePath;
+
+    private void readDataFromFile(){
         try {
-            studentsGenerationData =  dataReader.readGeneratedData((Paths.get(PathPropertiesUtil.get("students.name.and.surname.directory"))));
+            studentsGenerationData =  dataReader.readGeneratedData((Paths.get(nameAndSurnamePath)));
         } catch (IOException e) {
             System.err.println("File reading error.");
         }
     }
 
     public ArrayList<Student> generateStudentsList(){
+        readDataFromFile();
         for(int index = 0; index < studentsNumber; index++) {
             generateNameList();
             generateSurnameList();

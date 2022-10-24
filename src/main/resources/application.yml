@@ -1,9 +1,21 @@
-app:
-  dataSource:
+spring:
+  datasource:
     postgres:
-      port: 5432
+      url: jdbc:postgresql://localhost:5432/postgres
       username: postgres
       password: password
-      host: localhost
-      databaseName: postgres-0
-      jdbc-url: jdbc:postgresql://localhost:5432/postgres
+      driver-class-name: org.postgresql.Driver
+      schema: schoolconsoleapp
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
+
+    flyway:
+      defalul-schema: V1__init_migration.sql
+      create-schemas: true
+
+version: '3'
+

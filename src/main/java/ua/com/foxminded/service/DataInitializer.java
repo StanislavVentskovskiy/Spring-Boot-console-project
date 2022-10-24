@@ -12,6 +12,7 @@ import ua.com.foxminded.util.GroupsGenerator;
 
 @Service
 public class DataInitializer {
+
     @Autowired
     JdbcTemplate jdbcTemplate;
     @Autowired
@@ -30,9 +31,6 @@ public class DataInitializer {
     private StudentsGroupsAssignation studentAssignation;
     @Autowired
     private StudentsCoursesAssignation studentsCoursesAssignation;
-
-    public DataInitializer() {
-    }
 
     public void initializeApplicationData() {
         groupDao.insertGroupList(groupGenerator.generateGroups());

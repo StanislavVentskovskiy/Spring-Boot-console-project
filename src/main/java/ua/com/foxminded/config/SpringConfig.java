@@ -8,13 +8,12 @@ import org.springframework.test.context.jdbc.Sql;
 import javax.sql.DataSource;
 
 @Configuration
-@Sql("/schema.sql")
+@Sql("schema.sql")
 @PropertySource("classpath:application.properties")
 public class SpringConfig {
 
     @Autowired
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-
         return new JdbcTemplate(dataSource);
     }
 }
