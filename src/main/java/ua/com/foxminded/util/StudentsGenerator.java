@@ -16,8 +16,10 @@ public class StudentsGenerator {
     private List<String> nameList = new ArrayList<>();
     private List<String> surnameList = new ArrayList<>();
     private final int studentsNumber = 200;
+
     @Autowired
     private DataReader dataReader;
+
     @Value("${students.name.and.surname.directory}")
     private String nameAndSurnamePath;
 

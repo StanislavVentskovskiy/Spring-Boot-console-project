@@ -15,20 +15,28 @@ public class DataInitializer {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+
     @Autowired
     private GroupsGenerator groupGenerator;
+
     @Autowired
     private GroupDaoImpl groupDao;
+
     @Autowired
     private CourseGenerator courseGenerator;
+
     @Autowired
     private CourseDaoImpl courseDao;
+
     @Autowired
     private StudentsGenerator studentsGenerator;
+
     @Autowired
     private StudentsDaoImpl studentsDaoImpl;
+
     @Autowired
     private StudentsGroupsAssignation studentAssignation;
+
     @Autowired
     private StudentsCoursesAssignation studentsCoursesAssignation;
 

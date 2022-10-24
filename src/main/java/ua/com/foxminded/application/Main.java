@@ -14,6 +14,7 @@ public class Main implements CommandLineRunner {
 
     @Autowired
     DataInitializer dataInitializer;
+
     @Autowired
     ApplicationMenu applicationMenu;
 

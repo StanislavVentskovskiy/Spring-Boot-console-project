@@ -3,6 +3,7 @@ package ua.com.foxminded.dao;
 import ua.com.foxminded.model.Group;
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface StudentDao {
     int insertStudent(Student student);
@@ -11,9 +12,9 @@ public interface StudentDao {
 
     int deleteStudentById(int id);
 
-    ArrayList<Integer> getStudentsIdList();
+    List<Integer> getStudentsIdList();
 
-    ArrayList<Group> getGroupsWithEqualOrLessStudentsNumber(int studentsNumber);
+    List<Group> getGroupsWithEqualOrLessStudentsNumber(int studentsNumber);
 
-    ArrayList<Student> getStudentsList();
+    List<Student> getStudentsList();
 }

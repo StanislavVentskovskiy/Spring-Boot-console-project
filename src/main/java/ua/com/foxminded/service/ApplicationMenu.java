@@ -19,14 +19,19 @@ import java.util.List;
 @Service
 public class ApplicationMenu {
     private BufferedReader userInputLine = new BufferedReader(new InputStreamReader(System.in));
+
     @Autowired
     private Formatter formatter;
+
     @Autowired
     private StudentsDaoImpl studentsDao;
+
     @Autowired
     private CourseDaoImpl courseDao;
+
     @Autowired
     private CoursesStudentsDaoImpl coursesStudentsDao;
+
     @Autowired
     private ApplicationMenuValidator applicationMenuValidator;
 

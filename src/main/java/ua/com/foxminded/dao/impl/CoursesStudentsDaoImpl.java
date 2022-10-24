@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 @Component
 public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
-    private JdbcTemplate jdbcTemplate;
     private final String insertStudentsSQL = "INSERT INTO postgres.schoolconsoleapp.coursesstudents(course_id, student_id) " + "VALUES(?, ?)";
     private final String studentsRelatedToGivenCourseQUERY = "SELECT\n" +
         "schoolconsoleapp.students.first_name,\n" +
@@ -37,9 +36,7 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
     "WHERE student_id =";
 
     @Autowired
-    public CoursesStudentsDaoImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    private JdbcTemplate jdbcTemplate;
 
     public int insertStudentAndCourse(int studentId, int courseId) {
         return jdbcTemplate.update(insertStudentsSQL, courseId, studentId);

@@ -10,9 +10,11 @@ import java.util.List;
 @Service
 public class Formatter {
     private UserMenuMessages userMenuMessages = new UserMenuMessages();
+
     public void showInitialMenu(){
         System.out.println(userMenuMessages.initialMenuMessage);
     }
+
     public void showMessageEnteredDataIsInvalid(){
         System.out.println(userMenuMessages.enteredDataInvalidMessage);
     }

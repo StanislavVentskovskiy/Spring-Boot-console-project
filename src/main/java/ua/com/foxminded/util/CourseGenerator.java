@@ -13,11 +13,12 @@ import java.util.Map;
 
 @Service
 public class CourseGenerator {
-
     private ArrayList<Course> courseList = new ArrayList<>();
     private HashMap<String,String> coursesNamesAndDescription = new HashMap<>();
+
     @Value("${courses.name.and.description.directory}")
     private String courseAndDescriptionPath;
+
     @Autowired
     DataReader dataReader;
 
