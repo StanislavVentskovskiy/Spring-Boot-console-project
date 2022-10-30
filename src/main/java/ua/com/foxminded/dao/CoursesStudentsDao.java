@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface CoursesStudentsDao {
+
     int insertStudentAndCourse(int studentId, int courseId);
 
     List<Student> getStudentsListRelatedToCourseByName(String courseName);

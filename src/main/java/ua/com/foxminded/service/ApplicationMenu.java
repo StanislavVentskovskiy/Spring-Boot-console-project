@@ -95,7 +95,7 @@ public class ApplicationMenu {
         formatter.formatGroupListOutput(studentsNumber, groupList);
     }
 
-    private void findAllGroupWithEqualOrLessStudentsNumber(String userInput) {
+    public void findAllGroupWithEqualOrLessStudentsNumber(String userInput) {
         if (applicationMenuValidator.validateIntegerInput(userInput) == true) {
             getAllGroupsWithEqualOrLessStudents(Integer.valueOf(userInput));
         } else {
@@ -103,7 +103,7 @@ public class ApplicationMenu {
         }
     }
 
-    private void findAllStudentsRelatedToCourseWithGivenName(String courseName) {
+    public void findAllStudentsRelatedToCourseWithGivenName(String courseName) {
         try {
             getAllStudentsOfChosenCourse(courseName);
         } catch (Exception e) {
@@ -129,7 +129,7 @@ public class ApplicationMenu {
         formatter.formatStudentsListOfChosenCourse(courseName, studentsList);
     }
 
-    private void addNewStudent(String studentNameAndSurname) {
+    public void addNewStudent(String studentNameAndSurname) {
         String[] nameAndSurname = studentNameAndSurname.split(" ");
         try {
             Student student = new Student(nameAndSurname[0], nameAndSurname[1]);
@@ -141,7 +141,7 @@ public class ApplicationMenu {
         formatter.showBackToMenuMessage();
     }
 
-    private void deleteStudentById(String userInput) {
+    public void deleteStudentById(String userInput) {
         try {
             int studentId = Integer.parseInt(userInput);
             deleteValidatedStudent(studentsDao.deleteStudentById(studentId));
@@ -161,7 +161,6 @@ public class ApplicationMenu {
 
 
     private List<Student> getStudentList() {
-
         return studentsDao.getStudentsList();
     }
 
@@ -176,7 +175,6 @@ public class ApplicationMenu {
     }
 
     private ArrayList<Course> getCourseList() {
-
         return courseDao.getCourseList();
     }
 
@@ -193,7 +191,7 @@ public class ApplicationMenu {
         return courseId;
     }
 
-    private void addStudentToCourse(int studentId, int courseId) {
+    public void addStudentToCourse(int studentId, int courseId) {
         if (coursesStudentsDao.getCoursesIdListByStudent(studentId).contains(courseId)) {
             formatter.showMessageStudentAlreadyAssignedToCourse();
         } else {
@@ -206,7 +204,7 @@ public class ApplicationMenu {
         return coursesStudentsDao.getCourseListByStudentId(studentsId);
     }
 
-    private void removeStudentFromCourseByStudentId(int courseId, int studentId) {
+    public void removeStudentFromCourseByStudentId(int courseId, int studentId) {
         if (applicationMenuValidator.validateDeleteStudentFromCourse(coursesStudentsDao.deleteStudentFromCourseById(courseId, studentId))) {
             formatter.showMessageStudentWasRemovedFromCourse();
         } else {

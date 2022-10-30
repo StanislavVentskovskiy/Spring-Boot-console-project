@@ -44,17 +44,16 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
 
     public ArrayList<Student> getStudentsListRelatedToCourseByName(String courseName) {
         return (ArrayList<Student>) jdbcTemplate.query(studentsRelatedToGivenCourseQUERY + "'" + courseName + "'", new StudentMapper());
-
     }
 
     public ArrayList<String> getStudentsNamesAndSurnamesList(ArrayList<Student> students) {
         ArrayList<String> studentNameList = new ArrayList<>();
         students.forEach(student -> studentNameList.add(student.getName() + " " + student.getSurname()));
+
         return studentNameList;
     }
 
     public ArrayList<Course> getCourseListByStudentId(int studentId) {
-
         return (ArrayList<Course>) jdbcTemplate.query(courseListByIdQUERRY + studentId, new CourseMapper());
     }
 

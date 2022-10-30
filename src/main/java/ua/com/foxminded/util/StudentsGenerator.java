@@ -20,8 +20,14 @@ public class StudentsGenerator {
     @Autowired
     private DataReader dataReader;
 
+    public void setNameAndSurnamePath(String nameAndSurnamePath) {
+        this.nameAndSurnamePath = nameAndSurnamePath;
+    }
+
     @Value("${students.name.and.surname.directory}")
     private String nameAndSurnamePath;
+
+
 
     private void readDataFromFile(){
         try {

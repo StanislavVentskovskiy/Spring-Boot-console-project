@@ -11,7 +11,6 @@ public class StudentsGroupsAssignation {
     private int studentsWithNoGroup = 170;
 
     public ArrayList<Student> getStudentsList() {
-
         return studentsList;
     }
 

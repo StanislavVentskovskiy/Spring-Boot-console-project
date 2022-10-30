@@ -22,6 +22,10 @@ public class CourseGenerator {
     @Autowired
     DataReader dataReader;
 
+    public void setCourseAndDescriptionPath(String courseAndDescriptionPath) {
+        this.courseAndDescriptionPath = courseAndDescriptionPath;
+    }
+
     public ArrayList<Course> generateCourseList() {
         readDataFromFile();
         for(Map.Entry<String,String> entry: coursesNamesAndDescription.entrySet()) {

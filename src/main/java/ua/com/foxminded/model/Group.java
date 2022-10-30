@@ -5,7 +5,6 @@ public class Group {
     private int groupId;
 
     public Group(String name){
-
         this.name = name;
     }
 
@@ -18,7 +17,6 @@ public class Group {
     }
 
     public String getName(){
-
         return name;
     }
 }

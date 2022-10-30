@@ -1,6 +1,5 @@
 package ua.com.foxminded.reader;
 
-
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;

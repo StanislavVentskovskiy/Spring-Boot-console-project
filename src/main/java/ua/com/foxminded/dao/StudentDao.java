@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface StudentDao {
+
     int insertStudent(Student student);
 
     void insertStudentsList(ArrayList<Student> studentList);

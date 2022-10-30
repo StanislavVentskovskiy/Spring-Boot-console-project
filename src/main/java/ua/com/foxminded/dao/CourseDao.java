@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface CourseDao {
-    void insertCourse(Course course);
+
+    int insertCourse(Course course);
 
     void insertCourseList(ArrayList<Course> coursesList);
 

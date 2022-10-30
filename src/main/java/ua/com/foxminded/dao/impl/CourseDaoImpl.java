@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 @Component
 public class CourseDaoImpl implements CourseDao {
-
     private final String insertCourseSQL = "INSERT INTO postgres.schoolconsoleapp.courses(course_name, course_description) " + "VALUES(?, ?)";
     private final String coursesIdQUERY = "SELECT id FROM postgres.schoolconsoleapp.courses";
     private final String courseListQUERY = "SELECT * FROM schoolconsoleapp.courses;";
@@ -18,8 +17,8 @@ public class CourseDaoImpl implements CourseDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void insertCourse(final Course course) {
-        jdbcTemplate.update(insertCourseSQL, course.getName(), course.getCourseDescription());
+    public int insertCourse(final Course course) {
+        return jdbcTemplate.update(insertCourseSQL, course.getName(), course.getCourseDescription());
     }
 
     public void insertCourseList(ArrayList<Course> coursesList) {

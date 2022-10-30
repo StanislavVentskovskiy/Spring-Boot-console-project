@@ -10,12 +10,9 @@ import java.util.Collections;
 public class StudentsCoursesAssignation {
    private ArrayList<Integer> studentsIdList = new ArrayList<>();
    private ArrayList<Integer> coursesIdList = new ArrayList<>();
-   private CoursesStudentsDaoImpl coursesStudentsDao;
 
-    @Autowired
-    public StudentsCoursesAssignation(CoursesStudentsDaoImpl coursesStudentsDao){
-       this.coursesStudentsDao = coursesStudentsDao;
-    }
+   @Autowired
+   private CoursesStudentsDaoImpl coursesStudentsDao;
 
     public void setStudentsIdList(ArrayList<Integer> studentsIdList) {
         this.studentsIdList = studentsIdList;

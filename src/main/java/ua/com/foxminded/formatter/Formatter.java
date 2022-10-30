@@ -1,5 +1,6 @@
 package ua.com.foxminded.formatter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.model.Student;
 import ua.com.foxminded.model.Course;
@@ -9,7 +10,9 @@ import java.util.List;
 
 @Service
 public class Formatter {
-    private UserMenuMessages userMenuMessages = new UserMenuMessages();
+
+    @Autowired
+    private UserMenuMessages userMenuMessages;
 
     public void showInitialMenu(){
         System.out.println(userMenuMessages.initialMenuMessage);

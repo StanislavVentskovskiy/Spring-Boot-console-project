@@ -12,7 +12,10 @@ import java.util.ArrayList;
 
 @Component
 public class StudentsDaoImpl implements StudentDao {
+
+    @Autowired
     private JdbcTemplate jdbcTemplate;
+
     private final String insertStudentSQL = "INSERT INTO postgres.schoolconsoleapp.students(group_id, first_name, last_name) " + "VALUES(NULLIF(?,'0'), ?, ?)";
     private final String getStudentIdQUERY = "SELECT id FROM postgres.schoolconsoleapp.students";
     private final String groupsWithCertainStudentNumberQUERY =
@@ -32,11 +35,6 @@ public class StudentsDaoImpl implements StudentDao {
             "REFERENCES schoolconsoleapp.students (id)\n" +
             "ON DELETE CASCADE;";
     private final String studentsListQUERY = "SELECT * FROM schoolconsoleapp.students";
-
-    @Autowired
-    public StudentsDaoImpl(JdbcTemplate jdbcTemplate){
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public int insertStudent(Student student) {
         int studentInsertionResult = jdbcTemplate.update(insertStudentSQL, student.getGroup(), student.getName(), student.getSurname());
