@@ -1,0 +1,5 @@
+flyway:
+  url: jdbc:postgresql://localhost:5432/postgres
+  schemas: schoolconsoleapp
+  user: postgres
+  password: password

@@ -27,8 +27,6 @@ public class StudentsGenerator {
     @Value("${students.name.and.surname.directory}")
     private String nameAndSurnamePath;
 
-
-
     private void readDataFromFile(){
         try {
             studentsGenerationData =  dataReader.readGeneratedData((Paths.get(nameAndSurnamePath)));
