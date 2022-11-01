@@ -1,6 +1,5 @@
 package ua.com.foxminded.dao.impl;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.foxminded.Main;
 import ua.com.foxminded.model.Course;
 import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = {"classpath:test-schema.sql", "classpath:test-data.sql"})
@@ -47,7 +47,7 @@ public class CourseDaoImplTest {
     public void testInsertCourse_shouldReturnCorrectStatus(){
         actualInsertStatus = courseDaoImpl.insertCourse(testCourse);
 
-        Assert.assertEquals(actualInsertStatus, expectedInsertStatus);
+        assertEquals(actualInsertStatus, expectedInsertStatus);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class CourseDaoImplTest {
         testCourseIdList = courseDaoImpl.getCoursesIdList();
         actualCourseId = testCourseIdList.get(0);
 
-        Assert.assertEquals(expectedCourseId, actualCourseId);
+        assertEquals(expectedCourseId, actualCourseId);
     }
 
     @Test
@@ -63,6 +63,6 @@ public class CourseDaoImplTest {
         testCourseList = courseDaoImpl.getCourseList();
         actualCourse = testCourseList.get(0);
 
-        Assert.assertEquals(expectedCourse, actualCourse);
+        assertEquals(expectedCourse, actualCourse);
     }
 }

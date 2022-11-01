@@ -1,6 +1,5 @@
 package ua.com.foxminded.dao.impl;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.foxminded.Main;
 import ua.com.foxminded.model.Group;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = {"classpath:test-schema.sql"})
@@ -39,7 +39,6 @@ public class GroupDaoImplTest {
     public void testInsertGroup_shouldReturnCorrectStatus(){
         actual = groupDao.insertGroup(testGroup);
 
-        Assert.assertTrue(expected == actual);
+        assertTrue(expected == actual);
     }
-
 }

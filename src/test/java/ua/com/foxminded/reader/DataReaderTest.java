@@ -1,8 +1,5 @@
 package ua.com.foxminded.reader;
 
-import javafx.scene.shape.Path;
-import org.checkerframework.checker.units.qual.A;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DataReader.class)
@@ -34,6 +32,6 @@ public class DataReaderTest {
     @Test
     public void testReadGeneratedDataInputTestData_shouldReturnExpectedData() throws IOException {
         actualData = dataReader.readGeneratedData(Paths.get(testDataPath));
-        Assert.assertTrue(expectedData.equals(actualData));
+        assertTrue(expectedData.equals(actualData));
     }
 }

@@ -1,6 +1,5 @@
 package ua.com.foxminded.dao.impl;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +12,7 @@ import ua.com.foxminded.Main;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = {"classpath:test-schema.sql", "classpath:test-data.sql"})
@@ -63,7 +63,7 @@ public class CoursesStudentsDaoImplTest {
     public void testInsertStudentAndCourseTest_shouldReturnCorrectStatus(){
         actualStatus = coursesStudentsDaoImpl.insertStudentAndCourse(testStudentId, testCourseId);
 
-        Assert.assertTrue(expectedStatus == actualStatus);
+        assertTrue(expectedStatus == actualStatus);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class CoursesStudentsDaoImplTest {
         testStudentArray = coursesStudentsDaoImpl.getStudentsListRelatedToCourseByName(testCourseName);
         actualStudent = testStudentArray.get(0);
 
-        Assert.assertTrue(actualStudent.equals(expectedStudent));
+        assertTrue(actualStudent.equals(expectedStudent));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class CoursesStudentsDaoImplTest {
         testStudentStringArray = coursesStudentsDaoImpl.getStudentsNamesAndSurnamesList(testStudentArrayToGetNamesAndSurnames);
         actualStudentNameAndSurname = testStudentStringArray.get(0);
 
-        Assert.assertTrue(expectedStudentNameAndSurname.equals(actualStudentNameAndSurname));
+        assertTrue(expectedStudentNameAndSurname.equals(actualStudentNameAndSurname));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class CoursesStudentsDaoImplTest {
         testCourseList = coursesStudentsDaoImpl.getCourseListByStudentId(testStudentId);
         actualCourse = testCourseList.get(0);
 
-        Assert.assertTrue(actualCourse.equals(expectedCourse));
+        assertTrue(actualCourse.equals(expectedCourse));
     }
 
     @Test
@@ -95,6 +95,6 @@ public class CoursesStudentsDaoImplTest {
         testCourseIdList = coursesStudentsDaoImpl.getCoursesIdListByStudent(testStudentId);
         actualTestCourseId = testCourseIdList.get(0);
 
-        Assert.assertTrue(testCourseId == actualTestCourseId);
+        assertTrue(testCourseId == actualTestCourseId);
     }
 }

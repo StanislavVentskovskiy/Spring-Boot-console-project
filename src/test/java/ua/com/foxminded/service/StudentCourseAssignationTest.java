@@ -10,8 +10,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
 import ua.com.foxminded.util.StudentsCoursesAssignation;
-
 import java.util.ArrayList;
+import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {StudentsCoursesAssignation.class, CoursesStudentsDaoImpl.class})
@@ -44,6 +44,6 @@ public class StudentCourseAssignationTest {
     @Test
     public void testAssignCourseToStudent_shouldCallInsertDBMethod(){
         studentsCoursesAssignation.assignCoursesToStudent();
-        Mockito.verify(coursesStudentsDao, Mockito.atLeastOnce()).insertStudentAndCourse(Mockito.anyInt(), Mockito.anyInt());
+        verify(coursesStudentsDao, Mockito.atLeastOnce()).insertStudentAndCourse(Mockito.anyInt(), Mockito.anyInt());
     }
 }

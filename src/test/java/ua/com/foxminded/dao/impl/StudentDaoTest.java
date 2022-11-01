@@ -1,6 +1,5 @@
 package ua.com.foxminded.dao.impl;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +12,8 @@ import ua.com.foxminded.Main;
 import ua.com.foxminded.model.Group;
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = {"classpath:test-schema.sql", "classpath:test-data.sql"})
@@ -49,7 +50,7 @@ public class StudentDaoTest {
     public void testInsertStudent_shouldReturnCorrectStatus(){
         actual = studentsDaoImpl.insertStudent(testStudent);
 
-        Assert.assertEquals(actual, expected);
+        assertEquals(actual, expected);
     }
 
     @Test
@@ -57,14 +58,14 @@ public class StudentDaoTest {
         actualStudentIdList = studentsDaoImpl.getStudentsIdList();
         actual = actualStudentIdList.get(0);
 
-        Assert.assertTrue(actual == expected);
+        assertTrue(actual == expected);
     }
 
     @Test
     public void testGetGroupsWithEqualOrLessStudentNumber_shouldReturnTestGroup(){
         ArrayList<Group> testGroup = studentsDaoImpl.getGroupsWithEqualOrLessStudentsNumber(testStudentNumber);
 
-        Assert.assertTrue(!(testGroup.isEmpty()));
+        assertTrue(!(testGroup.isEmpty()));
     }
 
     @Test
@@ -72,13 +73,13 @@ public class StudentDaoTest {
         ArrayList<Student> testStudentList = studentsDaoImpl.getStudentsList();
         expectedTestStudent = testStudentList.get(0);
 
-        Assert.assertTrue(expectedTestStudent.equals(actualTestStudent));
+        assertTrue(expectedTestStudent.equals(actualTestStudent));
     }
 
     @Test
     public void testDeleteStudentById_shouldReturnCorrectStatus(){
         actual = studentsDaoImpl.deleteStudentById(testStudentId);
 
-        Assert.assertTrue(actual == expected);
+        assertTrue(actual == expected);
     }
 }

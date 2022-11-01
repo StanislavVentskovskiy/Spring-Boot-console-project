@@ -13,6 +13,7 @@ import ua.com.foxminded.dao.impl.StudentsDaoImpl;
 import ua.com.foxminded.formatter.Formatter;
 import ua.com.foxminded.service.validator.Validator;
 import ua.com.foxminded.util.ApplicationMenu;
+import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationMenu.class)
@@ -46,84 +47,84 @@ public class ApplicationMenuTest {
     @Test
     public void testFindGroupInputNumber_shouldCallExpectedMethod(){
         applicationMenu.findAllGroupWithEqualOrLessStudentsNumber(testUserNumberInput);
-        Mockito.verify(applicationMenuValidator, Mockito.times(1)).validateIntegerInput(Mockito.any());
+        verify(applicationMenuValidator, Mockito.times(1)).validateIntegerInput(Mockito.any());
     }
 
     @Test
     public void testFindGroupInputString_shouldCallExpectedMethod(){
         applicationMenu.findAllGroupWithEqualOrLessStudentsNumber(testUserWordInput);
-        Mockito.verify(formatter, Mockito.times(1)).showMessageEnteredDataIsInvalid();
+        verify(formatter, Mockito.times(1)).showMessageEnteredDataIsInvalid();
     }
 
     @Test
     public void testFindGroupInputEmpty_shouldCallExpectedMethod(){
         applicationMenu.findAllGroupWithEqualOrLessStudentsNumber(testUserEmptyInput);
-        Mockito.verify(formatter, Mockito.times(1)).showMessageEnteredDataIsInvalid();
+        verify(formatter, Mockito.times(1)).showMessageEnteredDataIsInvalid();
     }
 
     @Test
     public void testFindStudentsRelatedInputNumber_shouldCallExpectedMethod(){
         applicationMenu.findAllStudentsRelatedToCourseWithGivenName(testUserNumberInput);
-        Mockito.verify(formatter, Mockito.times(1)).showMessageEnteredDataIsInvalid();
+        verify(formatter, Mockito.times(1)).showMessageEnteredDataIsInvalid();
     }
 
     @Test
     public void testFindStudentsRelatedInputString_shouldCallExpectedMethod(){
         applicationMenu.findAllStudentsRelatedToCourseWithGivenName(testUserWordInput);
-        Mockito.verify(applicationMenuValidator, Mockito.times(1)).validateCourseName(Mockito.any());
+        verify(applicationMenuValidator, Mockito.times(1)).validateCourseName(Mockito.any());
     }
 
     @Test
     public void testFindStudentsRelatedInputEmpty_shouldCallExpectedMethod(){
         applicationMenu.findAllStudentsRelatedToCourseWithGivenName(testUserEmptyInput);
-        Mockito.verify(applicationMenuValidator, Mockito.times(1)).validateCourseName(Mockito.any());
+        verify(applicationMenuValidator, Mockito.times(1)).validateCourseName(Mockito.any());
     }
 
     @Test
     public void testAddNewStudentNumberInput_shouldCallExpectedMethod(){
         applicationMenu.addNewStudent(testUserNumberInput);
-        Mockito.verify(formatter, Mockito.times(1)).showMessageStudentNameAndSurnameInvalid();
+        verify(formatter, Mockito.times(1)).showMessageStudentNameAndSurnameInvalid();
     }
 
     @Test
     public void testAddNewStudentInputString_shouldCallExpectedMethod(){
         applicationMenu.addNewStudent(testUserWordInput);
-        Mockito.verify(formatter, Mockito.times(1)).showMessageStudentNameAndSurnameInvalid();
+        verify(formatter, Mockito.times(1)).showMessageStudentNameAndSurnameInvalid();
     }
 
     @Test
     public void testAddNewStudentInputEmpty_shouldCallExpectedMethod(){
         applicationMenu.addNewStudent(testUserEmptyInput);
-        Mockito.verify(formatter, Mockito.times(1)).showMessageStudentNameAndSurnameInvalid();
+        verify(formatter, Mockito.times(1)).showMessageStudentNameAndSurnameInvalid();
     }
 
     @Test
     public void testAddNewStudentInputNameAndSurname_shouldCallExpectedMethod(){
         applicationMenu.addNewStudent(testUserInputNameAndSurname);
-        Mockito.verify(studentsDao, Mockito.times(1)).insertStudent(Mockito.any());
+        verify(studentsDao, Mockito.times(1)).insertStudent(Mockito.any());
     }
 
     @Test
     public void testDeleteStudentByIdInputNumber_shouldCallExpectedMethod(){
         applicationMenu.deleteStudentById(testUserNumberInput);
-        Mockito.verify(formatter, Mockito.times(1)).showMessageNoSuchStudentFound();
+        verify(formatter, Mockito.times(1)).showMessageNoSuchStudentFound();
     }
 
     @Test
     public void testDeleteStudentByIdInputString_shouldCallExpectedMethod(){
         applicationMenu.deleteStudentById(testUserWordInput);
-        Mockito.verify(formatter, Mockito.times(1)).showMessageStudentIdIsInvalid();
+        verify(formatter, Mockito.times(1)).showMessageStudentIdIsInvalid();
     }
 
     @Test
     public void testDeleteStudentByIdInputEmpty_shouldCallExpectedMethod(){
         applicationMenu.deleteStudentById(testUserEmptyInput);
-        Mockito.verify(formatter, Mockito.times(1)).showMessageStudentIdIsInvalid();
+        verify(formatter, Mockito.times(1)).showMessageStudentIdIsInvalid();
     }
 
     @Test
     public void testRemoveStudentFromCourseById_shouldCallExpectedMethod(){
        applicationMenu.removeStudentFromCourseByStudentId(testStudentId, testStudentId2);
-       Mockito.verify(formatter, Mockito.times(1)).showMessageNoCourseFoundAssignedToCurrentStudent();
+       verify(formatter, Mockito.times(1)).showMessageNoCourseFoundAssignedToCurrentStudent();
    }
 }

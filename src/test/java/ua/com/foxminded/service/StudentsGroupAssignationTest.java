@@ -1,6 +1,5 @@
 package ua.com.foxminded.service;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,8 +10,8 @@ import ua.com.foxminded.model.Student;
 import ua.com.foxminded.reader.DataReader;
 import ua.com.foxminded.util.generator.StudentsGenerator;
 import ua.com.foxminded.util.StudentsGroupsAssignation;
-
 import java.util.ArrayList;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {StudentsGroupsAssignation.class, StudentsGenerator.class, DataReader.class})
@@ -33,6 +32,6 @@ public class StudentsGroupAssignationTest {
 
     @Test
     public void testAddGroupFieldToStudentList_shouldReturnStudentWithGroup(){
-        Assert.assertTrue( (Integer) studentsGroupsAssignation.getStudentsList().get(1).getGroup() != null);
+        assertTrue( (Integer) studentsGroupsAssignation.getStudentsList().get(1).getGroup() != null);
     }
 }

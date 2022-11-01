@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.foxminded.model.Group;
 import ua.com.foxminded.util.generator.GroupsGenerator;
-
 import java.util.ArrayList;
 import static org.junit.Assert.assertTrue;
 

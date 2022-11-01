@@ -1,6 +1,5 @@
 package ua.com.foxminded.util;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,8 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.reader.DataReader;
 import ua.com.foxminded.util.generator.CourseGenerator;
-
 import java.util.ArrayList;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {CourseGenerator.class, DataReader.class})
@@ -41,6 +40,6 @@ public class CoursesGeneratorTest {
         actualCourseList = courseGenerator.generateCourseList();
         actualCourse = actualCourseList.get(0);
 
-        Assert.assertTrue(expectedCourse.equals(actualCourse));
+        assertTrue(expectedCourse.equals(actualCourse));
     }
 }

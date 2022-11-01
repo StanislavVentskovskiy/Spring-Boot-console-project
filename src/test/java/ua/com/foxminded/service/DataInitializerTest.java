@@ -16,6 +16,7 @@ import ua.com.foxminded.util.*;
 import ua.com.foxminded.util.generator.CourseGenerator;
 import ua.com.foxminded.util.generator.GroupsGenerator;
 import ua.com.foxminded.util.generator.StudentsGenerator;
+import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DataInitializer.class)
@@ -58,26 +59,26 @@ public class DataInitializerTest {
 
     @Test
     public void testInsertGroupMethod_shouldBeCalledOnce(){
-        Mockito.verify(groupDao, Mockito.times(1)).insertGroupList(Mockito.any());
+        verify(groupDao, Mockito.times(1)).insertGroupList(Mockito.any());
     }
 
     @Test
     public void testInsertCourseMethod_shouldBeCalledOnce(){
-        Mockito.verify(courseDao, Mockito.times(1)).insertCourseList(Mockito.any());
+        verify(courseDao, Mockito.times(1)).insertCourseList(Mockito.any());
     }
 
     @Test
     public void testAssignStudentMethod_shouldBeCalledOnce(){
-        Mockito.verify(studentAssignation, Mockito.times(1)).assignStudentsToGroups();
+        verify(studentAssignation, Mockito.times(1)).assignStudentsToGroups();
     }
 
     @Test
     public void testStudentInsertionMethod_shouldBeCalledOnce(){
-        Mockito.verify(studentsDaoImpl, Mockito.times(1)).insertStudentsList(Mockito.any());
+        verify(studentsDaoImpl, Mockito.times(1)).insertStudentsList(Mockito.any());
     }
 
     @Test
     public void testStudentCourseAssignationMethod_shouldReturnOnce(){
-        Mockito.verify(studentsCoursesAssignation, Mockito.times(1)).assignCoursesToStudent();
+        verify(studentsCoursesAssignation, Mockito.times(1)).assignCoursesToStudent();
     }
 }
