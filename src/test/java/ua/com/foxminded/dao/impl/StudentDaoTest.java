@@ -49,7 +49,7 @@ public class StudentDaoTest {
     public void testInsertStudent_shouldReturnCorrectStatus(){
         actual = studentsDaoImpl.insertStudent(testStudent);
 
-        Assert.assertTrue(actual == expected);
+        Assert.assertEquals(actual, expected);
     }
 
     @Test

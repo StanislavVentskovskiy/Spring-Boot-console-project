@@ -33,7 +33,6 @@ public class StudentsGeneratorTest {
         studentsGenerator.setNameAndSurnamePath(testDataPath);
         expectedStudent = new Student("test","test");
         expectedStudentList.add(expectedStudent);
-
     }
 
     @Test
