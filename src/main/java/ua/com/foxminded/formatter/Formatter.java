@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.model.Student;
 import ua.com.foxminded.model.Course;
-import ua.com.foxminded.service.UserMenuMessages;
+import ua.com.foxminded.util.UserMenuMessages;
 import java.util.ArrayList;
 import java.util.List;
 

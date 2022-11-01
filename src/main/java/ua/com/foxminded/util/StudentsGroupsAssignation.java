@@ -1,4 +1,4 @@
-package ua.com.foxminded.service;
+package ua.com.foxminded.util;
 
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.model.Student;

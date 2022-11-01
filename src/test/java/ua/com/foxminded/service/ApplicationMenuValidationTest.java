@@ -1,6 +1,5 @@
 package ua.com.foxminded.service;
 
-import org.checkerframework.checker.units.qual.A;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,16 +7,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import ua.com.foxminded.service.validaton.ApplicationMenuValidator;
+import ua.com.foxminded.service.validator.Validator;
 
 import java.util.ArrayList;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ApplicationMenuValidator.class)
+@SpringBootTest(classes = Validator.class)
 public class ApplicationMenuValidationTest {
 
     @Autowired
-    ApplicationMenuValidator applicationMenuValidator;
+    Validator applicationMenuValidator;
 
     private int testInteger = 1;
     private int testInteger2 = 2;

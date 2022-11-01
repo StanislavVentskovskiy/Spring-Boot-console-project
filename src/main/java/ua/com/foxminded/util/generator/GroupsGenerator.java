@@ -1,4 +1,4 @@
-package ua.com.foxminded.util;
+package ua.com.foxminded.util.generator;
 
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.model.Group;

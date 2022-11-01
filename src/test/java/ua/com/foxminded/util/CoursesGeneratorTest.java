@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.reader.DataReader;
+import ua.com.foxminded.util.generator.CourseGenerator;
+
 import java.util.ArrayList;
 
 @RunWith(SpringRunner.class)

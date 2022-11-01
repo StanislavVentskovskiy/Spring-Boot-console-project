@@ -1,4 +1,4 @@
-package ua.com.foxminded.util;
+package ua.com.foxminded.util.generator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,12 +20,12 @@ public class StudentsGenerator {
     @Autowired
     private DataReader dataReader;
 
+    @Value("${students.name.and.surname.directory}")
+    private String nameAndSurnamePath;
+
     public void setNameAndSurnamePath(String nameAndSurnamePath) {
         this.nameAndSurnamePath = nameAndSurnamePath;
     }
-
-    @Value("${students.name.and.surname.directory}")
-    private String nameAndSurnamePath;
 
     private void readDataFromFile(){
         try {

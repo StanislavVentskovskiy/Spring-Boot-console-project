@@ -11,11 +11,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.foxminded.dao.impl.CourseDaoImpl;
 import ua.com.foxminded.dao.impl.GroupDaoImpl;
-import ua.com.foxminded.dao.impl.GroupDaoImplTest;
 import ua.com.foxminded.dao.impl.StudentsDaoImpl;
-import ua.com.foxminded.util.CourseGenerator;
-import ua.com.foxminded.util.GroupsGenerator;
-import ua.com.foxminded.util.StudentsGenerator;
+import ua.com.foxminded.util.*;
+import ua.com.foxminded.util.generator.CourseGenerator;
+import ua.com.foxminded.util.generator.GroupsGenerator;
+import ua.com.foxminded.util.generator.StudentsGenerator;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DataInitializer.class)

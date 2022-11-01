@@ -1,10 +1,10 @@
-package ua.com.foxminded.service.validaton;
+package ua.com.foxminded.service.validator;
 
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class ApplicationMenuValidator {
+public class Validator {
 
     public boolean validateIntegerInput(String input){
         try {

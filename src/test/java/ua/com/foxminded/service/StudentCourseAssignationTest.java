@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
+import ua.com.foxminded.util.StudentsCoursesAssignation;
+
 import java.util.ArrayList;
 
 @RunWith(SpringRunner.class)

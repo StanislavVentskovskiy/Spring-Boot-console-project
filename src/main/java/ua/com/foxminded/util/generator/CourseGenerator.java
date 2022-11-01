@@ -1,4 +1,4 @@
-package ua.com.foxminded.util;
+package ua.com.foxminded.util.generator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +20,7 @@ public class CourseGenerator {
     private String courseAndDescriptionPath;
 
     @Autowired
-    DataReader dataReader;
+    private DataReader dataReader;
 
     public void setCourseAndDescriptionPath(String courseAndDescriptionPath) {
         this.courseAndDescriptionPath = courseAndDescriptionPath;

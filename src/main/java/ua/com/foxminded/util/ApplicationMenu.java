@@ -1,15 +1,15 @@
-package ua.com.foxminded.service;
+package ua.com.foxminded.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.exceptions.DAOException;
-import ua.com.foxminded.dao.impl.CourseDaoImpl;
-import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
-import ua.com.foxminded.dao.impl.StudentsDaoImpl;
 import ua.com.foxminded.formatter.Formatter;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.model.Student;
-import ua.com.foxminded.service.validaton.ApplicationMenuValidator;
+import ua.com.foxminded.service.impl.CourseStudentsServiceImpl;
+import ua.com.foxminded.service.impl.CoursesServiceImpl;
+import ua.com.foxminded.service.impl.StudentServiceImpl;
+import ua.com.foxminded.service.validator.Validator;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,16 +24,16 @@ public class ApplicationMenu {
     private Formatter formatter;
 
     @Autowired
-    private StudentsDaoImpl studentsDao;
+    private StudentServiceImpl studentServiceImpl;
 
     @Autowired
-    private CourseDaoImpl courseDao;
+    private CoursesServiceImpl courseService;
 
     @Autowired
-    private CoursesStudentsDaoImpl coursesStudentsDao;
+    private CourseStudentsServiceImpl courseStudentsServiceImpl;
 
     @Autowired
-    private ApplicationMenuValidator applicationMenuValidator;
+    private Validator applicationMenuValidator;
 
     public void callConsoleMenu() throws DAOException {
         try {
@@ -51,7 +51,7 @@ public class ApplicationMenu {
                 formatter.showMessageEnterStudentNumber();
                 findAllGroupWithEqualOrLessStudentsNumber(userInputLine.readLine());
             } else if (userInput.equals("b")) {
-                getAllCoursesNameList();
+                formatter.showCoursesList(courseService.getAllCoursesNameList());
                 formatter.showMessageEnterCourseName();
                 findAllStudentsRelatedToCourseWithGivenName(userInputLine.readLine());
             } else if (userInput.equals("c")) {
@@ -65,9 +65,9 @@ public class ApplicationMenu {
                 formatter.showStudentsList(getStudentList());
                 formatter.showMessageChooseStudentById();
                 int studentId = studentIdValidation(userInputLine.readLine());
-                boolean studentExist = applicationMenuValidator.validateStudentId(studentId, studentsDao.getStudentsIdList());
+                boolean studentExist = applicationMenuValidator.validateStudentId(studentId, studentServiceImpl.getStudentIdList());
                 if (studentExist == true) {
-                    formatter.showCoursesList(getCourseList());
+                    formatter.showCoursesList(courseService.getAllCoursesNameList());
                     formatter.showMessageChooseCourseById();
                     int courseId = checkViableCourseId(userInputLine.readLine());
                     addStudentToCourse(studentId, courseId);
@@ -90,14 +90,9 @@ public class ApplicationMenu {
         }
     }
 
-    private void getAllGroupsWithEqualOrLessStudents(int studentsNumber) {
-        ArrayList<String> groupList = studentsDao.getGroupsWithEqualOrLessStudentsNumber(studentsDao.getGroupsWithEqualOrLessStudentsNumber(studentsNumber));
-        formatter.formatGroupListOutput(studentsNumber, groupList);
-    }
-
     public void findAllGroupWithEqualOrLessStudentsNumber(String userInput) {
         if (applicationMenuValidator.validateIntegerInput(userInput) == true) {
-            getAllGroupsWithEqualOrLessStudents(Integer.valueOf(userInput));
+            formatter.formatGroupListOutput(Integer.valueOf(userInput), studentServiceImpl.getAllGroupsWithEqualOrLessStudents(Integer.valueOf(userInput)));
         } else {
             formatter.showMessageEnteredDataIsInvalid();
         }
@@ -112,12 +107,8 @@ public class ApplicationMenu {
         formatter.showBackToMenuMessage();
     }
 
-    private void getAllCoursesNameList() {
-        formatter.getCourseNameList(courseDao.getCourseList());
-    }
-
     private void getAllStudentsOfChosenCourse(String courseName) {
-        ArrayList<String> studentsList = coursesStudentsDao.getStudentsNamesAndSurnamesList(coursesStudentsDao.getStudentsListRelatedToCourseByName(courseName));
+           ArrayList<String> studentsList = courseStudentsServiceImpl.getStudentsListRelatedToCourse(courseName);
           if (applicationMenuValidator.validateCourseName(studentsList) == true) {
             getFormattedStudentList(studentsList, courseName);
         } else {
@@ -133,7 +124,7 @@ public class ApplicationMenu {
         String[] nameAndSurname = studentNameAndSurname.split(" ");
         try {
             Student student = new Student(nameAndSurname[0], nameAndSurname[1]);
-            applicationMenuValidator.validateStudentInsert(studentsDao.insertStudent(student));
+            applicationMenuValidator.validateStudentInsert(studentServiceImpl.addStudent(student));
             formatter.showMessageStudentAdded();
         } catch (ArrayIndexOutOfBoundsException e) {
             formatter.showMessageStudentNameAndSurnameInvalid();
@@ -144,7 +135,7 @@ public class ApplicationMenu {
     public void deleteStudentById(String userInput) {
         try {
             int studentId = Integer.parseInt(userInput);
-            deleteValidatedStudent(studentsDao.deleteStudentById(studentId));
+            deleteValidatedStudent(studentServiceImpl.deleteStudentById(studentId));
         } catch (NumberFormatException e) {
             formatter.showMessageStudentIdIsInvalid();
         }
@@ -159,9 +150,8 @@ public class ApplicationMenu {
         }
     }
 
-
     private List<Student> getStudentList() {
-        return studentsDao.getStudentsList();
+        return studentServiceImpl.getStudentList();
     }
 
     private Integer studentIdValidation(String userInput) {
@@ -172,10 +162,6 @@ public class ApplicationMenu {
             formatter.showMessageStudentIdIsInvalid();
         }
         return studentId;
-    }
-
-    private ArrayList<Course> getCourseList() {
-        return courseDao.getCourseList();
     }
 
     private Integer checkViableCourseId(String userInput) {
@@ -192,20 +178,20 @@ public class ApplicationMenu {
     }
 
     public void addStudentToCourse(int studentId, int courseId) {
-        if (coursesStudentsDao.getCoursesIdListByStudent(studentId).contains(courseId)) {
+        if (courseStudentsServiceImpl.getCoursesIdListByStudent(studentId).contains(courseId)) {
             formatter.showMessageStudentAlreadyAssignedToCourse();
         } else {
-            coursesStudentsDao.insertStudentAndCourse(studentId, courseId);
+            courseStudentsServiceImpl.insertStudentAndCourse(studentId, courseId);
             formatter.showMessageStudentAdded();
         }
     }
 
     private ArrayList<Course> getCourseListByStudentId(int studentsId) {
-        return coursesStudentsDao.getCourseListByStudentId(studentsId);
+        return courseStudentsServiceImpl.getCourseListByStudentId(studentsId);
     }
 
     public void removeStudentFromCourseByStudentId(int courseId, int studentId) {
-        if (applicationMenuValidator.validateDeleteStudentFromCourse(coursesStudentsDao.deleteStudentFromCourseById(courseId, studentId))) {
+        if (applicationMenuValidator.validateDeleteStudentFromCourse(courseStudentsServiceImpl.deleteStudentFromCourseById(courseId,studentId))) {
             formatter.showMessageStudentWasRemovedFromCourse();
         } else {
             formatter.showMessageNoCourseFoundAssignedToCurrentStudent();

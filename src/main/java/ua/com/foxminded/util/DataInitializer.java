@@ -1,4 +1,4 @@
-package ua.com.foxminded.service;
+package ua.com.foxminded.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import ua.com.foxminded.dao.impl.CourseDaoImpl;
 import ua.com.foxminded.dao.impl.GroupDaoImpl;
 import ua.com.foxminded.dao.impl.StudentsDaoImpl;
-import ua.com.foxminded.util.StudentsGenerator;
-import ua.com.foxminded.util.CourseGenerator;
-import ua.com.foxminded.util.GroupsGenerator;
+import ua.com.foxminded.util.generator.CourseGenerator;
+import ua.com.foxminded.util.generator.GroupsGenerator;
+import ua.com.foxminded.util.generator.StudentsGenerator;
 
 @Service
 public class DataInitializer {

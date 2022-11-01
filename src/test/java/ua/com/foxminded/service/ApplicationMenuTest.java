@@ -11,7 +11,8 @@ import ua.com.foxminded.dao.impl.CourseDaoImpl;
 import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
 import ua.com.foxminded.dao.impl.StudentsDaoImpl;
 import ua.com.foxminded.formatter.Formatter;
-import ua.com.foxminded.service.validaton.ApplicationMenuValidator;
+import ua.com.foxminded.service.validator.Validator;
+import ua.com.foxminded.util.ApplicationMenu;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationMenu.class)
@@ -30,7 +31,7 @@ public class ApplicationMenuTest {
     private CoursesStudentsDaoImpl coursesStudentsDao;
 
     @MockBean
-    private ApplicationMenuValidator applicationMenuValidator;
+    private Validator applicationMenuValidator;
 
     @Autowired
     private ApplicationMenu applicationMenu;

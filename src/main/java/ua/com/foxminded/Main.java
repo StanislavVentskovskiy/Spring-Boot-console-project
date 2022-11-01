@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import ua.com.foxminded.service.ApplicationMenu;
-import ua.com.foxminded.service.DataInitializer;
+import ua.com.foxminded.util.ApplicationMenu;
+import ua.com.foxminded.util.DataInitializer;
 
 @SpringBootApplication
 public class Main implements CommandLineRunner {
