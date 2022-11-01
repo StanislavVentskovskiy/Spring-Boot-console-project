@@ -47,7 +47,7 @@ public class CourseDaoImplTest {
     public void testInsertCourse_shouldReturnCorrectStatus(){
         actualInsertStatus = courseDaoImpl.insertCourse(testCourse);
 
-        Assert.assertTrue(actualInsertStatus == expectedInsertStatus);
+        Assert.assertEquals(actualInsertStatus, expectedInsertStatus);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class CourseDaoImplTest {
         testCourseIdList = courseDaoImpl.getCoursesIdList();
         actualCourseId = testCourseIdList.get(0);
 
-        Assert.assertTrue(expectedCourseId == actualCourseId);
+        Assert.assertEquals(expectedCourseId, actualCourseId);
     }
 
     @Test
@@ -63,6 +63,6 @@ public class CourseDaoImplTest {
         testCourseList = courseDaoImpl.getCourseList();
         actualCourse = testCourseList.get(0);
 
-        Assert.assertTrue(expectedCourse.equals(actualCourse));
+        Assert.assertEquals(expectedCourse, actualCourse);
     }
 }
