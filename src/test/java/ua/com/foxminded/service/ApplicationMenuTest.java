@@ -11,6 +11,9 @@ import ua.com.foxminded.dao.impl.CourseDaoImpl;
 import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
 import ua.com.foxminded.dao.impl.StudentsDaoImpl;
 import ua.com.foxminded.formatter.Formatter;
+import ua.com.foxminded.service.impl.CourseStudentsServiceImpl;
+import ua.com.foxminded.service.impl.CoursesServiceImpl;
+import ua.com.foxminded.service.impl.StudentServiceImpl;
 import ua.com.foxminded.service.validator.Validator;
 import ua.com.foxminded.util.ApplicationMenu;
 import static org.mockito.Mockito.verify;
@@ -23,13 +26,13 @@ public class ApplicationMenuTest {
     private Formatter formatter;
 
     @MockBean
-    private StudentsDaoImpl studentsDao;
+    private StudentServiceImpl studentServiceImpl;
 
     @MockBean
-    private CourseDaoImpl courseDao;
+    private CoursesServiceImpl coursesServiceImp;
 
     @MockBean
-    private CoursesStudentsDaoImpl coursesStudentsDao;
+    private CourseStudentsServiceImpl courseStudentsServiceImpl;
 
     @MockBean
     private Validator applicationMenuValidator;
@@ -101,7 +104,7 @@ public class ApplicationMenuTest {
     @Test
     public void testAddNewStudentInputNameAndSurname_shouldCallExpectedMethod(){
         applicationMenu.addNewStudent(testUserInputNameAndSurname);
-        verify(studentsDao, Mockito.times(1)).insertStudent(Mockito.any());
+        verify(studentServiceImpl, Mockito.times(1)).addStudent(Mockito.any());
     }
 
     @Test
