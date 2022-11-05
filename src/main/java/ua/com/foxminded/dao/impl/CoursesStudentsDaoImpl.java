@@ -9,6 +9,7 @@ import ua.com.foxminded.dao.mapper.StudentMapper;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
+import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Component
 public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
@@ -39,29 +40,35 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
     private JdbcTemplate jdbcTemplate;
 
     public int insertStudentAndCourse(int studentId, int courseId) {
+        LOG.debug("Sql statement: " + insertStudentsSQL + " " + courseId + " " + studentId);
         return jdbcTemplate.update(insertStudentsSQL, courseId, studentId);
     }
 
     public ArrayList<Student> getStudentsListRelatedToCourseByName(String courseName) {
+        LOG.debug("Sql statement: " + studentsRelatedToGivenCourseQUERY + "'" + courseName + "'");
         return (ArrayList<Student>) jdbcTemplate.query(studentsRelatedToGivenCourseQUERY + "'" + courseName + "'", new StudentMapper());
     }
 
     public ArrayList<String> getStudentsNamesAndSurnamesList(ArrayList<Student> students) {
+        LOG.info("Enter method getStudentsNamesAndSurnamesList()");
         ArrayList<String> studentNameList = new ArrayList<>();
         students.forEach(student -> studentNameList.add(student.getName() + " " + student.getSurname()));
-
+        LOG.info("Leave method getStudentsNamesAndSurnamesList()");
         return studentNameList;
     }
 
     public ArrayList<Course> getCourseListByStudentId(int studentId) {
+        LOG.debug("Sql statement: " + courseListByIdQUERRY + " " + studentId);
         return (ArrayList<Course>) jdbcTemplate.query(courseListByIdQUERRY + studentId, new CourseMapper());
     }
 
     public int deleteStudentFromCourseById(int courseId, int studentId) {
+       LOG.debug("Sql statement: " + deleteStudentQUERY + " " + courseId + " " + studentId);
        return jdbcTemplate.update(String.format(deleteStudentQUERY, courseId, studentId));
     }
 
     public ArrayList<Integer> getCoursesIdListByStudent(int studentId){
-       return (ArrayList<Integer>) jdbcTemplate.queryForList(courseIdListByStudentId+studentId,Integer.class);
+       LOG.debug("Sql statement: " + courseIdListByStudentId + " " + studentId);
+       return (ArrayList<Integer>) jdbcTemplate.queryForList(courseIdListByStudentId + studentId,Integer.class);
     }
 }

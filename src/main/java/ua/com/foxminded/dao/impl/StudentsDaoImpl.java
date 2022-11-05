@@ -10,6 +10,8 @@ import ua.com.foxminded.model.Group;
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
 
+import static ua.com.foxminded.controller.LoggerController.LOG;
+
 @Component
 public class StudentsDaoImpl implements StudentDao {
 
@@ -37,34 +39,44 @@ public class StudentsDaoImpl implements StudentDao {
     private final String studentsListQUERY = "SELECT * FROM schoolconsoleapp.students";
 
     public int insertStudent(Student student) {
+        LOG.debug("SQL statement: " + " " + insertStudentSQL + " " + student.getGroup() + " " + student.getName() + " " + student.getSurname());
         int studentInsertionResult = jdbcTemplate.update(insertStudentSQL, student.getGroup(), student.getName(), student.getSurname());
         return studentInsertionResult;
     }
 
     public void insertStudentsList(ArrayList<Student> students) {
+        LOG.info("Enter method + insertStudentsList()");
         students.forEach((student) -> insertStudent(student));
+        LOG.info("Leave method + insertStudentsList()");
     }
 
     public ArrayList<Integer> getStudentsIdList() {
+        LOG.debug("Sql statement: " + getStudentIdQUERY);
         return (ArrayList<Integer>) jdbcTemplate.queryForList(getStudentIdQUERY, Integer.class);
     }
 
     public ArrayList<Group> getGroupsWithEqualOrLessStudentsNumber(int studentsNumber) {
-        return (ArrayList<Group>) jdbcTemplate.query(groupsWithCertainStudentNumberQUERY + String.valueOf(studentsNumber), new GroupMapper());
+        LOG.debug("Sql statement: " + groupsWithCertainStudentNumberQUERY + " " + studentsNumber);
+        return (ArrayList<Group>) jdbcTemplate.query(groupsWithCertainStudentNumberQUERY + studentsNumber, new GroupMapper());
     }
 
     public ArrayList<String> getGroupsWithEqualOrLessStudentsNumber(ArrayList<Group> groups) {
+        LOG.info("Enter method getGroupsWithEqualOrLessStudentsNumber()");
         ArrayList<String> groupsNames = new ArrayList<>();
         groups.forEach(group -> groupsNames.add(group.getName()));
+        LOG.info("Leave method getGroupsWithEqualOrLessStudentsNumber()");
         return groupsNames;
     }
 
     public int deleteStudentById(int studentId) {
-             jdbcTemplate.update(deleteForeinKeyStudentId);
-      return jdbcTemplate.update(deleteStudentQUERY + studentId);
+        LOG.debug("Sql statement: " + deleteForeinKeyStudentId);
+        jdbcTemplate.update(deleteForeinKeyStudentId);
+        LOG.debug("Sql statement: " + deleteStudentQUERY + " " + studentId);
+        return jdbcTemplate.update(deleteStudentQUERY + studentId);
     }
 
     public ArrayList<Student> getStudentsList(){
+        LOG.debug("Sql statement: " + studentsListQUERY);
         return (ArrayList<Student>) jdbcTemplate.query(studentsListQUERY, new StudentMapper());
     }
 }

@@ -6,10 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.stream.Stream;
+import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Service
 public class DataReader {
     public HashMap<String,String> readGeneratedData(Path pathToGeneratedData) throws IOException {
+        LOG.info("Enter method readGeneratedData()");
         HashMap<String, String> readedData = new HashMap<>();
         try(Stream<String> startingDataStream = Files.lines(pathToGeneratedData)) {
             startingDataStream.forEach(line -> {
@@ -19,9 +21,10 @@ public class DataReader {
                 readedData.put(key,value);
             });
         } catch (IOException e) {
+            LOG.error("Error reading data from file");
             throw new IOException(e);
         }
-
+        LOG.info("Leave method readGeneratedData()");
         return readedData;
     }
 }

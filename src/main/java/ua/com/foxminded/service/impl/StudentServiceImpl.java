@@ -8,6 +8,7 @@ import ua.com.foxminded.service.StudentService;
 import ua.com.foxminded.service.validator.Validator;
 import java.util.ArrayList;
 import java.util.List;
+import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -19,24 +20,29 @@ public class StudentServiceImpl implements StudentService {
     Validator applicationMenuValidator;
 
     public ArrayList<String> getAllGroupsWithEqualOrLessStudents(int studentsNumber) {
+        LOG.info("Enter method getAllGroupsWithEqualOrLessStudents()");
         ArrayList<String> groupList = studentDaoImpl.getGroupsWithEqualOrLessStudentsNumber(studentDaoImpl.getGroupsWithEqualOrLessStudentsNumber(studentsNumber));
+        LOG.info("Leave method getAllGroupsWithEqualOrLessStudents()");
         return groupList;
-
     }
 
     public int addStudent(Student student){
+        LOG.info("Entered method addStudent()");
         return studentDaoImpl.insertStudent(student);
     }
 
     public List<Student> getStudentList(){
+        LOG.info("Enter getStudentList()");
         return studentDaoImpl.getStudentsList();
     }
 
     public int deleteStudentById(int studentId){
+        LOG.info("Enter method deleteStudentById()");
         return studentDaoImpl.deleteStudentById(studentId);
     }
 
     public ArrayList<Integer> getStudentIdList(){
+        LOG.info("Enter method getStudentIdList()");
         return studentDaoImpl.getStudentsIdList();
     }
 }

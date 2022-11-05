@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Service
 public class CourseGenerator {
@@ -27,21 +28,27 @@ public class CourseGenerator {
     }
 
     public ArrayList<Course> generateCourseList() {
+        LOG.info("Enter method generateCourseList()");
         readDataFromFile();
         for(Map.Entry<String,String> entry: coursesNamesAndDescription.entrySet()) {
             String name = entry.getKey();
             String description = entry.getValue();
             courseList.add(new Course(name,description));
+            LOG.info("Prepared map of courses");
         }
-
+        LOG.info("Leave method generateCourseList()");
         return courseList;
     }
 
     private void readDataFromFile(){
+        LOG.info("Enter method readDataFromFile()");
         try {
             coursesNamesAndDescription = dataReader.readGeneratedData(Paths.get(courseAndDescriptionPath));
+            LOG.info("Uploaded data from file");
         } catch (IOException e) {
+            LOG.error("File cannot be read");
             System.err.println("File reading error.");
         }
+        LOG.info("Leave method readDataFromFile()");
     }
 }

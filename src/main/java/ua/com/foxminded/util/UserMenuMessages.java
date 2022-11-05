@@ -32,4 +32,5 @@ public final class UserMenuMessages {
     public static final String noSuchStudentFoundMessage = "No such student found.";
     public static final String suchStudentAlreadyAssignedToCourse = "This student already assigned to chosen course.";
     public static final String noCourseAssignedToStudent = "No such course assigned to student.";
+    public static final String studentAddedToStudentsList = "Student added to list.";
 }

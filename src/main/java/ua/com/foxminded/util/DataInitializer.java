@@ -3,13 +3,15 @@ package ua.com.foxminded.util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import ua.com.foxminded.controller.LoggingController;
+import sun.rmi.runtime.Log;
 import ua.com.foxminded.dao.impl.CourseDaoImpl;
 import ua.com.foxminded.dao.impl.GroupDaoImpl;
 import ua.com.foxminded.dao.impl.StudentsDaoImpl;
 import ua.com.foxminded.util.generator.CourseGenerator;
 import ua.com.foxminded.util.generator.GroupsGenerator;
 import ua.com.foxminded.util.generator.StudentsGenerator;
+
+import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Service
 public class DataInitializer {
@@ -41,10 +43,8 @@ public class DataInitializer {
     @Autowired
     private StudentsCoursesAssignation studentsCoursesAssignation;
 
-    @Autowired
-    private LoggingController loggingController;
-
     public void initializeApplicationData() {
+        LOG.info("Enter method initializeApplicationData()");
         groupDao.insertGroupList(groupGenerator.generateGroups());
         courseDao.insertCourseList(courseGenerator.generateCourseList());
         studentAssignation.setStudentsList(studentsGenerator.generateStudentsList());
@@ -53,6 +53,6 @@ public class DataInitializer {
         studentsCoursesAssignation.setCoursesIdList(courseDao.getCoursesIdList());
         studentsCoursesAssignation.setStudentsIdList(studentsDaoImpl.getStudentsIdList());
         studentsCoursesAssignation.assignCoursesToStudent();
-        loggingController.getLogger();
+        LOG.info("Leave method initializeApplicationData()");
     }
 }
