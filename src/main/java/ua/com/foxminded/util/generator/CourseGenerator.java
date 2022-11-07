@@ -1,5 +1,7 @@
 package ua.com.foxminded.util.generator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -10,12 +12,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import static ua.com.foxminded.controller.LoggerController.LOG;
+
 
 @Service
 public class CourseGenerator {
     private ArrayList<Course> courseList = new ArrayList<>();
     private HashMap<String,String> coursesNamesAndDescription = new HashMap<>();
+    private static final Logger LOG = LoggerFactory.getLogger(CourseGenerator.class);
 
     @Value("${courses.name.and.description.directory}")
     private String courseAndDescriptionPath;

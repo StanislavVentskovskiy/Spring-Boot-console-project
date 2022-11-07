@@ -1,15 +1,19 @@
 package ua.com.foxminded.reader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.stream.Stream;
-import static ua.com.foxminded.controller.LoggerController.LOG;
+
 
 @Service
 public class DataReader {
+    private static final Logger LOG = LoggerFactory.getLogger(DataReader.class);
+
     public HashMap<String,String> readGeneratedData(Path pathToGeneratedData) throws IOException {
         LOG.info("Enter method readGeneratedData()");
         HashMap<String, String> readedData = new HashMap<>();

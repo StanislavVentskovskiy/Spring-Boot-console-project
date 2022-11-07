@@ -1,11 +1,13 @@
 package ua.com.foxminded.service.validator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
-import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Service
 public class Validator {
+    private static final Logger LOG = LoggerFactory.getLogger(Validator.class);
 
     public boolean validateIntegerInput(String input){
         LOG.info("Enter method validateIntegerInput()");

@@ -1,16 +1,17 @@
 package ua.com.foxminded.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
-import static ua.com.foxminded.controller.LoggerController.LOG;
-
 @Service
 public class StudentsGroupsAssignation {
     private ArrayList<Student> studentsList = new ArrayList<>();
     private int studentsWithNoGroup = 170;
+    private static final Logger LOG = LoggerFactory.getLogger(StudentsGroupsAssignation.class);
 
     public ArrayList<Student> getStudentsList() {
         return studentsList;

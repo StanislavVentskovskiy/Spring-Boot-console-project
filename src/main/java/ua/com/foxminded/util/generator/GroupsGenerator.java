@@ -1,17 +1,19 @@
 package ua.com.foxminded.util.generator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.model.Group;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Stream;
-import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Service
 public class GroupsGenerator {
     private ArrayList<Group> groupList  = new ArrayList<>();
     private String possibleCharacterInGroupName = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private int groupNumber;
+    private static final Logger LOG = LoggerFactory.getLogger(GroupsGenerator.class);
 
     public ArrayList<Group> generateGroups() {
         LOG.info("Enter method generateGroups()");

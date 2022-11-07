@@ -1,12 +1,13 @@
 package ua.com.foxminded.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ua.com.foxminded.dao.GroupDao;
 import ua.com.foxminded.model.Group;
 import java.util.ArrayList;
-import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Component
 public class GroupDaoImpl implements GroupDao {
@@ -14,6 +15,7 @@ public class GroupDaoImpl implements GroupDao {
    @Autowired
    private JdbcTemplate jdbcTemplate;
 
+   private static final Logger LOG = LoggerFactory.getLogger(GroupDaoImpl.class);
    private final String insertGroupSQL = "INSERT INTO postgres.schoolconsoleapp.groups(group_name) " + "VALUES(?)";
 
     @Override

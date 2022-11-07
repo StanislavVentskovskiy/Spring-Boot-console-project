@@ -1,5 +1,7 @@
 package ua.com.foxminded.formatter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.model.Student;
@@ -7,13 +9,14 @@ import ua.com.foxminded.model.Course;
 import ua.com.foxminded.util.UserMenuMessages;
 import java.util.ArrayList;
 import java.util.List;
-import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Service
 public class Formatter {
 
     @Autowired
     private UserMenuMessages userMenuMessages;
+
+    private static final Logger LOG = LoggerFactory.getLogger(Formatter.class);
 
     public void showInitialMenu(){
         LOG.info("Enter method showInitialMenu()");

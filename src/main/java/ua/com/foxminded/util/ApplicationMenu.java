@@ -1,5 +1,7 @@
 package ua.com.foxminded.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.exceptions.DAOException;
@@ -16,11 +18,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.com.foxminded.controller.LoggerController.LOG;
-
 @Service
 public class ApplicationMenu {
     private BufferedReader userInputLine = new BufferedReader(new InputStreamReader(System.in));
+    private static final Logger LOG = LoggerFactory.getLogger(ApplicationMenu.class);
 
     @Autowired
     private Formatter formatter;

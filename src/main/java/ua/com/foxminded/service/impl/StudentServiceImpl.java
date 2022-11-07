@@ -1,5 +1,7 @@
 package ua.com.foxminded.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.dao.impl.StudentsDaoImpl;
@@ -8,7 +10,6 @@ import ua.com.foxminded.service.StudentService;
 import ua.com.foxminded.service.validator.Validator;
 import java.util.ArrayList;
 import java.util.List;
-import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -18,6 +19,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     Validator applicationMenuValidator;
+
+    private static final Logger LOG = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     public ArrayList<String> getAllGroupsWithEqualOrLessStudents(int studentsNumber) {
         LOG.info("Enter method getAllGroupsWithEqualOrLessStudents()");

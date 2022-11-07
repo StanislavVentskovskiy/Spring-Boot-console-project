@@ -1,5 +1,7 @@
 package ua.com.foxminded.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -9,8 +11,6 @@ import ua.com.foxminded.dao.mapper.StudentMapper;
 import ua.com.foxminded.model.Group;
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
-
-import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Component
 public class StudentsDaoImpl implements StudentDao {
@@ -37,6 +37,7 @@ public class StudentsDaoImpl implements StudentDao {
             "REFERENCES schoolconsoleapp.students (id)\n" +
             "ON DELETE CASCADE;";
     private final String studentsListQUERY = "SELECT * FROM schoolconsoleapp.students";
+    private static final Logger LOG = LoggerFactory.getLogger(StudentsDaoImpl.class);
 
     public int insertStudent(Student student) {
         LOG.debug("SQL statement: " + " " + insertStudentSQL + " " + student.getGroup() + " " + student.getName() + " " + student.getSurname());

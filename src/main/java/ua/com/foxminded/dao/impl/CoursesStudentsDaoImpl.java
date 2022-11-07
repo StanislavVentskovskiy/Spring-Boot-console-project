@@ -1,5 +1,7 @@
 package ua.com.foxminded.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -9,7 +11,6 @@ import ua.com.foxminded.dao.mapper.StudentMapper;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
-import static ua.com.foxminded.controller.LoggerController.LOG;
 
 @Component
 public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
@@ -35,6 +36,7 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
     private final String courseIdListByStudentId =  "SELECT course_id \n" +
     "FROM schoolconsoleapp.coursesstudents \n" +
     "WHERE student_id =";
+    private static final Logger LOG = LoggerFactory.getLogger(CoursesStudentsDaoImpl.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

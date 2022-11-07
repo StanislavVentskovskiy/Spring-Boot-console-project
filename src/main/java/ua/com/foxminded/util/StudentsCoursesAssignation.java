@@ -1,17 +1,18 @@
 package ua.com.foxminded.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.dao.impl.CoursesStudentsDaoImpl;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static ua.com.foxminded.controller.LoggerController.LOG;
-
 @Service
 public class StudentsCoursesAssignation {
    private ArrayList<Integer> studentsIdList = new ArrayList<>();
    private ArrayList<Integer> coursesIdList = new ArrayList<>();
+   private static final Logger LOG = LoggerFactory.getLogger(StudentsCoursesAssignation.class);
 
    @Autowired
    private CoursesStudentsDaoImpl coursesStudentsDao;

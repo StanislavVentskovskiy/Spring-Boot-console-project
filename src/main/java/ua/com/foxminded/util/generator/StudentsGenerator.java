@@ -1,5 +1,7 @@
 package ua.com.foxminded.util.generator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -9,8 +11,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static ua.com.foxminded.controller.LoggerController.LOG;
-
 @Service
 public class StudentsGenerator {
     private ArrayList<Student> studentList = new ArrayList<>();
@@ -18,6 +18,7 @@ public class StudentsGenerator {
     private List<String> nameList = new ArrayList<>();
     private List<String> surnameList = new ArrayList<>();
     private final int studentsNumber = 200;
+    private static final Logger LOG = LoggerFactory.getLogger(StudentsGenerator.class);
 
     @Autowired
     private DataReader dataReader;
