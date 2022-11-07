@@ -23,8 +23,8 @@ public class GroupDaoImpl implements GroupDao {
     }
 
     public void insertGroupList(ArrayList<Group> groupsList){
-        LOG.debug("Enter method insertGroupList()");
+        LOG.info("Enter method insertGroupList()");
         groupsList.forEach((group) -> insertGroup(group));
-        LOG.debug("Leave method insertGroupList()");
+        LOG.info("Leave method insertGroupList()");
     }
 }
