@@ -1,8 +1,20 @@
 package ua.com.foxminded.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="courses", schema="schoolconsoleapp")
 public class Course {
+
+    @Column(name="course_name")
     private String name;
+
+    @Column(name="course_description")
     private String courseDescription;
+
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int courseId;
 
     public Course(String name, String courseDescription){
@@ -10,18 +22,25 @@ public class Course {
         this.courseDescription = courseDescription;
     }
 
-    public String getName(){
+    public Course(){}
 
+    public String getName() {
         return name;
     }
 
-    public String getCourseDescription(){
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getCourseDescription() {
         return courseDescription;
     }
 
-    public int getCourseId() {
+    public void setCourseDescription(String courseDescription) {
+        this.courseDescription = courseDescription;
+    }
 
+    public int getCourseId() {
         return courseId;
     }
 

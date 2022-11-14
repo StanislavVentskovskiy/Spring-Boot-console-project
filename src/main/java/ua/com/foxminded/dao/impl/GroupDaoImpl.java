@@ -3,30 +3,37 @@ package ua.com.foxminded.dao.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.foxminded.dao.GroupDao;
 import ua.com.foxminded.model.Group;
+import ua.com.foxminded.dao.repository.GroupRepository;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 
-@Component
+@Repository
+@Transactional
 public class GroupDaoImpl implements GroupDao {
 
-   @Autowired
-   private JdbcTemplate jdbcTemplate;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-   private static final Logger LOG = LoggerFactory.getLogger(GroupDaoImpl.class);
-   private final String insertGroupSQL = "INSERT INTO postgres.schoolconsoleapp.groups(group_name) " + "VALUES(?)";
+    @Autowired
+    GroupRepository groupRepository;
 
-    @Override
-    public int insertGroup(final Group group) {
-       LOG.debug("Sql statement: " + insertGroupSQL + " " + group.getName());
-       return jdbcTemplate.update(insertGroupSQL, group.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(GroupDaoImpl.class);
+
+    public void addGroupList(ArrayList<Group> groupsList){
+        LOG.info("Enter method insertGroupList()");
+        groupsList.forEach((group) -> entityManager.persist(group));
+        LOG.info("Leave method insertGroupList()");
     }
 
-    public void insertGroupList(ArrayList<Group> groupsList){
-        LOG.info("Enter method insertGroupList()");
-        groupsList.forEach((group) -> insertGroup(group));
-        LOG.info("Leave method insertGroupList()");
+    @Override
+    public void addGroup(final Group group) {
+       LOG.info("enter method insertGroup()");
+       entityManager.persist(group);
+       LOG.info("Leave group insertGroup()");
     }
 }

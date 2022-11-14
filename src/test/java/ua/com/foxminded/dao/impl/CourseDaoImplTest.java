@@ -24,11 +24,8 @@ public class CourseDaoImplTest {
     @Autowired
     CourseDaoImpl courseDaoImpl;
 
-    private int actualInsertStatus;
-    private int expectedInsertStatus;
     private int expectedCourseId;
     private int actualCourseId;
-    private Course testCourse;
     private ArrayList<Integer> testCourseIdList;
     private ArrayList<Course> testCourseList;
     private Course actualCourse;
@@ -36,18 +33,9 @@ public class CourseDaoImplTest {
 
     @Before
     public void initTestData(){
-        expectedInsertStatus = 1;
         expectedCourseId = 1;
         actualCourseId = 1;
-        testCourse = new Course("test","test");
         expectedCourse = new Course("testCourseName", "testCourseDescription");
-    }
-
-    @Test
-    public void testInsertCourse_shouldReturnCorrectStatus(){
-        actualInsertStatus = courseDaoImpl.insertCourse(testCourse);
-
-        assertEquals(actualInsertStatus, expectedInsertStatus);
     }
 
     @Test

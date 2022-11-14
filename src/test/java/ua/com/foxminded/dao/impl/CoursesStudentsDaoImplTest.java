@@ -61,7 +61,7 @@ public class CoursesStudentsDaoImplTest {
 
     @Test
     public void testInsertStudentAndCourseTest_shouldReturnCorrectStatus(){
-        actualStatus = coursesStudentsDaoImpl.insertStudentAndCourse(testStudentId, testCourseId);
+        actualStatus = coursesStudentsDaoImpl.addStudentAndCourse(testStudentId, testCourseId);
 
         assertTrue(expectedStatus == actualStatus);
     }

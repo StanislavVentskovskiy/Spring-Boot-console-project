@@ -3,17 +3,28 @@ package ua.com.foxminded.dao.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.foxminded.dao.CoursesStudentsDao;
-import ua.com.foxminded.dao.mapper.CourseMapper;
-import ua.com.foxminded.dao.mapper.StudentMapper;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.model.Student;
+import ua.com.foxminded.dao.repository.CourseRepository;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 
-@Component
+@Repository
+@Transactional
 public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
+
+    @Autowired
+    CourseRepository courseRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    private static final Logger LOG = LoggerFactory.getLogger(CoursesStudentsDaoImpl.class);
     private final String insertStudentsSQL = "INSERT INTO postgres.schoolconsoleapp.coursesstudents(course_id, student_id) " + "VALUES(?, ?)";
     private final String studentsRelatedToGivenCourseQUERY = "SELECT\n" +
         "schoolconsoleapp.students.first_name,\n" +
@@ -36,19 +47,20 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
     private final String courseIdListByStudentId =  "SELECT course_id \n" +
     "FROM schoolconsoleapp.coursesstudents \n" +
     "WHERE student_id =";
-    private static final Logger LOG = LoggerFactory.getLogger(CoursesStudentsDaoImpl.class);
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    public int insertStudentAndCourse(int studentId, int courseId) {
-        LOG.debug("Sql statement: " + insertStudentsSQL + " " + courseId + " " + studentId);
-        return jdbcTemplate.update(insertStudentsSQL, courseId, studentId);
+    public int addStudentAndCourse(int studentId, int courseId) {
+        LOG.info("Enter insertStudentAndCourse() method");
+        LOG.info("Leave insertStudentAndCourse() method");
+        return entityManager.createNativeQuery(insertStudentsSQL)
+            .setParameter(1, courseId)
+            .setParameter(2, studentId)
+            .executeUpdate();
     }
 
     public ArrayList<Student> getStudentsListRelatedToCourseByName(String courseName) {
-        LOG.debug("Sql statement: " + studentsRelatedToGivenCourseQUERY + "'" + courseName + "'");
-        return (ArrayList<Student>) jdbcTemplate.query(studentsRelatedToGivenCourseQUERY + "'" + courseName + "'", new StudentMapper());
+        LOG.info("Enter method getStudentsListRelatedToCourseByName()");
+        LOG.info("Leave method getStudentsListRelatedToCourseByName()");
+        return (ArrayList<Student>) entityManager.createNativeQuery(studentsRelatedToGivenCourseQUERY + "'" + courseName + "'", Student.class).getResultList();
     }
 
     public ArrayList<String> getStudentsNamesAndSurnamesList(ArrayList<Student> students) {
@@ -56,21 +68,29 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
         ArrayList<String> studentNameList = new ArrayList<>();
         students.forEach(student -> studentNameList.add(student.getName() + " " + student.getSurname()));
         LOG.info("Leave method getStudentsNamesAndSurnamesList()");
+
         return studentNameList;
     }
 
     public ArrayList<Course> getCourseListByStudentId(int studentId) {
-        LOG.debug("Sql statement: " + courseListByIdQUERRY + " " + studentId);
-        return (ArrayList<Course>) jdbcTemplate.query(courseListByIdQUERRY + studentId, new CourseMapper());
+        LOG.info("Enter method getCourseListByStudentId()");
+        LOG.info("Leave method getCourseListByStudentId()");
+        return (ArrayList<Course>) entityManager.createNativeQuery(courseListByIdQUERRY + studentId, Course.class).getResultList();
     }
 
-    public int deleteStudentFromCourseById(int courseId, int studentId) {
-       LOG.debug("Sql statement: " + deleteStudentQUERY + " " + courseId + " " + studentId);
-       return jdbcTemplate.update(String.format(deleteStudentQUERY, courseId, studentId));
+    public int removeStudentFromCourse(int courseId, int studentId) {
+        LOG.info("Enter method deleteStudentFromCourseById()");
+        LOG.info("Leave method deleteStudentFromCourseById()");
+        return entityManager.createNativeQuery(String.format(deleteStudentQUERY, courseId, studentId)).executeUpdate();
     }
 
     public ArrayList<Integer> getCoursesIdListByStudent(int studentId){
-       LOG.debug("Sql statement: " + courseIdListByStudentId + " " + studentId);
-       return (ArrayList<Integer>) jdbcTemplate.queryForList(courseIdListByStudentId + studentId,Integer.class);
+        LOG.info("Enter method getCoursesIdListByStudent()");
+        ArrayList<Integer> courseIdList = new ArrayList<>();
+        ArrayList<Course> courseList = getCourseListByStudentId(studentId);
+        courseList.forEach(course -> courseIdList.add(course.getCourseId()));
+        LOG.info("Leave method getCoursesIdListByStudent()");
+
+        return courseIdList;
     }
 }

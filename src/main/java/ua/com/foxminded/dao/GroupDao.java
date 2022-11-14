@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public interface GroupDao {
 
-    int insertGroup(Group group);
+    void addGroup(final Group group);
 
-    void insertGroupList(ArrayList<Group> groupsList);
+    void addGroupList(ArrayList<Group> groupsList);
 }

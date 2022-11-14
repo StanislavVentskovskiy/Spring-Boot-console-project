@@ -1,43 +1,65 @@
 package ua.com.foxminded.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="students",schema = "schoolconsoleapp")
 public class Student {
+
+    @Column(name="first_name")
     private String name;
+
+    @Column(name="last_name")
     private String surname;
-    private int group;
+
+    @Column(name="group_id", nullable = true)
+    private Integer group;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
+
+    public Student(){}
 
     public Student(String name, String surname){
         this.name = name;
         this.surname = surname;
     }
 
-    public int getGroup() {
-
-        return group;
-    }
-
-    public String getName(){
-
+    public String getName() {
         return name;
     }
 
-    public String getSurname(){
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getSurname() {
         return surname;
     }
 
-    public void setGroup(int groupId) {
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-        this.group = groupId;
+    public int getGroup() {
+        if (group == null) {
+            return 0;
+        } else {
+            return group;
+        }
+    }
+
+    public void setGroup(int group) {
+        this.group = group;
     }
 
     public int getId() {
-
         return id;
     }
 
     public void setId(int id) {
-
         this.id = id;
     }
 

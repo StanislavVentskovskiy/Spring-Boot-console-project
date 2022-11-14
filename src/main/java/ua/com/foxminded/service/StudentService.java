@@ -14,5 +14,5 @@ public interface StudentService {
 
     int deleteStudentById(int studentId);
 
-    ArrayList<Integer> getStudentIdList();
+    ArrayList<Integer> getStudentIdList(ArrayList<Student> studentsList);
 }

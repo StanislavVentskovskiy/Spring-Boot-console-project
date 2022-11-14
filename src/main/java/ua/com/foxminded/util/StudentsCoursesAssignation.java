@@ -50,7 +50,7 @@ public class StudentsCoursesAssignation {
         Collections.shuffle(coursesIdList);
         LOG.info("Shuffled list of course ID");
             for (int index = courseNumber; index > 0; index--) {
-                coursesStudentsDao.insertStudentAndCourse(studentId, coursesIdList.get(index));
+                coursesStudentsDao.addStudentAndCourse(studentId, coursesIdList.get(index));
                 LOG.info("Courses Id added to student");
         }
         LOG.info("Leave method insertOneStudentAndFewCourses()");

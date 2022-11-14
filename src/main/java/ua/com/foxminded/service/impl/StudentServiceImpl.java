@@ -9,7 +9,6 @@ import ua.com.foxminded.model.Student;
 import ua.com.foxminded.service.StudentService;
 import ua.com.foxminded.service.validator.Validator;
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -31,21 +30,21 @@ public class StudentServiceImpl implements StudentService {
 
     public int addStudent(Student student){
         LOG.info("Entered method addStudent()");
-        return studentDaoImpl.insertStudent(student);
+        return studentDaoImpl.addStudent(student);
     }
 
-    public List<Student> getStudentList(){
+    public ArrayList<Student> getStudentList(){
         LOG.info("Enter getStudentList()");
         return studentDaoImpl.getStudentsList();
     }
 
     public int deleteStudentById(int studentId){
         LOG.info("Enter method deleteStudentById()");
-        return studentDaoImpl.deleteStudentById(studentId);
+        return studentDaoImpl.removeStudentById(studentId);
     }
 
-    public ArrayList<Integer> getStudentIdList(){
+    public ArrayList<Integer> getStudentIdList(ArrayList<Student> studentsList){
         LOG.info("Enter method getStudentIdList()");
-        return studentDaoImpl.getStudentsIdList();
+        return studentDaoImpl.getStudentsIdList(studentsList);
     }
 }

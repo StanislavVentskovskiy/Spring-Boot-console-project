@@ -44,6 +44,6 @@ public class StudentCourseAssignationTest {
     @Test
     public void testAssignCourseToStudent_shouldCallInsertDBMethod(){
         studentsCoursesAssignation.assignCoursesToStudent();
-        verify(coursesStudentsDao, Mockito.atLeastOnce()).insertStudentAndCourse(Mockito.anyInt(), Mockito.anyInt());
+        verify(coursesStudentsDao, Mockito.atLeastOnce()).addStudentAndCourse(Mockito.anyInt(), Mockito.anyInt());
     }
 }

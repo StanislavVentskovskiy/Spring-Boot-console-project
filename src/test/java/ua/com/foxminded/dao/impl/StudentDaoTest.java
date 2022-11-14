@@ -32,13 +32,12 @@ public class StudentDaoTest {
     private ArrayList<Integer> expectedStudentIdList = new ArrayList<>();
     private int testStudentNumber;
     private int testStudentId;
-    private ArrayList<Integer> actualStudentIdList;
     private Student expectedTestStudent;
     private Student actualTestStudent;
 
     @Before
     public void initTestData(){
-        expected = 1;
+        expected = 0;
         testStudentNumber = 2;
         testStudentId = 1;
         testStudent = new Student("test","test");
@@ -48,17 +47,9 @@ public class StudentDaoTest {
 
     @Test
     public void testInsertStudent_shouldReturnCorrectStatus(){
-        actual = studentsDaoImpl.insertStudent(testStudent);
+        actual = studentsDaoImpl.addStudent(testStudent);
 
         assertEquals(actual, expected);
-    }
-
-    @Test
-    public void testGetStudentIdList_shouldReturnCorrectList(){
-        actualStudentIdList = studentsDaoImpl.getStudentsIdList();
-        actual = actualStudentIdList.get(0);
-
-        assertTrue(actual == expected);
     }
 
     @Test
@@ -78,7 +69,7 @@ public class StudentDaoTest {
 
     @Test
     public void testDeleteStudentById_shouldReturnCorrectStatus(){
-        actual = studentsDaoImpl.deleteStudentById(testStudentId);
+        actual = studentsDaoImpl.removeStudentById(testStudentId);
 
         assertTrue(actual == expected);
     }

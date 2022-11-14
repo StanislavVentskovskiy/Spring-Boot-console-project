@@ -11,6 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.foxminded.Main;
 import ua.com.foxminded.model.Group;
+import javax.persistence.EntityManager;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
@@ -25,20 +26,22 @@ public class GroupDaoImplTest {
     @Autowired
     private GroupDaoImpl groupDao;
 
-    private int expected;
-    private int actual;
+    @Autowired
+    EntityManager entityManager;
+
+    private Group actual;
     private Group testGroup;
 
     @Before
     public void initTestData(){
-        expected = 1;
         testGroup = new Group("test");
     }
 
     @Test
     public void testInsertGroup_shouldReturnCorrectStatus(){
-        actual = groupDao.insertGroup(testGroup);
+         groupDao.addGroup(testGroup);
+         actual = entityManager.find(Group.class,1);
 
-        assertTrue(expected == actual);
+         assertTrue(testGroup.equals(actual));
     }
 }

@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface StudentDao {
 
-    int insertStudent(Student student);
+    int addStudent(Student student);
 
-    void insertStudentsList(ArrayList<Student> studentList);
+    void addStudentList(ArrayList<Student> studentList);
 
-    int deleteStudentById(int id);
+    int removeStudentById(int id);
 
-    List<Integer> getStudentsIdList();
+    ArrayList<Integer> getStudentsIdList(ArrayList<Student> studentList);
 
     List<Group> getGroupsWithEqualOrLessStudentsNumber(int studentsNumber);
 

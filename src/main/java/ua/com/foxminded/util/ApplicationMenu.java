@@ -75,7 +75,7 @@ public class ApplicationMenu {
                 formatter.showMessageChooseStudentById();
                 int studentId = studentIdValidation(userInputLine.readLine());
                 LOG.info("Leave method studentIdValidation()");
-                boolean studentExist = applicationMenuValidator.validateStudentId(studentId, studentServiceImpl.getStudentIdList());
+                boolean studentExist = applicationMenuValidator.validateStudentId(studentId, studentServiceImpl.getStudentIdList(studentServiceImpl.getStudentList()));
                 if (studentExist == true) {
                     formatter.showCoursesList(courseService.getAllCoursesNameList());
                     LOG.info("Leave getAllCoursesNameList() method");

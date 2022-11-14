@@ -46,14 +46,14 @@ public class DataInitializer {
 
     public void initializeApplicationData() {
         LOG.info("Enter method initializeApplicationData()");
-        groupDao.insertGroupList(groupGenerator.generateGroups());
-        courseDao.insertCourseList(courseGenerator.generateCourseList());
+        groupDao.addGroupList(groupGenerator.generateGroups());
+        courseDao.addCourseList(courseGenerator.generateCourseList());
         studentAssignation.setStudentsList(studentsGenerator.generateStudentsList());
         studentAssignation.assignStudentsToGroups();
-        studentsDaoImpl.insertStudentsList(studentAssignation.getStudentsList());
+        studentsDaoImpl.addStudentList(studentAssignation.getStudentsList());
         studentsCoursesAssignation.setCoursesIdList(courseDao.getCoursesIdList());
-        studentsCoursesAssignation.setStudentsIdList(studentsDaoImpl.getStudentsIdList());
+        studentsCoursesAssignation.setStudentsIdList(studentsDaoImpl.getStudentsIdList(studentsDaoImpl.getStudentsList()));
         studentsCoursesAssignation.assignCoursesToStudent();
         LOG.info("Leave method initializeApplicationData()");
-    }
+            }
 }

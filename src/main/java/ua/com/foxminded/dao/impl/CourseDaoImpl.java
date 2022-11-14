@@ -2,42 +2,46 @@ package ua.com.foxminded.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.foxminded.dao.CourseDao;
-import ua.com.foxminded.dao.mapper.CourseMapper;
 import ua.com.foxminded.model.Course;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 
-@Component
+@Repository
+@Transactional
 public class CourseDaoImpl implements CourseDao {
-    private final String insertCourseSQL = "INSERT INTO postgres.schoolconsoleapp.courses(course_name, course_description) " + "VALUES(?, ?)";
-    private final String coursesIdQUERY = "SELECT id FROM postgres.schoolconsoleapp.courses";
-    private final String courseListQUERY = "SELECT * FROM schoolconsoleapp.courses;";
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
     private static final Logger LOG = LoggerFactory.getLogger(CourseDaoImpl.class);
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    public int insertCourse(final Course course) {
-        LOG.debug("Sql statement: " + insertCourseSQL + " " + course.getName() + " " + course.getCourseDescription());
-        return jdbcTemplate.update(insertCourseSQL, course.getName(), course.getCourseDescription());
-    }
-
-    public void insertCourseList(ArrayList<Course> coursesList) {
+    public void addCourseList(ArrayList<Course> coursesList) {
         LOG.info("Enter method insertCourseList()");
-        coursesList.forEach((course) ->  insertCourse(course));
+        coursesList.forEach((course) ->  addCourse(course));
         LOG.info("Leave method insertCourseList()");
     }
 
+    public void addCourse(final Course course){
+        LOG.info("Enter method insertCourse()");
+        entityManager.persist(course);
+        LOG.info("Leave method insertCourse()");
+    }
+
     public ArrayList<Integer> getCoursesIdList() {
-        LOG.debug("Sql statement: " + coursesIdQUERY);
-        return (ArrayList<Integer>) jdbcTemplate.queryForList(coursesIdQUERY, Integer.class);
+       LOG.info("Enter method getCoursesIdList()");
+       LOG.info("Leave method getCoursesIdList()");
+       return (ArrayList<Integer>) entityManager.createQuery("select course.courseId FROM Course course").getResultList();
     }
 
     public ArrayList<Course> getCourseList(){
-        LOG.debug("Sql statement: " + courseListQUERY);
-        return (ArrayList<Course>) jdbcTemplate.query(courseListQUERY, new CourseMapper());
+        LOG.info("Enter method getCourseList()");
+        ArrayList<Course> courseList = (ArrayList<Course>) entityManager.createQuery("SELECT course FROM Course course").getResultList();
+        LOG.info("Leave method getCourseList()");
+
+        return courseList;
     }
 }

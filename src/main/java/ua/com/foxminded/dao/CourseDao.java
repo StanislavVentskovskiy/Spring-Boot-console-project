@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface CourseDao {
 
-    int insertCourse(Course course);
+    void addCourse(Course course);
 
-    void insertCourseList(ArrayList<Course> coursesList);
+    void addCourseList(ArrayList<Course> coursesList);
 
     List<Integer> getCoursesIdList();
 

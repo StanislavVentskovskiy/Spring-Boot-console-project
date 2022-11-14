@@ -61,12 +61,12 @@ public class DataInitializerTest {
 
     @Test
     public void testInsertGroupMethod_shouldBeCalledOnce(){
-        verify(groupDao, Mockito.times(1)).insertGroupList(Mockito.any());
+        verify(groupDao, Mockito.times(1)).addGroupList(Mockito.any());
     }
 
     @Test
     public void testInsertCourseMethod_shouldBeCalledOnce(){
-        verify(courseDao, Mockito.times(1)).insertCourseList(Mockito.any());
+        verify(courseDao, Mockito.times(1)).addCourseList(Mockito.any());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class DataInitializerTest {
 
     @Test
     public void testStudentInsertionMethod_shouldBeCalledOnce(){
-        verify(studentsDaoImpl, Mockito.times(1)).insertStudentsList(Mockito.any());
+        verify(studentsDaoImpl, Mockito.times(1)).addStudentList(Mockito.any());
     }
 
     @Test
