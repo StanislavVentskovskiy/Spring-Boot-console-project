@@ -11,7 +11,6 @@ import ua.com.foxminded.model.Student;
 import ua.com.foxminded.dao.repository.CourseRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 
 @Repository
@@ -50,7 +49,6 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
 
     public int addStudentAndCourse(int studentId, int courseId) {
         LOG.info("Enter insertStudentAndCourse() method");
-        LOG.info("Leave insertStudentAndCourse() method");
         return entityManager.createNativeQuery(insertStudentsSQL)
             .setParameter(1, courseId)
             .setParameter(2, studentId)
@@ -59,7 +57,6 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
 
     public ArrayList<Student> getStudentsListRelatedToCourseByName(String courseName) {
         LOG.info("Enter method getStudentsListRelatedToCourseByName()");
-        LOG.info("Leave method getStudentsListRelatedToCourseByName()");
         return (ArrayList<Student>) entityManager.createNativeQuery(studentsRelatedToGivenCourseQUERY + "'" + courseName + "'", Student.class).getResultList();
     }
 
@@ -74,13 +71,11 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
 
     public ArrayList<Course> getCourseListByStudentId(int studentId) {
         LOG.info("Enter method getCourseListByStudentId()");
-        LOG.info("Leave method getCourseListByStudentId()");
         return (ArrayList<Course>) entityManager.createNativeQuery(courseListByIdQUERRY + studentId, Course.class).getResultList();
     }
 
     public int removeStudentFromCourse(int courseId, int studentId) {
         LOG.info("Enter method deleteStudentFromCourseById()");
-        LOG.info("Leave method deleteStudentFromCourseById()");
         return entityManager.createNativeQuery(String.format(deleteStudentQUERY, courseId, studentId)).executeUpdate();
     }
 

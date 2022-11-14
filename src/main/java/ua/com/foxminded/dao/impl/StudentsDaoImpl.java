@@ -71,8 +71,6 @@ public class StudentsDaoImpl implements StudentDao {
 
     public ArrayList<Group> getGroupsWithEqualOrLessStudentsNumber(int studentsNumber) {
         LOG.info("Enter method getGroupsWithEqualOrLessStudentsNumber()");
-        LOG.info("Leave method getGroupsWithEqualOrLessStudentsNumber()");
-
         return (ArrayList<Group>) entityManager.createNativeQuery(groupsWithCertainStudentNumberQUERY+ " " + studentsNumber, Group.class).getResultList();
     }
 
@@ -95,7 +93,6 @@ public class StudentsDaoImpl implements StudentDao {
 
     public ArrayList<Student> getStudentsList(){
         LOG.info("Enter method getStudentsList()");
-        LOG.info("Leave method getStudentsList()");
         return (ArrayList<Student>) entityManager.createQuery("select student from Student student", Student.class).getResultList();
     }
 }

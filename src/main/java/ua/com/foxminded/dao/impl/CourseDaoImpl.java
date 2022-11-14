@@ -33,7 +33,6 @@ public class CourseDaoImpl implements CourseDao {
 
     public ArrayList<Integer> getCoursesIdList() {
        LOG.info("Enter method getCoursesIdList()");
-       LOG.info("Leave method getCoursesIdList()");
        return (ArrayList<Integer>) entityManager.createQuery("select course.courseId FROM Course course").getResultList();
     }
 
