@@ -8,11 +8,11 @@ public interface StudentService {
 
     ArrayList<String> getAllGroupsWithEqualOrLessStudents(int studentsNumber);
 
-    int addStudent(Student student);
+    Student addStudent(Student student);
 
     List<Student> getStudentList();
 
-    int deleteStudentById(int studentId);
+    boolean deleteStudentById(int studentId);
 
     ArrayList<Integer> getStudentIdList(ArrayList<Student> studentsList);
 }

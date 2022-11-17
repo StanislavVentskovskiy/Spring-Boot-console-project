@@ -183,9 +183,9 @@ public class ApplicationMenu {
         LOG.info("Leave deleteStudentById()");
     }
 
-    private void deleteValidatedStudent(int deleteResult) {
+    private void deleteValidatedStudent(Boolean deleteResutl) {
         LOG.info("Entered deleteValidatedStudent()");
-        if (applicationMenuValidator.validateStudentDelete(deleteResult) == true) {
+        if (applicationMenuValidator.validateStudentDelete(deleteResutl) == true) {
             LOG.warn("Student deleted");
             formatter.showMessageStudentDeleted();
         } else {

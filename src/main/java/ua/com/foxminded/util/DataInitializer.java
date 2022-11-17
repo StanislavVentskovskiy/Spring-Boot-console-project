@@ -3,7 +3,6 @@ package ua.com.foxminded.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import ua.com.foxminded.dao.impl.CourseDaoImpl;
 import ua.com.foxminded.dao.impl.GroupDaoImpl;
@@ -12,11 +11,10 @@ import ua.com.foxminded.util.generator.CourseGenerator;
 import ua.com.foxminded.util.generator.GroupsGenerator;
 import ua.com.foxminded.util.generator.StudentsGenerator;
 
+import java.util.ArrayList;
+
 @Service
 public class DataInitializer {
-
-    @Autowired
-    JdbcTemplate jdbcTemplate;
 
     @Autowired
     private GroupsGenerator groupGenerator;
@@ -55,5 +53,5 @@ public class DataInitializer {
         studentsCoursesAssignation.setStudentsIdList(studentsDaoImpl.getStudentsIdList(studentsDaoImpl.getStudentsList()));
         studentsCoursesAssignation.assignCoursesToStudent();
         LOG.info("Leave method initializeApplicationData()");
-            }
+    }
 }

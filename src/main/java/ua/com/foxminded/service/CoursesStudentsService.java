@@ -9,9 +9,9 @@ public interface CoursesStudentsService {
 
     ArrayList<Integer> getCoursesIdListByStudent(int studentId);
 
-    int insertStudentAndCourse(int studentId, int courseId);
+    void insertStudentAndCourse(int studentId, int courseId);
 
     ArrayList<Course> getCourseListByStudentId(int studentId);
 
-    int deleteStudentFromCourseById(int courseId, int studentId);
+    Integer deleteStudentFromCourseById(int courseId, int studentId);
 }

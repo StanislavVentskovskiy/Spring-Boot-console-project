@@ -6,10 +6,18 @@ import javax.persistence.*;
 @Table(name="courses", schema="schoolconsoleapp")
 public class Course {
 
-    @Column(name="course_name")
+    @Column(
+        name="course_name",
+        nullable = false,
+        columnDefinition = "TEXT"
+    )
     private String name;
 
-    @Column(name="course_description")
+    @Column(
+        name="course_description",
+        nullable = false,
+        columnDefinition = "TEXT"
+    )
     private String courseDescription;
 
     @Id

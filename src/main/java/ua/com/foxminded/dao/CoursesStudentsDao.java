@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface CoursesStudentsDao {
 
-    int addStudentAndCourse(int studentId, int courseId);
+    void addStudentAndCourse(int studentId, int courseId);
 
     List<Student> getStudentsListRelatedToCourseByName(String courseName);
 
     List<Course> getCourseListByStudentId(int studentId);
 
-    int removeStudentFromCourse(int studentId, int courseId);
+    Integer removeStudentFromCourse(int studentId, int courseId);
 
     List<String> getStudentsNamesAndSurnamesList(ArrayList<Student> studentsListRelatedToCourseByName);
 }

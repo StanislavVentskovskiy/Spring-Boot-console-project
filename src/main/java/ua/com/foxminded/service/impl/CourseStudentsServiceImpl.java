@@ -29,9 +29,10 @@ public class CourseStudentsServiceImpl implements CoursesStudentsService {
         return coursesStudentsDaoImpl.getCoursesIdListByStudent(studentId);
     }
 
-    public int insertStudentAndCourse(int studentId, int courseId){
+    public void insertStudentAndCourse(int studentId, int courseId){
         LOG.info("Enter method insertStudentAndCourse()");
-        return coursesStudentsDaoImpl.addStudentAndCourse(studentId,courseId);
+        coursesStudentsDaoImpl.addStudentAndCourse(studentId,courseId);
+        LOG.info("Exit method insertStudentAndCourse()");
     }
 
     public ArrayList<Course> getCourseListByStudentId(int studentId) {
@@ -39,7 +40,7 @@ public class CourseStudentsServiceImpl implements CoursesStudentsService {
         return coursesStudentsDaoImpl.getCourseListByStudentId(studentId);
     }
 
-    public int deleteStudentFromCourseById(int courseId, int studentId){
+    public Integer deleteStudentFromCourseById(int courseId, int studentId){
         LOG.info("Enter method deleteStudentFromCourseById()");
         return coursesStudentsDaoImpl.removeStudentFromCourse(courseId, studentId);
     }

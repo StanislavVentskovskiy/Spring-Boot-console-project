@@ -40,7 +40,7 @@ public class CourseDaoImplTest {
 
     @Test
     public void testGetCourseIdList(){
-        testCourseIdList = courseDaoImpl.getCoursesIdList();
+        testCourseIdList = (ArrayList<Integer>) courseDaoImpl.getCoursesIdList();
         actualCourseId = testCourseIdList.get(0);
 
         assertEquals(expectedCourseId, actualCourseId);

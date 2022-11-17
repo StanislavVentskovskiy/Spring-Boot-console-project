@@ -9,6 +9,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.foxminded.Main;
+import ua.com.foxminded.dao.repository.CourseRepository;
+import ua.com.foxminded.dao.repository.StudentRepository;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
@@ -25,10 +27,13 @@ public class CoursesStudentsDaoImplTest {
     @Autowired
     CoursesStudentsDaoImpl coursesStudentsDaoImpl;
 
+    @Autowired
+    StudentRepository studentRepository;
+
     private int testStudentId;
     private int testCourseId;
-    private int expectedStatus;
-    private int actualStatus;
+    private boolean expectedStatus;
+    private boolean actualStatus;
     private String testStudentName;
     private String testStudentSurname;
     private String testCourseName;
@@ -49,7 +54,7 @@ public class CoursesStudentsDaoImplTest {
     public void initTestData(){
         testStudentId = 1;
         testCourseId = 1;
-        expectedStatus = 1;
+        expectedStatus = true;
         testStudentName = "testName";
         testStudentSurname = "testSurname";
         testCourseName = "testCourseName";
@@ -60,10 +65,11 @@ public class CoursesStudentsDaoImplTest {
     }
 
     @Test
-    public void testInsertStudentAndCourseTest_shouldReturnCorrectStatus(){
-        actualStatus = coursesStudentsDaoImpl.addStudentAndCourse(testStudentId, testCourseId);
+    public void testAddStudentAndCourseTest_shouldReturnCorrectStatus(){
+        coursesStudentsDaoImpl.addStudentAndCourse(testStudentId, testCourseId);
+        actualStatus = studentRepository.existsById(1);
 
-        assertTrue(expectedStatus == actualStatus);
+        assertTrue(actualStatus == expectedStatus);
     }
 
     @Test

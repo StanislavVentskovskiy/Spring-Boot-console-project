@@ -7,12 +7,19 @@ import java.io.Serializable;
 @Table(name="groups",schema = "schoolconsoleapp")
 public class Group implements Serializable {
 
-    @Column(name = "group_name")
+    @Column(
+        name = "group_name",
+        nullable = false,
+        columnDefinition = "TEXT"
+    )
     private String name;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(
+        name="id",
+        updatable = false
+    )
     private int groupId;
 
     public Group(String name){

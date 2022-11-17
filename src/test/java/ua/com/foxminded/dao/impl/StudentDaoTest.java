@@ -26,30 +26,30 @@ public class StudentDaoTest {
     @Autowired
     private StudentsDaoImpl studentsDaoImpl;
 
-    private int actual;
-    private int expected;
     private Student testStudent;
     private ArrayList<Integer> expectedStudentIdList = new ArrayList<>();
     private int testStudentNumber;
     private int testStudentId;
     private Student expectedTestStudent;
     private Student actualTestStudent;
+    private boolean actualRemoveStatus;
+    private boolean expectedRemoveStatus;
 
     @Before
     public void initTestData(){
-        expected = 0;
         testStudentNumber = 2;
         testStudentId = 1;
         testStudent = new Student("test","test");
         expectedStudentIdList.add(1);
         actualTestStudent = new Student("name","surname");
+        expectedRemoveStatus = true;
     }
 
     @Test
     public void testInsertStudent_shouldReturnCorrectStatus(){
-        actual = studentsDaoImpl.addStudent(testStudent);
+        actualTestStudent = studentsDaoImpl.addStudent(testStudent);
 
-        assertEquals(actual, expected);
+        assertEquals(actualTestStudent, testStudent);
     }
 
     @Test
@@ -69,8 +69,8 @@ public class StudentDaoTest {
 
     @Test
     public void testDeleteStudentById_shouldReturnCorrectStatus(){
-        actual = studentsDaoImpl.removeStudentById(testStudentId);
+        actualRemoveStatus = studentsDaoImpl.removeStudentById(testStudentId);
 
-        assertTrue(actual == expected);
+        assertTrue(actualRemoveStatus == expectedRemoveStatus);
     }
 }

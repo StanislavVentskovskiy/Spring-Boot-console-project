@@ -6,13 +6,24 @@ import javax.persistence.*;
 @Table(name="students",schema = "schoolconsoleapp")
 public class Student {
 
-    @Column(name="first_name")
+    @Column(
+        name="first_name",
+        nullable = false,
+        columnDefinition = "TEXT"
+    )
     private String name;
 
-    @Column(name="last_name")
+    @Column(
+        name="last_name",
+        nullable = false,
+        columnDefinition = "TEXT"
+    )
     private String surname;
 
-    @Column(name="group_id", nullable = true)
+    @Column(name="group_id",
+            nullable = true,
+            columnDefinition = "TEXT"
+    )
     private Integer group;
 
     @Id

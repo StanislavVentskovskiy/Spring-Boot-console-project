@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface StudentDao {
 
-    int addStudent(Student student);
+    Student addStudent(Student student);
 
     void addStudentList(ArrayList<Student> studentList);
 
-    int removeStudentById(int id);
+    boolean removeStudentById(int id);
 
     ArrayList<Integer> getStudentsIdList(ArrayList<Student> studentList);
 

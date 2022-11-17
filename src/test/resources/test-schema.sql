@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS schoolconsoleapp.coursesstudents(
     REFERENCES schoolconsoleapp.courses (id) MATCH SIMPLE,
 
     CONSTRAINT student_id FOREIGN KEY (student_id)
-    REFERENCES schoolconsoleapp.students (id) MATCH SIMPLE
+    REFERENCES schoolconsoleapp.students (id) ON DELETE CASCADE
     )
 
     TABLESPACE pg_default;

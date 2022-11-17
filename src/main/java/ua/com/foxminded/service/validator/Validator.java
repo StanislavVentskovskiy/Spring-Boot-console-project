@@ -3,6 +3,7 @@ package ua.com.foxminded.service.validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import ua.com.foxminded.model.Student;
 import java.util.ArrayList;
 
 @Service
@@ -33,9 +34,9 @@ public class Validator {
         }
     }
 
-    public boolean validateStudentInsert(int studentInsertingResult){
+    public boolean validateStudentInsert(Student student){
         LOG.info("Enter method validateStudentInsert()");
-        if (studentInsertingResult == 1) {
+        if (student != null) {
             LOG.info("Leave method validateStudentInsert()");
             return true;
         } else {
@@ -44,9 +45,9 @@ public class Validator {
         }
     }
 
-    public boolean validateStudentDelete(int studentDeleteResult){
+    public boolean validateStudentDelete(Boolean deleteResult){
         LOG.info("Enter method validateStudentDelete()");
-        if (studentDeleteResult == 1) {
+        if (deleteResult == true) {
             LOG.info("Leave method validateStudentDelete()");
             return true;
         } else {
@@ -64,17 +65,17 @@ public class Validator {
             LOG.info("Leave validateStudentId()");
             return false;
         }
-
     }
 
-    public boolean validateDeleteStudentFromCourse(int deleteResult){
+    public boolean validateDeleteStudentFromCourse(Integer deleteResult){
         LOG.info("Enter validateDeleteStudentFromCourse()");
-        if (deleteResult == 1) {
+        if (deleteResult == null) {
             LOG.info("Leave validateDeleteStudentFromCourse()");
-            return true;
+
+            return false;
         } else {
             LOG.info("Leave validateDeleteStudentFromCourse()");
-            return false;
+            return true;
         }
     }
 }

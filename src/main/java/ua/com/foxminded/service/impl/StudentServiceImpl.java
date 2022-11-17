@@ -28,7 +28,7 @@ public class StudentServiceImpl implements StudentService {
         return groupList;
     }
 
-    public int addStudent(Student student){
+    public Student addStudent(Student student){
         LOG.info("Entered method addStudent()");
         return studentDaoImpl.addStudent(student);
     }
@@ -38,7 +38,7 @@ public class StudentServiceImpl implements StudentService {
         return studentDaoImpl.getStudentsList();
     }
 
-    public int deleteStudentById(int studentId){
+    public boolean deleteStudentById(int studentId){
         LOG.info("Enter method deleteStudentById()");
         return studentDaoImpl.removeStudentById(studentId);
     }
