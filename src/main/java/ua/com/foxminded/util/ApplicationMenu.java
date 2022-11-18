@@ -247,14 +247,9 @@ public class ApplicationMenu {
 
     public void removeStudentFromCourseByStudentId(int courseId, int studentId) {
         LOG.info("Enter method removeStudentFromCourseByStudentId()");
-        if (applicationMenuValidator.validateDeleteStudentFromCourse(courseStudentsServiceImpl.deleteStudentFromCourseById(courseId,studentId))) {
-            formatter.showMessageStudentWasRemovedFromCourse();
-            LOG.info("Student removed from course");
-            LOG.info("Leave validateDeleteStudentFromCourse()");
-        } else {
-            LOG.warn("No course assigned to entered student");
-            formatter.showMessageNoCourseFoundAssignedToCurrentStudent();
-            LOG.info("Leave validateDeleteStudentFromCourse()");
-        }
+        courseStudentsServiceImpl.deleteStudentFromCourseById(courseId,studentId);
+        formatter.showMessageStudentWasRemovedFromCourse();
+        LOG.info("Student removed from course");
+        LOG.info("Leave validateDeleteStudentFromCourse()");
     }
 }

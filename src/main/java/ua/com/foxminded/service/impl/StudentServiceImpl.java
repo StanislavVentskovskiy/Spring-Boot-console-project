@@ -21,9 +21,18 @@ public class StudentServiceImpl implements StudentService {
 
     private static final Logger LOG = LoggerFactory.getLogger(StudentServiceImpl.class);
 
+    public Student addNewStudent(String name, String surname){
+        Student student = new Student(name,surname);
+        return studentDaoImpl.addStudent(student);
+    }
+
+    public Student updateStudent(int studentId, String name, String surname){
+        return studentDaoImpl.updateStudent(studentId, name, surname);
+    }
+
     public ArrayList<String> getAllGroupsWithEqualOrLessStudents(int studentsNumber) {
         LOG.info("Enter method getAllGroupsWithEqualOrLessStudents()");
-        ArrayList<String> groupList = studentDaoImpl.getGroupsWithEqualOrLessStudentsNumber(studentDaoImpl.getGroupsWithEqualOrLessStudentsNumber(studentsNumber));
+        ArrayList<String> groupList = studentDaoImpl.getListOfGroupNamesWithEqualOrLessStudentsNumber(studentDaoImpl.getGroupsWithEqualOrLessStudentsNumber(studentsNumber));
         LOG.info("Leave method getAllGroupsWithEqualOrLessStudents()");
         return groupList;
     }

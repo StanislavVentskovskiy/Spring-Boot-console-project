@@ -20,13 +20,29 @@ public class GroupDaoImpl implements GroupDao {
     private static final Logger LOG = LoggerFactory.getLogger(GroupDaoImpl.class);
 
     @Override
-    public void addGroup(Group group) {
-        groupRepository.save(group);
+    public Group addGroup(Group group) {
+        LOG.info("Enter method addGroup()");
+        return groupRepository.save(group);
+    }
+
+    public void deleteGroup(int groupId){
+        LOG.info("Enter method deleteGroup()");
+        groupRepository.deleteById(groupId);
+        LOG.info("Leave method deleteGroup()");
     }
 
     public void addGroupList(ArrayList<Group> groupsList){
         LOG.info("Enter method insertGroupList()");
         groupRepository.saveAll(groupsList);
         LOG.info("Leave method insertGroupList()");
+    }
+
+    public Group updateGroup(int groupId, String groupName){
+        LOG.info("Enter method updateGroup()");
+        Group group = groupRepository.findById(groupId).orElse(null);
+        group.setName(groupName);
+        LOG.info("Leave method updateGroup()");
+
+        return groupRepository.save(group);
     }
 }

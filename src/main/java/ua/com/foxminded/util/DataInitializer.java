@@ -11,8 +11,6 @@ import ua.com.foxminded.util.generator.CourseGenerator;
 import ua.com.foxminded.util.generator.GroupsGenerator;
 import ua.com.foxminded.util.generator.StudentsGenerator;
 
-import java.util.ArrayList;
-
 @Service
 public class DataInitializer {
 
@@ -49,7 +47,7 @@ public class DataInitializer {
         studentAssignation.setStudentsList(studentsGenerator.generateStudentsList());
         studentAssignation.assignStudentsToGroups();
         studentsDaoImpl.addStudentList(studentAssignation.getStudentsList());
-        studentsCoursesAssignation.setCoursesIdList(courseDao.getCoursesIdList());
+        studentsCoursesAssignation.setCoursesIdList(courseDao.getCoursesIdList(courseDao.getCourseList()));
         studentsCoursesAssignation.setStudentsIdList(studentsDaoImpl.getStudentsIdList(studentsDaoImpl.getStudentsList()));
         studentsCoursesAssignation.assignCoursesToStudent();
         LOG.info("Leave method initializeApplicationData()");

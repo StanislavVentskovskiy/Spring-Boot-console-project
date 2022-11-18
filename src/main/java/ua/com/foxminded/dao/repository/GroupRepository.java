@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ua.com.foxminded.model.Group;
 
 @Repository
-public interface GroupRepository extends JpaRepository<Group, Long> {
+public interface GroupRepository extends JpaRepository<Group, Integer> {
 }

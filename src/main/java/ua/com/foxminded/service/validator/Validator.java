@@ -66,16 +66,4 @@ public class Validator {
             return false;
         }
     }
-
-    public boolean validateDeleteStudentFromCourse(Integer deleteResult){
-        LOG.info("Enter validateDeleteStudentFromCourse()");
-        if (deleteResult == null) {
-            LOG.info("Leave validateDeleteStudentFromCourse()");
-
-            return false;
-        } else {
-            LOG.info("Leave validateDeleteStudentFromCourse()");
-            return true;
-        }
-    }
 }

@@ -13,5 +13,5 @@ public interface CoursesStudentsService {
 
     ArrayList<Course> getCourseListByStudentId(int studentId);
 
-    Integer deleteStudentFromCourseById(int courseId, int studentId);
+    void deleteStudentFromCourseById(int courseId, int studentId);
 }

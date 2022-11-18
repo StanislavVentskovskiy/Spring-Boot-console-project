@@ -18,4 +18,8 @@ public interface StudentDao {
     List<Group> getGroupsWithEqualOrLessStudentsNumber(int studentsNumber);
 
     List<Student> getStudentsList();
+
+    Student updateStudent(int studentId, String name, String surname);
+
+    ArrayList<String> getListOfGroupNamesWithEqualOrLessStudentsNumber(ArrayList<Group> groups);
 }

@@ -40,8 +40,8 @@ public class CourseStudentsServiceImpl implements CoursesStudentsService {
         return coursesStudentsDaoImpl.getCourseListByStudentId(studentId);
     }
 
-    public Integer deleteStudentFromCourseById(int courseId, int studentId){
+    public void deleteStudentFromCourseById(int courseId, int studentId){
         LOG.info("Enter method deleteStudentFromCourseById()");
-        return coursesStudentsDaoImpl.removeStudentFromCourse(courseId, studentId);
+        coursesStudentsDaoImpl.removeStudentFromCourse(courseId, studentId);
     }
 }

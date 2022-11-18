@@ -12,9 +12,6 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-    @Query("select student.id from Student student")
-    ArrayList<Integer> getStudentIdList();
-
     @Query(value = "SELECT schoolconsoleapp.groups.group_name, schoolconsoleapp.groups.id, COUNT(*) AS stud_count\n" +
         "FROM schoolconsoleapp.students\n" +
         "LEFT JOIN schoolconsoleapp.groups ON schoolconsoleapp.students.group_id=schoolconsoleapp.groups.id\n" +

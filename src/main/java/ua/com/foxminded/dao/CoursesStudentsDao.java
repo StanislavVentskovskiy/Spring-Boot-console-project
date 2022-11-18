@@ -13,7 +13,9 @@ public interface CoursesStudentsDao {
 
     List<Course> getCourseListByStudentId(int studentId);
 
-    Integer removeStudentFromCourse(int studentId, int courseId);
+    void removeStudentFromCourse(int studentId, int courseId);
 
     List<String> getStudentsNamesAndSurnamesList(ArrayList<Student> studentsListRelatedToCourseByName);
+
+    ArrayList<Integer> getCoursesIdListByStudent(int studentId);
 }

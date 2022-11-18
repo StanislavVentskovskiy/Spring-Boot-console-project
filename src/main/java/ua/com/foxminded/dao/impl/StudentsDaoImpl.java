@@ -25,6 +25,16 @@ public class StudentsDaoImpl implements StudentDao {
         return studentRepository.save(student);
     }
 
+    public Student updateStudent(int studentId, String name, String surname){
+        LOG.info("Enter updateStudent() method");
+        Student student = studentRepository.getById(studentId);
+        student.setName(name);
+        student.setSurname(surname);
+        LOG.info("Leave updateStudent() method");
+
+        return studentRepository.save(student);
+    }
+
     public void addStudentList(ArrayList<Student> students) {
         LOG.info("Enter method + insertStudentsList()");
         studentRepository.saveAll(students);
@@ -33,7 +43,9 @@ public class StudentsDaoImpl implements StudentDao {
 
     public ArrayList<Integer> getStudentsIdList(ArrayList<Student> studentsList) {
         LOG.info("Enter method getStudentsIdList()");
-        return studentRepository.getStudentIdList();
+        ArrayList<Integer> studentsIdList = new ArrayList<>();
+        studentsList.forEach(student -> studentsIdList.add(student.getId()));
+        return studentsIdList;
     }
 
     public ArrayList<Group> getGroupsWithEqualOrLessStudentsNumber(int studentsNumber) {
@@ -41,7 +53,7 @@ public class StudentsDaoImpl implements StudentDao {
         return (ArrayList<Group>) studentRepository.getGroupsWithEqualOrLessStudentsNumber(studentsNumber);
     }
 
-    public ArrayList<String> getGroupsWithEqualOrLessStudentsNumber(ArrayList<Group> groups) {
+    public ArrayList<String> getListOfGroupNamesWithEqualOrLessStudentsNumber(ArrayList<Group> groups) {
         LOG.info("Enter method getGroupsWithEqualOrLessStudentsNumber()");
         ArrayList<String> groupsNames = new ArrayList<>();
         groups.forEach(group -> groupsNames.add(group.getName()));

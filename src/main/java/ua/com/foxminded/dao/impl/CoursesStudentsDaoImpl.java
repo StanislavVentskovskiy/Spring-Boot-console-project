@@ -49,10 +49,9 @@ public class CoursesStudentsDaoImpl implements CoursesStudentsDao {
         return courseRepository.getCourseListByStudentId(studentId);
     }
 
-    public Integer removeStudentFromCourse(int courseId, int studentId) {
+    public void removeStudentFromCourse(int courseId, int studentId) {
         LOG.info("Enter method deleteStudentFromCourseById()");
-
-        return courseRepository.removeStudentFromCourse(courseId,studentId);
+        courseRepository.removeStudentFromCourse(courseId,studentId);
     }
 
     public ArrayList<Integer> getCoursesIdListByStudent(int studentId){

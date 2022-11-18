@@ -10,10 +10,7 @@ import ua.com.foxminded.model.Course;
 import java.util.ArrayList;
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course, Long> {
-
-    @Query("select course.courseId from Course course")
-    ArrayList<Integer> getCoursesIdList();
+public interface CourseRepository extends JpaRepository<Course, Integer> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
@@ -30,8 +27,10 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
         "WHERE coursesstudents.student_id = :studentId", nativeQuery = true)
     ArrayList<Course> getCourseListByStudentId(@Param("studentId") int studentId);
 
-    @Query(value = "DELETE FROM schoolconsoleapp.coursesstudents WHERE course_id = :courseId AND student_id = :studentId RETURNING 1;", nativeQuery = true)
-    Integer removeStudentFromCourse(
+    @Query(value = "DELETE FROM schoolconsoleapp.coursesstudents WHERE course_id = :courseId AND student_id = :studentId", nativeQuery = true)
+    @Modifying
+    @Transactional
+    void removeStudentFromCourse(
         @Param("courseId") int courseId,
         @Param("studentId") int studentId);
 }
