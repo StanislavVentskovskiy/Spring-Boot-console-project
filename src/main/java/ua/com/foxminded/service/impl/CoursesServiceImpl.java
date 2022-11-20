@@ -8,7 +8,6 @@ import ua.com.foxminded.dao.impl.CourseDaoImpl;
 import ua.com.foxminded.model.Course;
 import ua.com.foxminded.service.CourseService;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 public class CoursesServiceImpl implements CourseService {
