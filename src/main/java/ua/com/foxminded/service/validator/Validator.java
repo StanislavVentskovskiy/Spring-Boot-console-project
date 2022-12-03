@@ -13,12 +13,11 @@ public class Validator {
     public boolean validateIntegerInput(String input){
         LOG.info("Enter method validateIntegerInput()");
         try {
-            int number = Integer.parseInt(input);
+            Integer.parseInt(input);
             LOG.info("Leave method validateIntegerInput()");
             return true;
         } catch (Exception e){
             LOG.warn("User integer input is invalid");
-            LOG.info("Leave method validateIntegerInput()");
             return false;
         }
     }
@@ -47,7 +46,7 @@ public class Validator {
 
     public boolean validateStudentDelete(Boolean deleteResult){
         LOG.info("Enter method validateStudentDelete()");
-        if (deleteResult == true) {
+        if (deleteResult) {
             LOG.info("Leave method validateStudentDelete()");
             return true;
         } else {
