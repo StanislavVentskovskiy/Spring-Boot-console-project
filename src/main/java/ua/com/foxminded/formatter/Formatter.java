@@ -147,8 +147,8 @@ public class Formatter {
 
     private void formatListOfDataToColumn(ArrayList<String> dataList){
         LOG.info("Enter method formatListOfDataToColumn()");
-        for(int index = 0; index < dataList.size(); index++) {
-            System.out.println(dataList.get(index));
+        for (String s : dataList) {
+            System.out.println(s);
         }
         LOG.info("Leave method formatListOfDataToColumn()");
     }

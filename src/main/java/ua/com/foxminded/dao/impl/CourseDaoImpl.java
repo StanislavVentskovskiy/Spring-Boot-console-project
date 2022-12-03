@@ -55,7 +55,7 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public ArrayList<Integer> getCoursesIdList(ArrayList<Course> courseList) {
         LOG.info("Enter method getCoursesIdList()");
-        ArrayList<Integer> courseIdList =  new ArrayList<Integer>();
+        ArrayList<Integer> courseIdList =  new ArrayList<>();
         courseList.forEach(course -> courseIdList.add(course.getCourseId()));
         return courseIdList;
     }
